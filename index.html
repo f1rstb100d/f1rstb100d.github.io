@@ -145,6 +145,215 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="F1rstb100d">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="F1rstb100d Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">数据结构总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-06 21:28:26" itemprop="dateCreated datePublished" datetime="2020-10-06T21:28:26+09:00">2020-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-07 18:55:10" itemprop="dateModified" datetime="2020-10-07T18:55:10+09:00">2020-10-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>创建一个数组需要连续的空间，可以使用数组的下标来快速的访问对应下标的数据。</p>
+<p>下标<strong>访问</strong>元素，随机查找速度快，时间复杂度为<strong>O(1)</strong></p>
+<p><strong>插入和删除</strong>效率比较低，需要移动大量数据，时间复杂度为<strong>O(n)</strong></p>
+<p>一维数组与二维数组</p>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>一种特殊串联形式的抽象数据类型，可由链表或数组实现，通过链表或数组的栈顶（Top）指针对数据进行压栈（Push）和出栈（Pop）操作，其特点是<strong>后进先出LIFO</strong>。</p>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p>先进先出（FIFO）的线性表，一般用链表和数组来实现，只允许在后端（back or rear）插入，在前端（front）删除。</p>
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><p>由一连串节点组成，每个节点包含任意的实例数据和一个或两个用来指向下一个/上一个节点位置的链接。</p>
+<p>有一个头指针，指向链表的第一个元素，如果列表是空的，那么它只指向 null 或不指向任何内容</p>
+<p>使用指针来访问元素，随机查找效率较低。<strong>访问</strong>某个元素时要从第一个元素开始找，时间复杂度<strong>O(n)</strong></p>
+<p><strong>删除和插入</strong>只需要改变指针的指向，不需要进行实际的移动操作，效率高，时间复杂度<strong>O(1)</strong></p>
+<p>单链表（单向）：单链表只next指针，指向下一个元素</p>
+<p>双链表（双向）：双链表两个指针，一个指向下一个元素，另外一个指向前一个元素</p>
+<p>循环链表：最后一个结点的指针域指向头结点</p>
+<h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><ul>
+<li><strong>节点的度：</strong>一个节点含有的子树的个数称为该节点的度；</li>
+<li><strong>树的度：</strong>一棵树中，最大的节点的度称为树的度；</li>
+<li>节点的<strong>层次</strong>：从根开始定义起，根为第1层，根的子节点为第2层，以此类推；</li>
+<li>树的<strong>高度</strong>或<strong>深度</strong>：树中节点的最大层次；</li>
+<li><strong>森林</strong>：由m（m&gt;=0）棵互不相交的树的集合称为森林；</li>
+</ul>
+<p>深度优先遍历：前序、中序、后序遍历</p>
+<p>广度优先遍历：层次遍历</p>
+<h3 id="无序树有序树"><a href="#无序树有序树" class="headerlink" title="无序树有序树"></a>无序树有序树</h3><p><strong>无序树：</strong>树中任意节点的子节点之间没有顺序关系，这种树称为无序树，也称为自由树；</p>
+<p><strong>有序树：</strong>树中任意节点的子节点之间有顺序关系，这种树称为有序树；有序树又分为二叉树、B树以及哈夫曼树；</p>
+<h3 id="1二叉树"><a href="#1二叉树" class="headerlink" title="1二叉树"></a>1二叉树</h3><p><strong>二叉树：</strong>每个节点最多含有两个子树的树称为二叉树；</p>
+<h3 id="1-1完全二叉树"><a href="#1-1完全二叉树" class="headerlink" title="1.1完全二叉树"></a>1.1完全二叉树</h3><p><strong>完全二叉树：</strong>对于一颗二叉树，假设其深度为d(d&gt;1)。除了第d层外，其它各层的节点数目均已达最大值，且第d层所有节点从左向右连续地紧密排列，这样的二叉树被称为完全二叉树。</p>
+<p><strong>1.2满二叉树</strong>的定义是所有叶节点都在最底层的完全二叉树;</p>
+<h3 id="1-3平衡二叉树"><a href="#1-3平衡二叉树" class="headerlink" title="1.3平衡二叉树"></a>1.3平衡二叉树</h3><p><strong>平衡二叉树（AVL树）：</strong>当且仅当任何节点的两棵子树的高度差不大于1的二叉树；</p>
+<h3 id="1-4二叉排序树-二叉搜索树"><a href="#1-4二叉排序树-二叉搜索树" class="headerlink" title="1.4二叉排序树(二叉搜索树)"></a>1.4二叉排序树(二叉搜索树)</h3><p>左子树上所有结点的值均小于它的根结点的值； 右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树</p>
+<h3 id="1-5红黑树"><a href="#1-5红黑树" class="headerlink" title="1.5红黑树"></a>1.5红黑树</h3><p>平衡二叉搜索树</p>
+<p>性质1. 节点是红色或黑色。</p>
+<p>性质2. 根是黑色。</p>
+<p>性质3. 所有叶子都是黑色（叶子是NIL节点）。</p>
+<p>性质4. 每个红色节点必须有两个黑色的子节点。(从每个叶子到根的所有路径上不能有两个连续的红色节点。)</p>
+<p>性质5. 从任一节点到其每个叶子的所有简单路径都包含相同数目的黑色节点。</p>
+<p><img src="/images/%E7%BA%A2%E9%BB%91%E6%A0%91.png"></p>
+<p>总的看起来像是一层黑，一层红，一层黑，一层红…</p>
+<h3 id="1-6线索二叉树"><a href="#1-6线索二叉树" class="headerlink" title="1.6线索二叉树"></a>1.6线索二叉树</h3><p>所有原本为空的右(孩子)指针改为指向该节点在中序序列中的后继，所有原本为空的左(孩子)指针改为指向该节点的中序序列的前驱。</p>
+<h3 id="2霍夫曼树"><a href="#2霍夫曼树" class="headerlink" title="2霍夫曼树"></a>2霍夫曼树</h3><p><strong>霍夫曼树</strong>（用于信息编码）：带权路径最短的二叉树称为哈夫曼树或最优二叉树；</p>
+<h3 id="3-1-B树-B-树-Balance-Tree"><a href="#3-1-B树-B-树-Balance-Tree" class="headerlink" title="3.1 B树/B-树 Balance Tree"></a>3.1 B树/B-树 Balance Tree</h3><p>B树和平衡二叉树稍有不同的是B树属于多叉树又名平衡多路查找树（查找路径不只两个）。用于MongoDB索引</p>
+<p>并且依旧遵从于搜索树的规则，左边的最小，右边的最大，只不过可能不是二路查找了，需要看符合哪个区间了。</p>
+<ul>
+<li><strong>规则：</strong></li>
+</ul>
+<p>（1）排序方式：所有节点关键字是按递增次序排列，并遵循左小右大原则；</p>
+<p>（2）子节点数：非叶节点的子节点数&gt;1，且&lt;=M ，且M&gt;=2，空树除外（注：M阶代表一个树节点最多有多少个查找路径，M=M路,当M=2则是2叉树,M=3则是3叉）；</p>
+<p>（3）关键字数：枝节点的关键字数量大于等于ceil(m/2)-1个且小于等于M-1个（注：ceil()是个朝正无穷方向取整的函数 如ceil(1.1)结果为2);</p>
+<p>（4）所有叶子节点均在同一层、叶子节点除了包含了关键字和关键字记录的指针外也有指向其子节点的指针只不过其指针地址都为null对应下图最后一层节点的空格子;</p>
+<p>例查找字母E：</p>
+<p><img src="/images/B%E6%A0%911.jpg"></p>
+<p>1）获取根节点的关键字进行比较，当前根节点关键字为M，E&lt;M（26个字母顺序），所以往找到指向左边的子节点（二分法规则，左小右大，左边放小于当前节点值的子节点、右边放大于当前节点值的子节点）；</p>
+<p>（2）拿到关键字D和G，D&lt;E&lt;G 所以直接找到D和G中间的节点；</p>
+<p>（3）拿到E和F，因为E=E 所以直接返回关键字和指针信息（如果树结构里面没有包含所要查找的节点则返回null）；</p>
+<p>例插入节点流程：把3、8、31、11、23、29、50、28 这些数字构建出一个5阶树出来</p>
+<p>规则：</p>
+<p>（1）节点拆分规则：当前是要组成一个5路查找树，那么此时m=5,关键字数必须&lt;=5-1（这里关键字数&gt;4就要进行节点拆分）；</p>
+<p>（2）排序规则：满足节点本身比左边节点大，比右边节点小的排序规则;</p>
+<p><img src="/images/B%E6%A0%912.jpg"></p>
+<p><img src="/images/B%E6%A0%913.png"></p>
+<p><img src="/images/B%E6%A0%914.png"></p>
+<p>例删除节点：</p>
+<p>规则：</p>
+<p>（1）节点合并规则：当前是要组成一个5路查找树，那么此时m=5,关键字数必须大于等于ceil（5/2）（这里关键字数&lt;2就要进行节点合并）；</p>
+<p>（2）满足节点本身比左边节点大，比右边节点小的排序规则;</p>
+<p>（3）关键字数小于二时先从子节点取，子节点没有符合条件时就向向父节点取，取中间值往父节点放；</p>
+<p><img src="/images/B%E6%A0%915.png"></p>
+<p>为了减少磁盘的IO操作，把原本<strong>瘦高</strong>的二叉排序树变成<strong>矮胖</strong>的B树</p>
+<h3 id="3-2-B-树"><a href="#3-2-B-树" class="headerlink" title="3.2 B+树"></a>3.2 B+树</h3><p>Mysql索引</p>
+<p>跟B的不同：</p>
+<p>1、B+树非叶子节点不存放数据，只存放keys。</p>
+<p>2、B+树的叶子节点之间存在指针相连，而且是单链表</p>
+<p><img src="/images/B+%E6%A0%91.png"></p>
+<p>B+树相对于B树有一些自己的优势，可以归结为下面几点。</p>
+<ol>
+<li>单一节点存储的元素更多，使得查询的IO次数更少，所以也就使得它更适合做为数据库MySQL的底层数据结构了。</li>
+<li>所有的查询都要查找到叶子节点，查询性能是稳定的，而B树，每个节点都可以查找到数据，所以不稳定。</li>
+<li>所有的叶子节点形成了一个有序链表，更加便于查找。</li>
+</ol>
+<h3 id="3-3-B-树"><a href="#3-3-B-树" class="headerlink" title="3.3 B*树"></a>3.3 B*树</h3><p>B*树是B+树的变体，在B+树的非根和非叶子结点再增加指向兄弟的指针，将结点的最低利用率从1/2提高到2/3。</p>
+<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><h3 id="图的定义"><a href="#图的定义" class="headerlink" title="图的定义"></a>图的定义</h3><p><strong>简单图</strong>：图中不存在顶点到其自身的边，且同一条边不重复出现。</p>
+<p><strong>完全图</strong>：无向图中，任意两个顶点之间都存在边。有向图中，任意两个顶点之间都存在方向互为相反的两条弧。</p>
+<p><strong>权（Weight）</strong>：与图的边或弧相关的数。</p>
+<p><strong>网（Network）</strong>：带权的图。</p>
+<p><strong>度（Degree）：</strong>无向图中，与顶点V相关联的边的数目。有向图中，入度表示指向自己的边的数目，出度表示指向其他边的数目，该顶点的度等于入度与出度的和。</p>
+<p><strong>连通图</strong>：图中任意两个顶点都是连通的。</p>
+<p><strong>连通分量</strong>：无向图中的极大连通子图。（子图必须是连通的且含有极大顶点数）。</p>
+<p><strong>强连通分量：</strong>有向图中的极大强连通子图。</p>
+<p><strong>生成树</strong>：无向图中连通且n个顶点n-1条边叫生成树。</p>
+<p><strong>有向树</strong>：有向图中一顶点入度为0其余顶点入度为1。</p>
+<p><strong>森林</strong>：一个有向图由若干棵有向树构成生成森林。</p>
+<h3 id="图的存储结构"><a href="#图的存储结构" class="headerlink" title="图的存储结构"></a>图的存储结构</h3><p>1.邻接矩阵：用两个数组，一个数组保存顶点集，一个数组保存边集。</p>
+<p><img src="/images/%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5.png"></p>
+<p>2.邻接表：数组与链表相结合的存储方法。</p>
+<p><img src="/images/%E9%82%BB%E6%8E%A5%E8%A1%A81.png"></p>
+<p><img src="/images/%E9%82%BB%E6%8E%A5%E8%A1%A82.png"></p>
+<h3 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h3><p>1.<strong>深度优先遍历（DFS）</strong>：从图中某个顶点v出发，访问此顶点，然后从v的未被访问的邻接点出发深度优先遍历图，直至图中所有和v有路径相通的顶点都被访问到。</p>
+<p>2.<strong>广度优先遍历（BFS）</strong>：类似于树的层次遍历。</p>
+<h3 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h3><p><strong>最小生成树</strong>：构造连通网的最小代价生成树。</p>
+<p>1.<strong>普里姆（prime）：</strong></p>
+<p>第一种：先将一个起点加入最小生成树，之后不断寻找与最小生成树相连的边<strong>权最小</strong>的边能通向的点，并将其加入最小生成树，直至所有顶点都在最小生成树中。</p>
+<p><img src="/images/%E6%99%AE%E9%87%8C%E5%A7%861.jpg"></p>
+<p><img src="/images/%E6%99%AE%E9%87%8C%E5%A7%862.jpg"></p>
+<p>第二种：</p>
+<p>1.将一个图的顶点分为两部分，一部分是最小生成树中的结点（A集合），另一部分是未处理的结点（B集合）。</p>
+<p>2.首先选择一个结点，将这个结点加入A中，然后，对集合A中的顶点遍历，找出A中顶点关联的边<strong>权值最小</strong>的那个（设为v），将此顶点从B中删除，加入集合A中。</p>
+<p>3.递归重复步骤2，直到B集合中的结点为空，结束此过程。</p>
+<p>4.A集合中的结点就是由Prime算法得到的最小生成树的结点，依照步骤2的结点连接这些顶点，得到的就是这个图的最小生成树。</p>
+<p><img src="/images/%E6%99%AE%E9%87%8C%E5%A7%863.jpg"></p>
+<p>**2.克鲁斯卡尔（kluskal）:**在剩下的所有未选取的边中，找最小边，如果和已选取的边构成回路，则放弃，选取次小边。</p>
+<p><img src="/images/%E5%85%8B%E9%B2%81%E6%96%AF%E5%8D%A1%E5%B0%94.jpg"></p>
+<h3 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h3><p>1.<strong>迪杰斯特拉算法（Dijkstra）</strong>：把图中的顶点集合V分成两组，第一组为已求出最短路径的顶点集合S（初始时S中只有源节点，以后每求得一条最短路径，就将它对应的顶点加入到集合S中，直到全部顶点都加入到S中）；第二组是未确定最短路径的顶点集合U。</p>
+<p>算法步骤：<br>  （1）初始化时，S只含有源节点；<br>  （2）从U中选取一个距离v最小的顶点k加入S中（该选定的距离就是v到k的最短路径长度）；<br>  （3）以k为新考虑的中间点，修改U中各顶点的距离；若从源节点v到顶点u的距离（经过顶点k）比原来距离（不经过顶点k）短，则修改顶点u的距离值，修改后的距离值是顶点k的距离加上k到u的距离；<br>  （4）重复步骤（2）和（3），直到终点在S中。</p>
+<p><img src="/images/%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%951.png"></p>
+<p><img src="/images/%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%952.png"></p>
+<p>2.<strong>弗洛伊德算法（Floyd）</strong>：</p>
+<p>1，从任意一条单边路径开始。所有两点之间的距离是边的权，如果两点之间没有边相连，则权为无穷大。</p>
+<p>2，对于每一对顶点 u 和 v，看看是否存在一个顶点 w 使得从 u 到 w 再到 v 比已知的路径更短。如果是更新它。</p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><h3 id="堆的定义"><a href="#堆的定义" class="headerlink" title="堆的定义"></a>堆的定义</h3><ol>
+<li>堆是一颗<strong>完全二叉树</strong>，这样实现的堆也被称为二叉堆（完全二叉树就是它的叶子节点都是在最后一层，并且这些叶子节点都是<strong>靠左排序的</strong>）</li>
+<li>堆中节点的值都大于等于（或小于等于）其子节点的值，堆中如果节点值都大于等于其子节点的值，我们称这个数据结构就是<strong>大顶堆</strong>，反之如果都小于等于其子节点的值，那么就称为<strong>小顶堆</strong>。</li>
+</ol>
+<h3 id="堆插入元素"><a href="#堆插入元素" class="headerlink" title="堆插入元素"></a>堆插入元素</h3><p>在叶子节点（最底层）先插入节点，再进行自下而上不断进行调整比较子节点和父节点的值，称为由下而上的堆化（heaplify)</p>
+<h3 id="删除堆顶元素"><a href="#删除堆顶元素" class="headerlink" title="删除堆顶元素"></a>删除堆顶元素</h3><p>假设操作的堆是大顶堆，则删除堆顶元素后，要找到原堆中第二大的元素以填补顶堆元素，而第二大的元素无疑就是在根节点的左右节点当中，假设是左节点，则用左节点来填补堆顶元素后，左节点就空了。之后的过程就是进行不断地循环。</p>
+<h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><p>哈希表（Hash Table，也叫散列表），是根据关键码值 (Key-Value) 而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。哈希表的实现主要需要解决两个问题，<strong>哈希函数</strong>和<strong>冲突解决</strong>。</p>
+<h3 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h3><p>哈希函数也叫散列函数，它对不同的输入值得到一个固定长度的消息摘要。理想的哈希函数对于不同的输入应该产生不同的结构，同时散列结果应当具有同一性（输出值尽量均匀）和雪崩效应（微小的输入值变化使得输出值发生巨大的变化）。</p>
+<p>①、直接定址法：不常用<br>    取关键字或关键字的某个线性函数值为哈希地址：<br>    即：Ｈ(key) = key 或 H(key) = a*key+b<br>    优点：简单，均匀，不会产生冲突；<br>    缺点：需要实现直到关键字的分布情况，适合查找表比较小且连续的情况。<br>　　<br>②、数字分析法<br>    数字分析法用于处理关键字是位数比较多的数字，通过抽取关键字的一部分进行操作，计算哈希存储位置的方法。<br>    例如：关键字是手机号时，众所周知，我们的１１位手机号中，前三位是接入号，一般对应不同运营商的子品牌；中间四位是ＨＬＲ识别号，表示用户号的归属地；最后四位才是真正的用户号，所以我们可以选择后四位成为哈希地址，对其在进行相应操作来减少冲突。<br>    数字分析法适合处理关键字位数比较大的情况，事先知道关键字的分布且关键字的若干位分布均匀。<br>　　　<br>③、平方取中法<br>    具体方法很简单：先对关键字取平方，然后选取中间几位为哈希地址；取的位数由表长决定，适用于不知道关键字的分布，而位数又不是很大的情况。<br>　　<br>④、折叠法<br>    将关键字分成位数相同的几部分（最后一部分位数 可以不同），然后求这几部分的叠加和（舍去进位），并按照散列表的表长，取后几位作为哈希地址。<br>    适用于关键字位数很多，而且关键字每一位上数字分布大致均匀。<br>　　<br>⑤、除留余数法<br>    此方法为最常用的构造哈希函数方法。对于哈希表长为m的哈希函数公式为：<br>    f(key) = key mod p (p &lt;= m)<br>    此方法不仅可以对关键字直接取模，也可以在折叠、平方取中之后再取模。<br>    所以，本方法的关键在于选择合适的p，若是p选择的不好，就可能产生 同义词；根据前人经验，若散列表的表长为m，通常p为小于或等于表长（最好接近m）的最小质数或不包含小于20质因子的合数。<br>　　<br>⑥、随机数法<br>    选择一个随机数，取关键字的随机函数值作为他的哈希地址。<br>    即：f(key) = random (key)<br>    当关键字的长度不等时，采用这个方法构造哈希函数较为合适。当遇到特殊字符的关键字时，需要将其转换为某种数字。</p>
+<h3 id="冲突解决"><a href="#冲突解决" class="headerlink" title="冲突解决"></a>冲突解决</h3><p>当两个不同的输入值对应一个输出值时，就会产生“碰撞”，这个时候便需要解决冲突。常见的冲突解决方法有<strong>开放定址法</strong>，<strong>链地址法</strong>，<strong>建立公共溢出区</strong>等。</p>
+<p>1.<strong>开放定址法</strong></p>
+<p>当冲突发生时，形成一个探查序列；沿此序列逐个地址探查，直到找到一个空位置（开放的地址），将发生冲突的记录放到该地址中。即Hi=(H(key)+di) % m，i=1,2,……k(k&lt;=m-1)，H(key)哈希函数，m哈希表长，di增量序列。</p>
+<ul>
+<li>线性探测再散列：di=1，2，3，…，m-1</li>
+<li>二次探测再散列：di=1^2,-1^2,2^2,-2^2,…，±k^2（k&lt;=m/2）</li>
+<li>伪随机探测再散列: di为伪随机数序列</li>
+</ul>
+<p>例如：在长度为12的哈希表中插入关键字为38的记录：</p>
+<p><img src="/images/%E5%BC%80%E6%94%BE%E5%9C%B0%E5%9D%80%E6%B3%95.png"></p>
+<p>2.<strong>再哈希法</strong></p>
+<p>公式：Hi = RHi（key） i = 1，2，…，k。RHi均是不同的哈希函数，意思为：当发生冲突时，使用不同的哈希函数计算地址，直到不冲突为止。这种方法不易产生堆积，但是耗费时间。</p>
+<p>3.<strong>链地址法</strong></p>
+<p>将所有关键字为同义字的记录存储在一个单链表中，我们称这种单链表为同义词子表，散列表中存储同义词子表的头指针。<br>如关键字集合为{19，14，23，01，68，20，84，27，55，11，10，79}，按哈希函数H（key） = key mod 13；</p>
+<p><img src="/images/%E9%93%BE%E5%9C%B0%E5%9D%80%E6%B3%95.png"></p>
+<p>链地址法解决了冲突，提供了永远都能找到地址的保证。但是，也带来了查找时需要遍历单链表的性能损耗。</p>
+<p>4.<strong>公共溢出区法</strong></p>
+<p>即设立两个表：基础表和溢出表。将所有关键字通过哈希函数计算出相应的地址。然后将未发生冲突的关键字放入相应的基础表中，一旦发生冲突，就将其依次放入溢出表中即可。<br>在查找时，先用给定值通过哈希函数计算出相应的散列地址后，首先 首先与基本表的相应位置进行比较，如果不相等，再到溢出表中顺序查找。</p>
+<h2 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h2><p><img src="/images/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95.jpg"></p>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><h3 id="桶排序O-n-O-k-空间"><a href="#桶排序O-n-O-k-空间" class="headerlink" title="桶排序O(n)+O(k)空间"></a>桶排序O(n)+O(k)空间</h3><h3 id="计数排序O-n-k-O-n-k"><a href="#计数排序O-n-k-O-n-k" class="headerlink" title="计数排序O(n+k)+O(n+k)"></a>计数排序O(n+k)+O(n+k)</h3><h3 id="合并排序"><a href="#合并排序" class="headerlink" title="合并排序"></a>合并排序</h3><h3 id="二叉排序树排序O-nlogn-O-n-2-O-n"><a href="#二叉排序树排序O-nlogn-O-n-2-O-n" class="headerlink" title="二叉排序树排序O(nlogn)~O(n^2)+O(n)"></a>二叉排序树排序O(nlogn)~O(n^2)+O(n)</h3><h3 id="基数排序O-nk-O-n"><a href="#基数排序O-nk-O-n" class="headerlink" title="基数排序O(nk)+O(n)"></a>基数排序O(nk)+O(n)</h3><h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/04/python%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -176,7 +385,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-10-06 21:16:57" itemprop="dateModified" datetime="2020-10-06T21:16:57+09:00">2020-10-06</time>
+                <time title="Modified: 2020-10-07 16:28:54" itemprop="dateModified" datetime="2020-10-07T16:28:54+09:00">2020-10-07</time>
               </span>
 
           
@@ -477,7 +686,7 @@
 <p>如果一个正则表达式要重复使用几千次，出于效率的考虑，我们可以<strong>预编译</strong>该正则表达式，接下来重复使用时就不需要编译这个步骤了，直接匹配。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">re_telephone = re.compile(<span class="string">r&#x27;^(\d&#123;3&#125;)-(\d&#123;3,8&#125;)$&#x27;</span>)</span><br><span class="line">re_telephone.match(<span class="string">&#x27;010-12345&#x27;</span>).groups() <span class="comment"># (&#x27;010&#x27;, &#x27;12345&#x27;)</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="内建模块"><a href="#内建模块" class="headerlink" title="内建模块"></a>内建模块</h2><p>datatime</p>
+<h2 id="内建模块"><a href="#内建模块" class="headerlink" title="内建模块"></a><del>内建模块</del></h2><p>datatime</p>
 <p>collections</p>
 <p>base64</p>
 <p>struct</p>
@@ -488,7 +697,7 @@
 <p>urllib</p>
 <p>XML</p>
 <p>HTMLParser</p>
-<h2 id="第三方模块"><a href="#第三方模块" class="headerlink" title="第三方模块"></a>第三方模块</h2><p>Pillow</p>
+<h2 id="第三方模块"><a href="#第三方模块" class="headerlink" title="第三方模块"></a><del>第三方模块</del></h2><p>Pillow</p>
 <p>requests</p>
 <p>chardet</p>
 <p>psutil</p>
@@ -505,7 +714,7 @@
 <p>UDP服务端：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line">s.bind((<span class="string">&#x27;127.0.0.1&#x27;</span>, <span class="number">9999</span>))</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="comment"># 接收数据:</span></span><br><span class="line">    data, addr = s.recvfrom(<span class="number">1024</span>)</span><br><span class="line">    print(<span class="string">&#x27;Received from %s:%s.&#x27;</span> % addr)</span><br><span class="line">    s.sendto(<span class="string">b&#x27;Hello, %s!&#x27;</span> % data, addr)</span><br></pre></td></tr></table></figure>
 
-<h2 id="电子邮件"><a href="#电子邮件" class="headerlink" title="电子邮件"></a>电子邮件</h2><p>一封电子邮件的旅程就是：</p>
+<h2 id="电子邮件"><a href="#电子邮件" class="headerlink" title="电子邮件"></a><del>电子邮件</del></h2><p>一封电子邮件的旅程就是：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">发件人 -&gt; MUA -&gt; MTA -&gt; MTA -&gt; 若干个MTA -&gt; MDA &lt;- MUA &lt;- 收件人</span><br></pre></td></tr></table></figure>
 
 <p><strong>MUA</strong>：Mail User Agent——邮件用户代理</p>
@@ -516,7 +725,7 @@
 <p>SMTP发邮件：</p>
 <p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017790702398272">https://www.liaoxuefeng.com/wiki/1016959663602400/1017790702398272</a></p>
 <p>POP3收邮件：<a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017800447489504">https://www.liaoxuefeng.com/wiki/1016959663602400/1017800447489504</a></p>
-<h2 id="使用数据库"><a href="#使用数据库" class="headerlink" title="使用数据库"></a>使用数据库</h2><p>SQLite小型数据库</p>
+<h2 id="使用数据库"><a href="#使用数据库" class="headerlink" title="使用数据库"></a><del>使用数据库</del></h2><p>SQLite小型数据库</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conn = sqlite3.connect(<span class="string">&#x27;test.db&#x27;</span>)</span><br><span class="line">cursor = conn.cursor()</span><br><span class="line">cursor.execute(<span class="string">&#x27;select * from user where name=? and pwd=?&#x27;</span>, (<span class="string">&#x27;abc&#x27;</span>, <span class="string">&#x27;password&#x27;</span>))</span><br><span class="line">values = cursor.fetchall() <span class="comment"># [(&#x27;1&#x27;, &#x27;Michael&#x27;)]</span></span><br><span class="line">cursor.close()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
 
 <p>Mysql</p>
@@ -923,12 +1132,12 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
