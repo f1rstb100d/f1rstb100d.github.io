@@ -28,13 +28,15 @@
 <meta property="og:description" content="https:&#x2F;&#x2F;juejin.im&#x2F;post&#x2F;6844903662838349838 OSI五层协议 应用层(应用层+表示层+会话层)应用层(application-layer）的任务是通过应用进程间的交互来完成特定网络应用。\应用层协议定义的是应用进程（进程：主机中正在运行的程序）间的通信和交互的规则。对于不同的网络应用需要不同的应用层协议。在互联网中应用层协议很多，如**域名系统 DNS，支持">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/%E4%BA%94%E5%B1%82%E5%8D%8F%E8%AE%AE.jpg">
+<meta property="og:image" content="http://example.com/images/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpg">
+<meta property="og:image" content="http://example.com/images/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.jpg">
 <meta property="og:image" content="http://example.com/images/TCP%E4%B8%8EUDP.jpg">
 <meta property="og:image" content="http://example.com/images/%E8%B6%85%E6%97%B6%E9%87%8D%E4%BC%A0.jpg">
 <meta property="og:image" content="http://example.com/images/%E7%A1%AE%E8%AE%A4%E4%B8%A2%E5%A4%B1.jpg">
 <meta property="og:image" content="http://example.com/images/%E7%A1%AE%E8%AE%A4%E8%BF%9F%E5%88%B0.jpg">
 <meta property="og:image" content="http://example.com/images/HTTP%E6%B5%81%E7%A8%8B.jpg">
 <meta property="article:published_time" content="2020-10-08T09:57:29.000Z">
-<meta property="article:modified_time" content="2020-10-08T13:55:45.487Z">
+<meta property="article:modified_time" content="2020-12-04T14:33:37.429Z">
 <meta property="article:author" content="F1rstb100d">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
@@ -180,10 +182,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-10-08 18:57:29 / Modified: 22:55:45" itemprop="dateCreated datePublished" datetime="2020-10-08T18:57:29+09:00">2020-10-08</time>
+              <time title="Created: 2020-10-08 18:57:29" itemprop="dateCreated datePublished" datetime="2020-10-08T18:57:29+09:00">2020-10-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-12-04 23:33:37" itemprop="dateModified" datetime="2020-12-04T23:33:37+09:00">2020-12-04</time>
+              </span>
 
           
 
@@ -251,16 +259,27 @@
 <p>第三次握手：Client 确认了：自己发送、接收正常，对方发送、接收正常；Server 确认了：自己发送、接收正常，对方发送接收正常</p>
 <p>接收端<strong>传回</strong>发送端所发送的 <strong>SYN</strong> 是为了告诉发送端，我接收到的信息确实就是你所发送的信号了。</p>
 <p>为什么还要ACK：双方通信无误必须是两者互相发送信息都无误。传了 SYN，证明发送方到接收方的通道没有问题，但是接收方到发送方的通道还需要 ACK 信号来进行验证。SYN 是 TCP/IP 建立连接时使用的握手信号，ACK(Acknowledgement[汉译：确认字符 ,在数据通信传输中，接收站发给发送站的一种传输控制字符。它表示确认发来的数据已经接受无误。])</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">三次握手的过程</span><br><span class="line"></span><br><span class="line">    客户端发送syn包(seq&#x3D;x)到服务器</span><br><span class="line">        客户端SYN_SEND状态，等待服务器确认</span><br><span class="line">    服务器收到syn包，必须确认客户的SYN(ack&#x3D;x+1)，同时自己也发送一个SYN包(seq&#x3D;y)，即SYN+ACK包</span><br><span class="line">        服务器进入SYN_RECV状态</span><br><span class="line">    客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack&#x3D;y+1)，</span><br><span class="line">        此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpg"></p>
 <h3 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h3><ul>
-<li>客户端-发送一个 FIN，用来关闭客户端到服务器的数据传送</li>
-<li>服务器-收到这个 FIN，它发回一 个 ACK，确认序号为收到的序号加1 。和 SYN 一样，一个 FIN 将占用一个序号</li>
-<li>服务器-关闭与客户端的连接，发送一个FIN给客户端</li>
-<li>客户端-发回 ACK 报文确认，并将确认序号设置为收到序号加1</li>
+<li><p>客户端-发送一个 FIN，用来关闭客户端到服务器的数据传送</p>
+</li>
+<li><p>服务器-收到这个 FIN，它发回一 个 ACK，确认序号为收到的序号加1 。和 SYN 一样，一个 FIN 将占用一个序号</p>
+</li>
+<li><p>服务器-关闭与客户端的连接，发送一个FIN给客户端</p>
+</li>
+<li><p>客户端-发回 ACK 报文确认，并将确认序号设置为收到序号加1</p>
+</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">TCP四次握手</span><br><span class="line"></span><br><span class="line">      客户端或服务器均可主动发起挥手动作，在socket编程中，任何一方执行close()操作即可产生挥手操作</span><br><span class="line"></span><br><span class="line">      1.主动方申请关闭连接,发送FIN报文,意味着这一方没有要发送的数据了!</span><br><span class="line">              状态变为FIN-WAIT-1</span><br><span class="line">      2.被动方接收,发送ACK,先发送一个确认, ACK和ack</span><br><span class="line">          这时候还没有真正的发送完被动方的数据</span><br><span class="line">          状态变为CLOSE_wait</span><br><span class="line">      3.主动方状态变为FIN-wait2</span><br><span class="line">          被动方发送FIN, 意味着被动方也发送完了</span><br><span class="line">          LAST-ack状态</span><br><span class="line">      4.主动方发送确认,正式要关闭连接</span><br><span class="line">          主动方等待2MSL后,没有回复 关闭连接</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.jpg"></p>
 <h2 id="TCP与UDP区别"><a href="#TCP与UDP区别" class="headerlink" title="TCP与UDP区别"></a>TCP与UDP区别</h2><p><img src="/images/TCP%E4%B8%8EUDP.jpg"></p>
 <p>UDP 在传送数据之前不需要先建立连接，远地主机在收到 UDP 报文后，不需要给出任何确认。虽然 UDP 不提供可靠交付，但在某些情况下 UDP 确是一种最有效的工作方式（一般用于即时通信），比如： QQ 语音、 QQ 视频 、直播等等</p>
 <p>TCP 提供面向连接的服务。在传送数据之前必须先建立连接，数据传送结束后要释放连接。 TCP 不提供广播或多播服务。由于 TCP 要提供可靠的，面向连接的运输服务（TCP的可靠体现在TCP在传递数据之前，会有三次握手来建立连接，而且在数据传递时，有确认、窗口、重传、拥塞控制机制，在数据传完后，还会断开连接用来节约系统资源），这一难以避免增加了许多开销，如确认，流量控制，计时器以及连接管理等。这不仅使协议数据单元的首部增大很多，还要占用许多处理机资源。TCP 一般用于文件传输、发送和接收邮件、远程登录等场景。</p>
-<h2 id="TCP如何保证可靠传输"><a href="#TCP如何保证可靠传输" class="headerlink" title="TCP如何保证可靠传输"></a>TCP如何保证可靠传输</h2><p>应用数据被分割成 TCP 认为最适合发送的数据块。</p>
+<h2 id="TCP如何保证可靠传输"><a href="#TCP如何保证可靠传输" class="headerlink" title="TCP如何保证可靠传输"></a>TCP如何保证可靠传输</h2><p>使用如下技术 6个 （校验和，序列号，确认应答，重发控制，连接管理，窗口管理）</p>
+<p>应用数据被分割成 TCP 认为最适合发送的数据块。</p>
 <p>TCP 给发送的每一个包进行编号，接收方对数据包进行排序，把有序数据传送给应用层。</p>
 <p><strong>校验和：</strong> TCP 将保持它首部和数据的检验和。这是一个端到端的检验和，目的是检测数据在传输过程中的任何变化。如果收到段的检验和有差错，TCP 将丢弃这个报文段和不确认收到此报文段。</p>
 <p>TCP 的接收端会丢弃重复的数据。</p>
@@ -329,6 +348,11 @@
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/justloveyou_/article/details/78303617">https://blog.csdn.net/justloveyou_/article/details/78303617</a></p>
 <p><a target="_blank" rel="noopener" href="https://jiangren.work/2020/02/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/">https://jiangren.work/2020/02/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE%E6%B1%87%E6%80%BB/</a></p>
 <h2 id="子网IP计算"><a href="#子网IP计算" class="headerlink" title="子网IP计算"></a>子网IP计算</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chaoshenzhaoxichao/article/details/82960999">https://blog.csdn.net/chaoshenzhaoxichao/article/details/82960999</a></p>
+<p>知道IP地址和子网掩码求网段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IP:  192.168.100.5		11000000.10101000.01100100.00000101</span><br><span class="line">掩码: 255.255.255.0	   11111111.11111111.11111111.00000000</span><br><span class="line">										网络地址	.主机地址	(最多能放2^8&#x3D;256，不能全0和全1，所以一共254台主机)</span><br><span class="line">按位与运算</span><br><span class="line">网段(网络地址): 192.168.100.0		11000000.10101000.01100100.00000000</span><br><span class="line">广播地址(主机位全1): 192.168.100.255		11000000.10101000.01100100.11111111</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">A类：0+(7位网路位)+(24位主机位) 范围1.0.0.0-126.0.0.0	掩码255.0.0.0</span><br><span class="line">B类：10+(14位网络位)+(16位主机位)	范围128.0.0.0-191.255.255.255	掩码255.255.0.0</span><br><span class="line">C类：110+(21位网络位)+(8位主机位)	范围192.0.0.0-223.255.255.255	掩码255.255.255.0</span><br><span class="line">D类：1110+(28位任意)保留</span><br><span class="line">E类：11110+(27位任意)保留</span><br><span class="line">私有地址：</span><br><span class="line">10.0.0.0 - 10.255.255.255</span><br><span class="line">172.16.0.0 - 172.31.255.255</span><br><span class="line">192.168.0.0 - 192.168.255.255</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -431,7 +455,7 @@
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>
