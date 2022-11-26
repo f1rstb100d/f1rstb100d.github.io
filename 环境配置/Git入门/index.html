@@ -1,0 +1,1724 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="F1rstb100d个人知识库，努力做一个全栈H4cker">
+      
+      
+        <meta name="author" content="F1rstb100d">
+      
+      
+        <link rel="canonical" href="https://f1rstb100d.github.io/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Git%E5%85%A5%E9%97%A8/">
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>Git入门 - F1rstb100d知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.472b142f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.08040f6c.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="F1rstb100d知识库" class="md-header__button md-logo" aria-label="F1rstb100d知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            F1rstb100d知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Git入门
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/f1rstb100d/f1rstb100d.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    f1rstb100d.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      知识库结构
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5/sqlmap%E4%BD%BF%E7%94%A8/" class="md-tabs__link">
+        Web安全
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/PWN%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        二进制安全
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/PTH%E4%BC%A0%E9%80%92%E8%87%B3cs%E4%B8%8A%E7%BA%BF/" class="md-tabs__link">
+        内网安全
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        环境配置
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="F1rstb100d知识库" class="md-nav__button md-logo" aria-label="F1rstb100d知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    F1rstb100d知识库
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/f1rstb100d/f1rstb100d.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    f1rstb100d.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        知识库结构
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Web安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Web安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Web安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SQL注入
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SQL注入" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SQL注入
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5/sqlmap%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        sqlmap使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5/sql%E6%B3%A8%E5%85%A5/" class="md-nav__link">
+        SQL注入
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          XXE
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="XXE" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          XXE
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/XXE/XXE%E6%BC%8F%E6%B4%9E/" class="md-nav__link">
+        XXE漏洞
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          反序列化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="反序列化" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          反序列化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        Java反序列化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        PHP反序列化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/Python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        Python反序列化
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          文件上传
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="文件上传" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          文件上传
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        文件上传总结
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          二进制安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="二进制安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          二进制安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/PWN%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        PWN入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          内网安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="内网安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          内网安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/PTH%E4%BC%A0%E9%80%92%E8%87%B3cs%E4%B8%8A%E7%BA%BF/" class="md-nav__link">
+        PTH传递攻击
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          环境配置
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="环境配置" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          环境配置
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Git入门
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Git入门
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    版本控制
+  </a>
+  
+    <nav class="md-nav" aria-label="版本控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    本地版本控制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    集中版本控制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    分布式版本控制
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    环境配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    基本命令
+  </a>
+  
+    <nav class="md-nav" aria-label="基本命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git_1" class="md-nav__link">
+    Git配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git_2" class="md-nav__link">
+    Git基本理论
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git_3" class="md-nav__link">
+    Git工作流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_4" class="md-nav__link">
+    Git项目搭建
+  </a>
+  
+    <nav class="md-nav" aria-label="Git项目搭建">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    本地仓库搭建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    克隆远程仓库
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_5" class="md-nav__link">
+    Git文件操作
+  </a>
+  
+    <nav class="md-nav" aria-label="Git文件操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    文件的4种状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    查看文件状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    忽略文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_6" class="md-nav__link">
+    绑定远程Git
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_7" class="md-nav__link">
+    Git分支
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    备忘录
+  </a>
+  
+    <nav class="md-nav" aria-label="备忘录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    仓库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    增加/删除文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    代码提交
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    分支
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    标签
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    查看信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    远程同步
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    撤销
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    其他
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    版本控制
+  </a>
+  
+    <nav class="md-nav" aria-label="版本控制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    本地版本控制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    集中版本控制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    分布式版本控制
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    环境配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    基本命令
+  </a>
+  
+    <nav class="md-nav" aria-label="基本命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git_1" class="md-nav__link">
+    Git配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git_2" class="md-nav__link">
+    Git基本理论
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git_3" class="md-nav__link">
+    Git工作流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_4" class="md-nav__link">
+    Git项目搭建
+  </a>
+  
+    <nav class="md-nav" aria-label="Git项目搭建">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    本地仓库搭建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    克隆远程仓库
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_5" class="md-nav__link">
+    Git文件操作
+  </a>
+  
+    <nav class="md-nav" aria-label="Git文件操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    文件的4种状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    查看文件状态
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    忽略文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_6" class="md-nav__link">
+    绑定远程Git
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_7" class="md-nav__link">
+    Git分支
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    备忘录
+  </a>
+  
+    <nav class="md-nav" aria-label="备忘录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    仓库
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    增加/删除文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    代码提交
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    分支
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    标签
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    查看信息
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    远程同步
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    撤销
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    其他
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/f1rstb100d/f1rstb100d.github.io/edit/master/docs/环境配置/Git入门.md" title="编辑此页" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="git">Git入门<a class="headerlink" href="#git" title="Permanent link">&para;</a></h1>
+<h2 id="_1">版本控制<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">本地版本控制<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>每个文件一个快照，个人用，如RCS</p>
+<h3 id="_3">集中版本控制<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>所有版本保存在服务器上，协同开发者从服务器上同步更新或者修改上传</p>
+<p>如果用户不联网，就看不到历史版本；如果服务器损坏，就会丢失所有数据</p>
+<p>代表产品：SVN、CVS、VSS</p>
+<h3 id="_4">分布式版本控制<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>所有版本信息全部同步到每个用户本地，所有可以离线查看历史数据；只要有一个用户设备没问题，就可以恢复所有数据</p>
+<p>代表产品：Git</p>
+<h2 id="_5">环境配置<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>去<a href="https://git-scm.com/">官网</a>，或者镜像站下载</p>
+<p>为方便使用，可增加环境变量<code>安装路径\Git\cmd</code></p>
+<h2 id="_6">基本命令<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="git_1">Git配置<a class="headerlink" href="#git_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>查看配置<code>git config -l</code></li>
+<li>只看系统自带配置<code>git config --system --list</code></li>
+<li>只看用户自己配的配置<code>git config --global --list</code></li>
+</ul>
+<p>配置文件路径：</p>
+<ol>
+<li>Git\etc\gitconfig：Git安装目录下gitconfig --system</li>
+<li>C:\Users\xxxx.gitconfig：当前登录用户配置 --global</li>
+</ol>
+<p>设置用户名与邮箱（必须）：</p>
+<div class="highlight"><pre><span></span><code>git config --global user.name <span class="s2">&quot;F1rstb100d&quot;</span>
+git config --global user.email <span class="s2">&quot;123456@qq.com&quot;</span>
+</code></pre></div>
+<h3 id="git_2">Git基本理论<a class="headerlink" href="#git_2" title="Permanent link">&para;</a></h3>
+<p>Git本地有三个工作区：工作目录（Working Directory）、暂存区（Stage/Index）、资源库（Repository）</p>
+<p>以及第四个工作区：远程的git仓库（Remote Directory）</p>
+<p><img alt="Git理论1" src="Git%E7%90%86%E8%AE%BA1.png" /></p>
+<p>Workspace：工作区，存放代码</p>
+<p>Index / Stage：暂存区，临时存放改动，本质是一个文件</p>
+<p>Repository：本地仓库，所有提交的数据，HEAD指向最新放入仓库的版本</p>
+<p>Remote：远程仓库，托管代码的服务器</p>
+<h3 id="git_3">Git工作流程<a class="headerlink" href="#git_3" title="Permanent link">&para;</a></h3>
+<ol>
+<li>在工作目录添加、修改文件</li>
+<li>将需要进行版本管理的文件放入暂存区</li>
+<li>将暂存区的文件提交到git仓库</li>
+</ol>
+<p>git管理的文件有三种状态：已修改（modified）、已暂存（staged）、已提交（committed）</p>
+<p><img alt="Git流程1" src="Git%E6%B5%81%E7%A8%8B1.png" /></p>
+<h2 id="git_4">Git项目搭建<a class="headerlink" href="#git_4" title="Permanent link">&para;</a></h2>
+<p>日常使用命令：</p>
+<p><img alt="Git项目1" src="Git%E9%A1%B9%E7%9B%AE1.png" /></p>
+<h3 id="_7">本地仓库搭建<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>首先初始化仓库：<code>git init</code></p>
+<p>在当前目录多一个.git文件夹，版本控制信息都在里面</p>
+<h3 id="_8">克隆远程仓库<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>直接克隆现有的仓库到本地：<code>git clone [url]</code></p>
+<h2 id="git_5">Git文件操作<a class="headerlink" href="#git_5" title="Permanent link">&para;</a></h2>
+<h3 id="4">文件的4种状态<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Untracked：未跟踪，虽在文件夹中，但未添加到git版本控制，通过<code>git add</code>状态变为<code>Staged</code></li>
+<li>Unmodify：文件已入库未修改，若修改则变为<code>Modified</code>，若使用<code>git rm</code>移出版本库，则变为<code>Untracked</code></li>
+<li>Modified：文件已修改，通过<code>git add</code>进入暂存状态<code>Staged</code>，使用<code>git checkout</code>丢弃修改，回到<code>Unmodify</code>状态</li>
+<li>Staged：暂存状态，执行<code>git commit</code>将修改同步到库中，文件变为<code>Unmodify</code>状态，执行<code>git reset HEAD filename</code>取消暂存，文件变为<code>Modified</code></li>
+</ul>
+<h3 id="_9">查看文件状态<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>git status <span class="o">[</span>filename<span class="o">]</span>  <span class="c1">#查看指定文件状态</span>
+git status  <span class="c1">#查看所有文件状态</span>
+</code></pre></div>
+<h3 id="_10">忽略文件<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>如果有些文件我们不想让他加入版本控制。</p>
+<p>在主目录下建立<code>.gitignore</code>文件，有如下规则：</p>
+<ol>
+<li>忽略文件空行以及<code>#</code>开头的行</li>
+<li>可以使用Linux通配符（<code>*</code>代表多个字符，<code>?</code>代表一个字符，<code>[abc]</code>代表可选字符）</li>
+<li>最前面有一个<code>!</code>，表示例外规则，将不被忽略</li>
+<li>最前是分隔符<code>/</code>，表示忽略根目录下的文件夹，其他路径下该文件名不忽略</li>
+<li>最后是分隔符<code>/</code>，表示无论是否在根目录，均忽略该文件夹</li>
+</ol>
+<div class="highlight"><pre><span></span><code>#为注释
+*.txt        #忽略所有以.txt结尾的文件
+!lib.txt     #lib.txt不被忽略
+/temp        #仅忽略根目录下temp文件夹，不包括其他目录下的temp文件夹
+build/       #忽略所有build目录下文件
+doc/*.txt    #仅忽略所有doc文件夹中以.txt结尾的文件
+</code></pre></div>
+<h2 id="git_6">绑定远程Git<a class="headerlink" href="#git_6" title="Permanent link">&para;</a></h2>
+<p>首先需要注册Github或者Gitee</p>
+<p>然后设置本机SSH公钥，实现免密码登录</p>
+<div class="highlight"><pre><span></span><code>ssh-keygen -t rsa
+
+<span class="c1">#查看C:\User\xxxx\.ssh目录下生成的文件（id_rsa、id_rsa.pub）</span>
+</code></pre></div>
+<p>将公钥信息（id_rsa.pub）添加到github账户中</p>
+<p>然后就可以把远程仓库和本地绑定了</p>
+<h2 id="git_7">Git分支<a class="headerlink" href="#git_7" title="Permanent link">&para;</a></h2>
+<p>常用指令：</p>
+<div class="highlight"><pre><span></span><code>git branch    <span class="c1">#列出所有本地分支</span>
+git branch -r     <span class="c1">#列出所有远程分支</span>
+git branch <span class="o">[</span>branch-name<span class="o">]</span>    <span class="c1">#新建一个分支，但仍保留在当前分支</span>
+git checkout -b <span class="o">[</span>branch<span class="o">]</span>    <span class="c1">#新建一个分支，并切换到该分支</span>
+git merge <span class="o">[</span>branch<span class="o">]</span>    <span class="c1">#合并指定分支到当前分支</span>
+git branch -d <span class="o">[</span>branch-name<span class="o">]</span>    <span class="c1">#删除分支</span>
+
+<span class="c1">#删除远程分支</span>
+git push origin --delete <span class="o">[</span>branch-name<span class="o">]</span>
+git branch -dr <span class="o">[</span>remote/branch<span class="o">]</span>
+</code></pre></div>
+<p>如果同一个文件在合并分支时都被修改则会引起**冲突**</p>
+<p>解决方法是修改冲突文件（选择保留哪一份）后重新提交</p>
+<p>一般在dev分支合并到稳定后再合并到主分支master上</p>
+<h2 id="_11">备忘录<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>参考：<a href="https://gitee.com/all-about-git">https://gitee.com/all-about-git</a></p>
+<h3 id="_12">仓库<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在当前目录新建一个Git代码库</span>
+$ git init
+
+<span class="c1"># 新建一个目录，将其初始化为Git代码库</span>
+$ git init <span class="o">[</span>project-name<span class="o">]</span>
+
+<span class="c1"># 下载一个项目和它的整个代码历史</span>
+$ git clone <span class="o">[</span>url<span class="o">]</span>
+</code></pre></div>
+<h3 id="_13">配置<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 显示当前的Git配置</span>
+$ git config --list
+
+<span class="c1"># 编辑Git配置文件</span>
+$ git config -e <span class="o">[</span>--global<span class="o">]</span>
+
+<span class="c1"># 设置提交代码时的用户信息</span>
+$ git config <span class="o">[</span>--global<span class="o">]</span> user.name <span class="s2">&quot;[name]&quot;</span>
+$ git config <span class="o">[</span>--global<span class="o">]</span> user.email <span class="s2">&quot;[email address]&quot;</span>
+</code></pre></div>
+<h3 id="_14">增加/删除文件<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 添加指定文件到暂存区</span>
+$ git add <span class="o">[</span>file1<span class="o">]</span> <span class="o">[</span>file2<span class="o">]</span> ...
+
+<span class="c1"># 添加指定目录到暂存区，包括子目录</span>
+$ git add <span class="o">[</span>dir<span class="o">]</span>
+
+<span class="c1"># 添加当前目录的所有文件到暂存区</span>
+$ git add .
+
+<span class="c1"># 添加每个变化前，都会要求确认</span>
+<span class="c1"># 对于同一个文件的多处变化，可以实现分次提交</span>
+$ git add -p
+
+<span class="c1"># 删除工作区文件，并且将这次删除放入暂存区</span>
+$ git rm <span class="o">[</span>file1<span class="o">]</span> <span class="o">[</span>file2<span class="o">]</span> ...
+
+<span class="c1"># 停止追踪指定文件，但该文件会保留在工作区</span>
+$ git rm --cached <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 改名文件，并且将这个改名放入暂存区</span>
+$ git mv <span class="o">[</span>file-original<span class="o">]</span> <span class="o">[</span>file-renamed<span class="o">]</span>
+</code></pre></div>
+<h3 id="_15">代码提交<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 提交暂存区到仓库区</span>
+$ git commit -m <span class="o">[</span>message<span class="o">]</span>
+
+<span class="c1"># 提交暂存区的指定文件到仓库区</span>
+$ git commit <span class="o">[</span>file1<span class="o">]</span> <span class="o">[</span>file2<span class="o">]</span> ... -m <span class="o">[</span>message<span class="o">]</span>
+
+<span class="c1"># 提交工作区自上次commit之后的变化，直接到仓库区</span>
+$ git commit -a
+
+<span class="c1"># 提交时显示所有diff信息</span>
+$ git commit -v
+
+<span class="c1"># 使用一次新的commit，替代上一次提交</span>
+<span class="c1"># 如果代码没有任何新变化，则用来改写上一次commit的提交信息</span>
+$ git commit --amend -m <span class="o">[</span>message<span class="o">]</span>
+
+<span class="c1"># 重做上一次commit，并包括指定文件的新变化</span>
+$ git commit --amend <span class="o">[</span>file1<span class="o">]</span> <span class="o">[</span>file2<span class="o">]</span> ...
+</code></pre></div>
+<h3 id="_16">分支<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 列出所有本地分支</span>
+$ git branch
+
+<span class="c1"># 列出所有远程分支</span>
+$ git branch -r
+
+<span class="c1"># 列出所有本地分支和远程分支</span>
+$ git branch -a
+
+<span class="c1"># 新建一个分支，但依然停留在当前分支</span>
+$ git branch <span class="o">[</span>branch-name<span class="o">]</span>
+
+<span class="c1"># 新建一个分支，并切换到该分支</span>
+$ git checkout -b <span class="o">[</span>branch<span class="o">]</span>
+
+<span class="c1"># 新建一个分支，指向指定commit</span>
+$ git branch <span class="o">[</span>branch<span class="o">]</span> <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 新建一个分支，与指定的远程分支建立追踪关系</span>
+$ git branch --track <span class="o">[</span>branch<span class="o">]</span> <span class="o">[</span>remote-branch<span class="o">]</span>
+
+<span class="c1"># 切换到指定分支，并更新工作区</span>
+$ git checkout <span class="o">[</span>branch-name<span class="o">]</span>
+
+<span class="c1"># 切换到上一个分支</span>
+$ git checkout -
+
+<span class="c1"># 建立追踪关系，在现有分支与指定的远程分支之间</span>
+$ git branch --set-upstream <span class="o">[</span>branch<span class="o">]</span> <span class="o">[</span>remote-branch<span class="o">]</span>
+
+<span class="c1"># 合并指定分支到当前分支</span>
+$ git merge <span class="o">[</span>branch<span class="o">]</span>
+
+<span class="c1"># 选择一个commit，合并进当前分支</span>
+$ git cherry-pick <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 删除分支</span>
+$ git branch -d <span class="o">[</span>branch-name<span class="o">]</span>
+
+<span class="c1"># 删除远程分支</span>
+$ git push origin --delete <span class="o">[</span>branch-name<span class="o">]</span>
+$ git branch -dr <span class="o">[</span>remote/branch<span class="o">]</span>
+</code></pre></div>
+<h3 id="_17">标签<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 列出所有tag</span>
+$ git tag
+
+<span class="c1"># 新建一个tag在当前commit</span>
+$ git tag <span class="o">[</span>tag<span class="o">]</span>
+
+<span class="c1"># 新建一个tag在指定commit</span>
+$ git tag <span class="o">[</span>tag<span class="o">]</span> <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 删除本地tag</span>
+$ git tag -d <span class="o">[</span>tag<span class="o">]</span>
+
+<span class="c1"># 删除远程tag</span>
+$ git push origin :refs/tags/<span class="o">[</span>tagName<span class="o">]</span>
+
+<span class="c1"># 查看tag信息</span>
+$ git show <span class="o">[</span>tag<span class="o">]</span>
+
+<span class="c1"># 提交指定tag</span>
+$ git push <span class="o">[</span>remote<span class="o">]</span> <span class="o">[</span>tag<span class="o">]</span>
+
+<span class="c1"># 提交所有tag</span>
+$ git push <span class="o">[</span>remote<span class="o">]</span> --tags
+
+<span class="c1"># 新建一个分支，指向某个tag</span>
+$ git checkout -b <span class="o">[</span>branch<span class="o">]</span> <span class="o">[</span>tag<span class="o">]</span>
+</code></pre></div>
+<h3 id="_18">查看信息<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 显示有变更的文件</span>
+$ git status
+
+<span class="c1"># 显示当前分支的版本历史</span>
+$ git log
+
+<span class="c1"># 显示commit历史，以及每次commit发生变更的文件</span>
+$ git log --stat
+
+<span class="c1"># 搜索提交历史，根据关键词</span>
+$ git log -S <span class="o">[</span>keyword<span class="o">]</span>
+
+<span class="c1"># 显示某个commit之后的所有变动，每个commit占据一行</span>
+$ git log <span class="o">[</span>tag<span class="o">]</span> HEAD --pretty<span class="o">=</span>format:%s
+
+<span class="c1"># 显示某个commit之后的所有变动，其&quot;提交说明&quot;必须符合搜索条件</span>
+$ git log <span class="o">[</span>tag<span class="o">]</span> HEAD --grep feature
+
+<span class="c1"># 显示某个文件的版本历史，包括文件改名</span>
+$ git log --follow <span class="o">[</span>file<span class="o">]</span>
+$ git whatchanged <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 显示指定文件相关的每一次diff</span>
+$ git log -p <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 显示过去5次提交</span>
+$ git log -5 --pretty --oneline
+
+<span class="c1"># 显示所有提交过的用户，按提交次数排序</span>
+$ git shortlog -sn
+
+<span class="c1"># 显示指定文件是什么人在什么时间修改过</span>
+$ git blame <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 显示暂存区和工作区的差异</span>
+$ git diff
+
+<span class="c1"># 显示暂存区和上一个commit的差异</span>
+$ git diff --cached <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 显示工作区与当前分支最新commit之间的差异</span>
+$ git diff HEAD
+
+<span class="c1"># 显示两次提交之间的差异</span>
+$ git diff <span class="o">[</span>first-branch<span class="o">]</span>...<span class="o">[</span>second-branch<span class="o">]</span>
+
+<span class="c1"># 显示今天你写了多少行代码</span>
+$ git diff --shortstat <span class="s2">&quot;@{0 day ago}&quot;</span>
+
+<span class="c1"># 显示某次提交的元数据和内容变化</span>
+$ git show <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 显示某次提交发生变化的文件</span>
+$ git show --name-only <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 显示某次提交时，某个文件的内容</span>
+$ git show <span class="o">[</span>commit<span class="o">]</span>:<span class="o">[</span>filename<span class="o">]</span>
+
+<span class="c1"># 显示当前分支的最近几次提交</span>
+$ git reflog
+</code></pre></div>
+<h3 id="_19">远程同步<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 下载远程仓库的所有变动</span>
+$ git fetch <span class="o">[</span>remote<span class="o">]</span>
+
+<span class="c1"># 显示所有远程仓库</span>
+$ git remote -v
+
+<span class="c1"># 显示某个远程仓库的信息</span>
+$ git remote show <span class="o">[</span>remote<span class="o">]</span>
+
+<span class="c1"># 增加一个新的远程仓库，并命名</span>
+$ git remote add <span class="o">[</span>shortname<span class="o">]</span> <span class="o">[</span>url<span class="o">]</span>
+
+<span class="c1"># 取回远程仓库的变化，并与本地分支合并</span>
+$ git pull <span class="o">[</span>remote<span class="o">]</span> <span class="o">[</span>branch<span class="o">]</span>
+
+<span class="c1"># 上传本地指定分支到远程仓库</span>
+$ git push <span class="o">[</span>remote<span class="o">]</span> <span class="o">[</span>branch<span class="o">]</span>
+
+<span class="c1"># 强行推送当前分支到远程仓库，即使有冲突</span>
+$ git push <span class="o">[</span>remote<span class="o">]</span> --force
+
+<span class="c1"># 推送所有分支到远程仓库</span>
+$ git push <span class="o">[</span>remote<span class="o">]</span> --all
+</code></pre></div>
+<h3 id="_20">撤销<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 恢复暂存区的指定文件到工作区</span>
+$ git checkout <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 恢复某个commit的指定文件到暂存区和工作区</span>
+$ git checkout <span class="o">[</span>commit<span class="o">]</span> <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 恢复暂存区的所有文件到工作区</span>
+$ git checkout .
+
+<span class="c1"># 重置暂存区的指定文件，与上一次commit保持一致，但工作区不变</span>
+$ git reset <span class="o">[</span>file<span class="o">]</span>
+
+<span class="c1"># 重置暂存区与工作区，与上一次commit保持一致</span>
+$ git reset --hard
+
+<span class="c1"># 重置当前分支的指针为指定commit，同时重置暂存区，但工作区不变</span>
+$ git reset <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致</span>
+$ git reset --hard <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 重置当前HEAD为指定commit，但保持暂存区和工作区不变</span>
+$ git reset --keep <span class="o">[</span>commit<span class="o">]</span>
+
+<span class="c1"># 新建一个commit，用来撤销指定commit</span>
+<span class="c1"># 后者的所有变化都将被前者抵消，并且应用到当前分支</span>
+$ git revert <span class="o">[</span>commit<span class="o">]</span>
+
+暂时将未提交的变化移除，稍后再移入
+$ git stash
+$ git stash pop
+</code></pre></div>
+<h3 id="_21">其他<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 生成一个可供发布的压缩包</span>
+$ git archive
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="页脚" >
+      
+        
+        <a href="../../%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/PTH%E4%BC%A0%E9%80%92%E8%87%B3cs%E4%B8%8A%E7%BA%BF/" class="md-footer__link md-footer__link--prev" aria-label="上一页: PTH传递攻击" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              PTH传递攻击
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2019 - 2022 F1rstb100d
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\uff0c\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+      
+    
+  </body>
+</html>

